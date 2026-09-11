@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apex Government Authority Console | NLAMS (DoLR & MoRD)</title>
+
+  <!-- Typography: Inter, Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="authority-portal.css" />
+</head>
+<body>
+
+  <div class="auth-app-layout">
+
+    <!-- ==============================================================
+         SIDEBAR: APEX AUTHORITY IDENTITY & SUPERVISORY MODULES
+         ============================================================== -->
+    <aside class="auth-sidebar" id="authSidebar">
+      
+      <!-- Top Apex Seal Header -->
+      <div class="sidebar-brand-box">
+        <div class="brand-crest-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
+            <path d="M12 7v5"/>
+            <circle cx="12" cy="15" r="1.2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="brand-headings">
+          <h1 class="brand-title">NLAMS &bull; APEX</h1>
+          <span class="brand-sub">Govt. Authority Oversight</span>
+        </div>
+      </div>
+
+      <!-- Live Jurisdiction Scoping Strip -->
+      <div class="jurisdiction-scope-card">
+        <span class="scope-lbl">ACTIVE JURISDICTION LEVEL</span>
+        <strong class="scope-name" id="scopeNameDisplay">National Apex (Central DoLR)</strong>
+        <span class="scope-coverage" id="scopeCoverageDisplay">Pan-India &bull; 34 States/UTs &bull; 684 Districts</span>
+        
+        <!-- Instant Jurisdiction Evaluator Switcher -->
+        <select class="scope-quick-select" id="jurisdictionSwitcher" title="Switch Administrative Scope">
+          <option value="NATIONAL" selected>National View (Central Ministry - DoLR)</option>
+          <option value="STATE">State View (State Revenue Dept - UP)</option>
+          <option value="DISTRICT">District View (District Collector - Varanasi)</option>
+        </select>
+      </div>
+
+      <!-- Navigation Modules List -->
+      <nav class="sidebar-nav-container">
+        <ul class="nav-menu-stack">
+          <li>
+            <button class="nav-link-btn active" data-mod="mod-decision-view">
+              <span class="nav-ico">&#9638;</span>
+              <span>01. Decision Overview</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-kpi-master">
+              <span class="nav-ico">&#128202;</span>
+              <span>02. Master KPI Telemetry</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-analytics-engine">
+              <span class="nav-ico">&#128200;</span>
+              <span>03. Visual Analytics Engine</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-hierarchy-drill">
+              <span class="nav-ico">&#9670;</span>
+              <span>04. National &bull; State &bull; District Drill</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-gis-analytics">
+              <span class="nav-ico">&#127757;</span>
+              <span>05. GIS Spatial Cartography</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-pia-oversight">
+              <span class="nav-ico">&#127970;</span>
+              <span>06. Project Agency (PIA) Oversight</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-officer-oversight">
+              <span class="nav-ico">&#128101;</span>
+              <span>07. Field Officers &amp; Workload</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-discrepancy-engine">
+              <span class="nav-ico">&#9888;</span>
+              <span>08. Land Record Discrepancy Engine</span>
+              <span class="badge-counter badge-amber" id="discrepancyBadge">1</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-compliance-center">
+              <span class="nav-ico">&#10004;</span>
+              <span>09. Verification &amp; Compliance</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-bottlenecks">
+              <span class="nav-ico">&#9940;</span>
+              <span>10. Issues &amp; Bottleneck Center</span>
+              <span class="badge-counter badge-red">Critical</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-ai-decision">
+              <span class="nav-ico">&#9881;</span>
+              <span>11. AI Prediction &amp; Decision Support</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-alerts-escalations">
+              <span class="nav-ico">&#128276;</span>
+              <span>12. Alert &amp; Escalation System</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-reporting-hub">
+              <span class="nav-ico">&#128190;</span>
+              <span>13. Statutory Report Generator</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-comparison-engine">
+              <span class="nav-ico">&#9878;</span>
+              <span>14. State &amp; Agency Comparison</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-link-btn" data-mod="mod-audit-security">
+              <span class="nav-ico">&#128220;</span>
+              <span>15. Security &amp; Audit Trail</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidebar Return Links -->
+      <div class="sidebar-exit-footer">
+        <a href="../index.html" class="exit-btn-link">&larr; Return to Public Portal</a>
+        <a href="../login.html" class="logout-link">Sign Out of Apex Authority</a>
+      </div>
+    </aside>
+
+    <!-- ==============================================================
+         MAIN OPERATIONAL APEX STAGE
+         ============================================================== -->
+    <div class="auth-main-stage">
+      
+      <!-- Top Administrative Telemetry Bar -->
+      <header class="auth-top-bar">
+        <div class="bar-left-cluster">
+          <button class="sidebar-drawer-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">&#9776;</button>
+          <div class="breadcrumbs-trail">
+            <span class="root-node">GOVERNMENT OF INDIA</span> / 
+            <span class="ministry-node">Ministry of Rural Development (DoLR)</span> / 
+            <span class="active-node font-bold" id="currentBreadcrumb">National Authority Console</span>
+          </div>
+        </div>
+
+        <div class="bar-right-cluster">
+          <div class="telemetry-chip">
+            <span class="live-dot-green"></span>
+            <span>Data Sync: <strong>March 31, 2024 Baseline</strong></span>
+          </div>
+          <div class="clock-chip font-mono" id="liveClockDisplay">IST 10:45:22</div>
+        </div>
+      </header>
+
+      <!-- Scrollable Module Viewport -->
+      <main class="auth-body-viewport" id="authViewport">
+
+        <!-- ==============================================================
+             MODULE 01: GOVERNMENT DECISION OVERVIEW (10 QUESTIONS AT A GLANCE)
+             ============================================================== -->
+        <section class="module-pane active" id="mod-decision-view">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Executive Summary</span>
+              <h2 class="headline-h2">Government Decision Overview</h2>
+              <p class="headline-desc">Ten critical governance questions answered in real time for apex leadership and statutory oversight bodies.</p>
+            </div>
+            <button class="btn btn-primary" onclick="window.authApp.exportExecutiveDossier()">
+              Export Decision Briefing (.CSV) &darr;
+            </button>
+          </div>
+
+          <!-- Executive 10-Question Answering Grid -->
+          <div class="decision-questions-grid">
+            <div class="decision-card highlight-gold">
+              <span class="q-num">Q1 &bull; TOTAL INITIATIVE VOLUME</span>
+              <h4>What is happening nationwide?</h4>
+              <div class="q-metric" id="qTotalProjects">3,428 Projects</div>
+              <p class="q-sub">Active in pipeline across 34 States &amp; UTs under RFCTLARR Act.</p>
+            </div>
+
+            <div class="decision-card">
+              <span class="q-num">Q2 &bull; LAND ACQUISITION TOTAL</span>
+              <h4>How much land has been acquired?</h4>
+              <div class="q-metric text-emerald" id="qLandAcquired">109,705 Ha</div>
+              <p class="q-sub">Out of 148,250 Ha proposed (<strong>74.0%</strong> Acquisition Rate).</p>
+            </div>
+
+            <div class="decision-card">
+              <span class="q-num">Q3 &bull; FINANCIAL CLEARANCE</span>
+              <h4>How much compensation paid?</h4>
+              <div class="q-metric text-cyan" id="qCompPaid">&#8377;1,18,565 Cr</div>
+              <p class="q-sub">Direct DBT transfers (<strong>83.0%</strong> of &#8377;1,42,850 Cr awarded).</p>
+            </div>
+
+            <div class="decision-card highlight-red">
+              <span class="q-num">Q4 &bull; ESCROW BOTTLENECK</span>
+              <h4>How much money is trapped in Escrow?</h4>
+              <div class="q-metric text-rose" id="qEscrowTrapped">&#8377;24,285 Cr</div>
+              <p class="q-sub">60% (&#8377;14,570 Cr) locked in judicial title disputes.</p>
+            </div>
+
+            <div class="decision-card">
+              <span class="q-num">Q5 &bull; STATUTORY DEADLINE</span>
+              <h4>Which projects are critically delayed?</h4>
+              <div class="q-metric text-amber" id="qDelayedProjects">611 Projects</div>
+              <p class="q-sub">Section 19 declarations approaching Section 25 12-mo lapse.</p>
+            </div>
+
+            <div class="decision-card">
+              <span class="q-num">Q6 &bull; R&amp;R SOCIAL IMPACT</span>
+              <h4>How many families rehabilitated?</h4>
+              <div class="q-metric" id="qFamiliesRehab">384,120 Families</div>
+              <p class="q-sub">Out of 462,800 affected (<strong>82.9%</strong> Second Schedule compliance).</p>
+            </div>
+
+            <div class="decision-card">
+              <span class="q-num">Q7 &bull; FOREST DIVERSIONS</span>
+              <h4>Where is the inter-ministerial lag?</h4>
+              <div class="q-metric text-rose" id="qForestClearance">38.5% Final Clear</div>
+              <p class="q-sub">10,748 Ha forest land diversion pending with MoEFCC.</p>
+            </div>
+
+            <div class="decision-card">
+              <span class="q-num">Q8 &bull; TOP PERFORMING STATE</span>
+              <h4>Which state has highest velocity?</h4>
+              <div class="q-metric text-emerald" id="qTopState">Gujarat (82%)</div>
+              <p class="q-sub">13,776 Ha possessed across Bullet Train &amp; Dholera SIR.</p>
+            </div>
+
+            <div class="decision-card">
+              <span class="q-num">Q9 &bull; LITIGATION DENSITY</span>
+              <h4>What is the active dispute volume?</h4>
+              <div class="q-metric text-amber" id="qDisputeCases">2,120 Stay Orders</div>
+              <p class="q-sub">High Courts &amp; Competent Authority reference courts.</p>
+            </div>
+
+            <div class="decision-card highlight-gold">
+              <span class="q-num">Q10 &bull; AI DECISION FORECAST</span>
+              <h4>Overall Project Success Probability?</h4>
+              <div class="q-metric text-gold" id="qAiSuccessScore">82.4% Probability</div>
+              <p class="q-sub">Calculated across live JMS validation and DBT clearance speeds.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 02: MASTER KPI TELEMETRY
+             ============================================================== -->
+        <section class="module-pane" id="mod-kpi-master">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">National Land Metric Aggregator</span>
+              <h2 class="headline-h2">Master Statutory KPI Telemetry</h2>
+              <p class="headline-desc">Consolidated indicators across 34 States &amp; Union Territories (As of March 31, 2024 Reference).</p>
+            </div>
+          </div>
+
+          <!-- Comprehensive 12-Card Grid -->
+          <div class="kpi-master-grid">
+            <div class="kpi-box">
+              <span class="kpi-lbl">TOTAL PROJECTS IN SYSTEM</span>
+              <div class="kpi-num font-heading" id="kpiTotalProjects">3,428</div>
+              <span class="kpi-meta">1,671 Central &bull; 1,757 State</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-lbl">TOTAL LAND REQUIRED</span>
+              <div class="kpi-num font-heading">148,250 <span class="unit">Ha</span></div>
+              <span class="kpi-meta">Across 684 Districts</span>
+            </div>
+            <div class="kpi-box border-emerald">
+              <span class="kpi-lbl">TOTAL LAND ACQUIRED</span>
+              <div class="kpi-num font-heading text-emerald" id="kpiLandAcquired">109,705 <span class="unit">Ha</span></div>
+              <span class="kpi-badge badge-green">74.0% Possession Secured</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-lbl">TOTAL VALUATION DEMAND</span>
+              <div class="kpi-num font-heading">&#8377; 1,42,850 <span class="unit">Cr</span></div>
+              <span class="kpi-meta">First Schedule Approved</span>
+            </div>
+            <div class="kpi-box border-cyan">
+              <span class="kpi-lbl">COMPENSATION DISBURSED</span>
+              <div class="kpi-num font-heading text-cyan">&#8377; 1,18,565 <span class="unit">Cr</span></div>
+              <span class="kpi-badge badge-cyan">83.0% PFMS Direct Credit</span>
+            </div>
+            <div class="kpi-box border-rose">
+              <span class="kpi-lbl">UNDISBURSED ESCROW CAPITAL</span>
+              <div class="kpi-num font-heading text-rose">&#8377; 24,285 <span class="unit">Cr</span></div>
+              <span class="kpi-badge badge-rose">17.0% Held in Collector Accounts</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-lbl">PROJECT AFFECTED FAMILIES</span>
+              <div class="kpi-num font-heading">462,800</div>
+              <span class="kpi-meta">Social Impact Baseline</span>
+            </div>
+            <div class="kpi-box border-emerald">
+              <span class="kpi-lbl">R&amp;R FAMILIES REHABILITATED</span>
+              <div class="kpi-num font-heading text-emerald">384,120</div>
+              <span class="kpi-badge badge-green">82.9% Welfare Settlement</span>
+            </div>
+            <div class="kpi-box border-amber">
+              <span class="kpi-lbl">ACTIVE COURT STAY ORDERS</span>
+              <div class="kpi-num font-heading text-amber">2,120 <span class="unit">Cases</span></div>
+              <span class="kpi-meta">Section 64 Judicial References</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-lbl">CADASTRE SURVEY VERIFIED</span>
+              <div class="kpi-num font-heading">88.4%</div>
+              <span class="kpi-meta">Digital JMS Cadastral Sheets</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-lbl">DOCUMENT AUDIT RATIO</span>
+              <div class="kpi-num font-heading">94.2%</div>
+              <span class="kpi-meta">e-Signed DSC Records</span>
+            </div>
+            <div class="kpi-box highlight-gold">
+              <span class="kpi-lbl">PREDICTED SUCCESS RATE</span>
+              <div class="kpi-num font-heading text-gold">82.4%</div>
+              <span class="kpi-meta">AI Early-Warning Confidence</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 03: VISUAL GRAPH & STATISTICS ENGINE
+             ============================================================== -->
+        <section class="module-pane" id="mod-analytics-engine">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Interactive Visual Analytics</span>
+              <h2 class="headline-h2">Visual Graph &amp; Statistics Engine</h2>
+              <p class="headline-desc">Multi-dimensional SVG charts rendering acquisition timelines, fund cascades, and compensation trends offline.</p>
+            </div>
+          </div>
+
+          <div class="charts-grid-2">
+            <!-- 1. Acquisition Progress: Target vs Actual (SVG Multi-Bar) -->
+            <div class="gov-chart-card">
+              <div class="chart-header-row">
+                <div>
+                  <h3 class="chart-h3">Acquisition Progress: Target vs. Actual (Hectares)</h3>
+                  <span class="chart-sub">Fiscal Year 2023-24 (Quarter-wise National Comparison)</span>
+                </div>
+                <div class="chart-legend">
+                  <span class="leg-pill"><span class="color-dot bg-cyan"></span> Target Extent</span>
+                  <span class="leg-pill"><span class="color-dot bg-emerald"></span> Actual Possession</span>
+                </div>
+              </div>
+
+              <div class="svg-chart-container">
+                <svg class="analytics-svg" viewBox="0 0 540 220" id="chartTargetActualSvg">
+                  <!-- Generated dynamically by script.js -->
+                </svg>
+              </div>
+            </div>
+
+            <!-- 2. Fund Waterfall Pipeline (Allocated -> Utilized) -->
+            <div class="gov-chart-card">
+              <div class="chart-header-row">
+                <div>
+                  <h3 class="chart-h3">National Fund Flow Cascade (&#8377; Crore)</h3>
+                  <span class="chart-sub">From Central Ministry Allocation to Realized Landowner DBT</span>
+                </div>
+              </div>
+
+              <div class="svg-chart-container">
+                <svg class="analytics-svg" viewBox="0 0 540 220" id="chartFundWaterfallSvg">
+                  <!-- Generated dynamically by script.js -->
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 04: HIERARCHICAL DRILL-DOWN ANALYTICS
+             ============================================================== -->
+        <section class="module-pane" id="mod-hierarchy-drill">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Granular Administrative Hierarchy</span>
+              <h2 class="headline-h2">National &rarr; State &rarr; District &rarr; Parcel Drill-Down</h2>
+              <p class="headline-desc">Click through any administrative tier to drill dynamically into local cadastral Khasra plots and award registers.</p>
+            </div>
+          </div>
+
+          <!-- Dynamic Interactive Breadcrumb Selector -->
+          <div class="drill-stepper-strip" id="drillBreadcrumbNav">
+            <button class="drill-crumb active" data-level="NATIONAL">All India (National)</button>
+            <span class="crumb-separator">&rarr;</span>
+            <button class="drill-crumb" data-level="STATE" id="crumbState" disabled>State (Uttar Pradesh)</button>
+            <span class="crumb-separator">&rarr;</span>
+            <button class="drill-crumb" data-level="DISTRICT" id="crumbDistrict" disabled>District (Varanasi)</button>
+            <span class="crumb-separator">&rarr;</span>
+            <button class="drill-crumb" data-level="PARCEL" id="crumbParcel" disabled>Cadastral Parcel (Khasra 43)</button>
+          </div>
+
+          <!-- Drilldown Dynamic Table -->
+          <div class="gov-chart-card">
+            <h3 class="chart-h3" id="drillTableHeading">National State-wise Performance Breakdown</h3>
+            <div class="table-responsive">
+              <table class="gov-data-table" id="drillMasterTable">
+                <thead id="drillTableHead">
+                  <!-- Dynamic Headers -->
+                </thead>
+                <tbody id="drillTableBody">
+                  <!-- Dynamic Rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 05: GIS SPATIAL CARTOGRAPHY
+             ============================================================== -->
+        <section class="module-pane" id="mod-gis-analytics">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Geospatial Intelligence</span>
+              <h2 class="headline-h2">National Cadastral Spatial Viewer</h2>
+              <p class="headline-desc">Inspect multi-layer infrastructure corridor alignments, RoR parcel overlays, and geographic dispute clusters.</p>
+            </div>
+          </div>
+
+          <div class="gov-chart-card">
+            <div class="gis-legend-ribbon">
+              <span class="gis-indicator"><span class="color-dot bg-emerald"></span> Acquired (Possession Secured)</span>
+              <span class="gis-indicator"><span class="color-dot bg-amber"></span> In Award Inquiry (Sec 23)</span>
+              <span class="gis-indicator"><span class="color-dot bg-rose"></span> Disputed / Section 64 Reference</span>
+            </div>
+
+            <div class="gis-preview-canvas" id="gisCanvasWrap">
+              <svg class="gis-interactive-svg" viewBox="0 0 900 420" id="gisMapSvg">
+                <!-- Cadastral Alignment Overlay -->
+                <path d="M 50 210 Q 450 170 850 230" fill="none" stroke="rgba(217, 119, 6, 0.3)" stroke-width="48" stroke-linecap="round"/>
+                <path d="M 50 210 Q 450 170 850 230" fill="none" stroke="#d97706" stroke-width="2.5" stroke-dasharray="8 6"/>
+
+                <!-- Sample Parcels in National Corridor -->
+                <polygon points="120,130 220,115 245,200 145,215" class="cadastral-poly acquired" data-info="Khasra 42/1 &bull; 3.42 Ha &bull; Acquired"/>
+                <polygon points="220,115 340,100 370,190 245,200" class="cadastral-poly acquired" data-info="Khasra 43 &bull; 4.82 Ha &bull; Acquired"/>
+                <polygon points="340,100 480,115 515,200 370,190" class="cadastral-poly in-inquiry" data-info="Khasra 44 &bull; 5.15 Ha &bull; Section 23 Award Pending"/>
+                <polygon points="480,115 620,105 645,210 515,200" class="cadastral-poly in-inquiry" data-info="Khasra 45 &bull; 2.90 Ha &bull; In Objection Hearing"/>
+                <polygon points="145,215 245,200 270,305 165,320" class="cadastral-poly acquired" data-info="Khasra 48 &bull; 4.10 Ha &bull; Possession Taken"/>
+                <polygon points="370,190 515,200 550,305 405,295" class="cadastral-poly disputed" data-info="Khasra 49 &bull; 6.25 Ha &bull; High Court Stay Order"/>
+                
+                <text x="140" y="175" fill="#0f172a" font-size="11" font-weight="700">LP-1041</text>
+                <text x="260" y="165" fill="#78350f" font-size="11" font-weight="800">LP-1042</text>
+                <text x="400" y="165" fill="#0f172a" font-size="11" font-weight="700">LP-1043</text>
+                <text x="530" y="165" fill="#0f172a" font-size="11" font-weight="700">LP-1044</text>
+                <text x="440" y="260" fill="#e11d48" font-size="11" font-weight="800">LP-1046 (DISPUTE)</text>
+              </svg>
+            </div>
+            <div class="gis-inspector-bar" id="gisInspectorBar">Hover over any cadastral parcel polygon above to inspect spatial title records.</div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 06: PROJECT AGENCY (PIA) OVERVIEW & SCORECARD
+             ============================================================== -->
+        <section class="module-pane" id="mod-pia-oversight">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Requisitioning Body Accountability</span>
+              <h2 class="headline-h2">Project Implementing Agency (PIA) Scorecard</h2>
+              <p class="headline-desc">Comparative audit of submission accuracy, document compliance, and land takeover velocity across national authorities.</p>
+            </div>
+          </div>
+
+          <div class="gov-chart-card">
+            <div class="table-responsive">
+              <table class="gov-data-table">
+                <thead>
+                  <tr>
+                    <th>Implementing Agency</th>
+                    <th>Sector</th>
+                    <th>Projects Logged</th>
+                    <th>Land Requisitioned</th>
+                    <th>Possession Secured</th>
+                    <th>DMS Compliance</th>
+                    <th>Execution Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>National Highways Authority of India (NHAI)</strong></td>
+                    <td>Highways / MoRTH</td>
+                    <td>1,420 Projects</td>
+                    <td>68,200 Ha</td>
+                    <td>53,196 Ha (78.0%)</td>
+                    <td><span class="badge-tag green">96.4% Clean</span></td>
+                    <td><span class="score-badge high">8.8 / 10</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dedicated Freight Corridor Corp (DFCCIL)</strong></td>
+                    <td>Railways / MoR</td>
+                    <td>412 Projects</td>
+                    <td>24,800 Ha</td>
+                    <td>20,088 Ha (81.0%)</td>
+                    <td><span class="badge-tag green">94.8% Clean</span></td>
+                    <td><span class="score-badge high">8.9 / 10</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>State Industrial Development Corps (SIDC)</strong></td>
+                    <td>State Manufacturing</td>
+                    <td>680 Projects</td>
+                    <td>31,250 Ha</td>
+                    <td>20,937 Ha (67.0%)</td>
+                    <td><span class="badge-tag amber">81.2% Missing Docs</span></td>
+                    <td><span class="score-badge mod">6.9 / 10</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Port Authorities &amp; Sagarmala Units</strong></td>
+                    <td>Maritime Ports</td>
+                    <td>185 Projects</td>
+                    <td>8,400 Ha</td>
+                    <td>5,712 Ha (68.0%)</td>
+                    <td><span class="badge-tag green">91.0% Clean</span></td>
+                    <td><span class="score-badge mod">7.2 / 10</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 07: FIELD OFFICERS & REVENUE WORKLOAD
+             ============================================================== -->
+        <section class="module-pane" id="mod-officer-oversight">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Revenue Administration Oversight</span>
+              <h2 class="headline-h2">Field Officers &amp; Workload Distribution</h2>
+              <p class="headline-desc">Supervise SLA turnaround, inspection logs, and scrutiny backlogs across Amin/Surveyors, Tehsildars, and SLAOs.</p>
+            </div>
+          </div>
+
+          <div class="gov-chart-card">
+            <div class="table-responsive">
+              <table class="gov-data-table">
+                <thead>
+                  <tr>
+                    <th>Designated Officer</th>
+                    <th>Role Classification</th>
+                    <th>Jurisdiction</th>
+                    <th>Assigned Parcels</th>
+                    <th>JMS Completed</th>
+                    <th>Pending Scrutiny</th>
+                    <th>Avg SLA Turnaround</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Shri V. P. Singh</strong></td>
+                    <td>Tehsildar / Revenue Officer</td>
+                    <td>Varanasi Tehsil</td>
+                    <td>142 Plots</td>
+                    <td>138 (97%)</td>
+                    <td><span class="badge-counter badge-green">4 Pending</span></td>
+                    <td><strong>12.4 Days</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Shri Amit Verma</strong></td>
+                    <td>Cadastral Surveyor / Amin</td>
+                    <td>Chandauli Circle</td>
+                    <td>98 Plots</td>
+                    <td>94 (96%)</td>
+                    <td><span class="badge-counter badge-green">4 Pending</span></td>
+                    <td><strong>8.2 Days</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Shri R. K. Sharma</strong></td>
+                    <td>Special LA Collector (SLAO)</td>
+                    <td>District Varanasi</td>
+                    <td>412 Plots</td>
+                    <td>380 (92%)</td>
+                    <td><span class="badge-counter badge-amber">32 In Inquiry</span></td>
+                    <td><strong>18.6 Days</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 08: LAND RECORD DISCREPANCY ENGINE
+             ============================================================== -->
+        <section class="module-pane" id="mod-discrepancy-engine">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Automated Revenue Triangulation</span>
+              <h2 class="headline-h2">Land Record Discrepancy Engine</h2>
+              <p class="headline-desc">Automatic discrepancy detector comparing Project Agency shapefiles vs. State RoR (Bhulekh) vs. Cadastral Survey records.</p>
+            </div>
+          </div>
+
+          <div class="gov-chart-card">
+            <div class="discrepancy-banner">
+              <span class="disc-icon">&#9888;</span>
+              <div>
+                <strong>Active Cross-Registry Discrepancy Detected (Automated Flag)</strong>
+                <p>Package IV &bull; Khasra 49, Village Mehrauli &bull; PIA claimed 6.25 Ha, but Bhulekh registered extent is 5.90 Ha (0.35 Ha Overlap).</p>
+              </div>
+              <button class="btn btn-primary" onclick="alert('Directive dispatched to District Collector to order re-survey under Section 12.')">
+                Issue Re-survey Directive &rarr;
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="gov-data-table">
+                <thead>
+                  <tr>
+                    <th>Parcel / Khasra</th>
+                    <th>Village</th>
+                    <th>PIA Requisition Area</th>
+                    <th>Bhulekh RoR Area</th>
+                    <th>Survey Ground Area</th>
+                    <th>Variance / Discrepancy</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Khasra 42/1</strong></td>
+                    <td>Rampur Kalan</td>
+                    <td>3.420 Ha</td>
+                    <td>3.420 Ha</td>
+                    <td>3.420 Ha</td>
+                    <td><span class="text-emerald font-bold">0.000 Ha (Exact)</span></td>
+                    <td><span class="badge-tag green">&#10003; Clean</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Khasra 43</strong></td>
+                    <td>Rampur Kalan</td>
+                    <td>4.820 Ha</td>
+                    <td>4.820 Ha</td>
+                    <td>4.820 Ha</td>
+                    <td><span class="text-emerald font-bold">0.000 Ha (Exact)</span></td>
+                    <td><span class="badge-tag green">&#10003; Clean</span></td>
+                  </tr>
+                  <tr class="row-flagged">
+                    <td><strong>Khasra 49</strong></td>
+                    <td>Mehrauli Khurd</td>
+                    <td>6.250 Ha</td>
+                    <td>5.900 Ha</td>
+                    <td>5.880 Ha</td>
+                    <td><span class="text-rose font-bold">+0.350 Ha Variance</span></td>
+                    <td><span class="badge-tag red">&#9888; Title Dispute</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 09: VERIFICATION & STATUTORY COMPLIANCE CENTER
+             ============================================================== -->
+        <section class="module-pane" id="mod-compliance-center">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">RFCTLARR Statutory Gateways</span>
+              <h2 class="headline-h2">Verification &amp; Statutory Compliance Center</h2>
+              <p class="headline-desc">Centralized audit verifying that every package satisfies mandatory Section 4, 11, 19, 23, and 38 legal checkpoints.</p>
+            </div>
+          </div>
+
+          <div class="gov-chart-card">
+            <div class="table-responsive">
+              <table class="gov-data-table">
+                <thead>
+                  <tr>
+                    <th>Statutory Compliance Checkpoint</th>
+                    <th>Legal Mandate</th>
+                    <th>National Compliance %</th>
+                    <th>Pending Exceptions</th>
+                    <th>Central Authority Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Section 4: Social Impact Assessment (SIA)</strong></td>
+                    <td>Mandatory Prior to Sec 11</td>
+                    <td><span class="text-emerald font-bold">98.2%</span></td>
+                    <td>14 Projects</td>
+                    <td><span class="badge-tag green">Approved</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Section 11: Preliminary Gazette Notification</strong></td>
+                    <td>2 Vernacular Dailies + Portal</td>
+                    <td><span class="text-emerald font-bold">96.8%</span></td>
+                    <td>22 Projects</td>
+                    <td><span class="badge-tag green">Approved</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Section 19: Final Declaration of Acquisition</strong></td>
+                    <td>Within 12 Mo of Sec 11</td>
+                    <td><span class="text-amber font-bold">84.2%</span></td>
+                    <td>118 Projects</td>
+                    <td><span class="badge-tag amber">Monitor SLA</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Section 23: Collector Award &amp; Solatium</strong></td>
+                    <td>Must include 100% Solatium</td>
+                    <td><span class="text-emerald font-bold">92.0%</span></td>
+                    <td>42 Projects</td>
+                    <td><span class="badge-tag green">Approved</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Section 25: 12-Month Lapsing Deadline Check</strong></td>
+                    <td>Non-extendable Lapse</td>
+                    <td><span class="text-rose font-bold">78.0%</span></td>
+                    <td>38 Projects at Risk</td>
+                    <td><span class="badge-tag red">&#9888; High Priority</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 10: ISSUES & BOTTLENECK CENTER
+             ============================================================== -->
+        <section class="module-pane" id="mod-bottlenecks">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Critical Infrastructure Watchlist</span>
+              <h2 class="headline-h2">Issues &amp; Bottleneck Center</h2>
+              <p class="headline-desc">Categorizing stalled projects by severity: Normal &bull; Attention Required &bull; High Priority &bull; Critical.</p>
+            </div>
+          </div>
+
+          <div class="bottlenecks-stack">
+            
+            <div class="bottleneck-item critical">
+              <div class="b-left">
+                <span class="priority-pill red">CRITICAL PRIORITY</span>
+                <h4>Section 25 Statutory Lapsing Threat (38 Packages)</h4>
+                <p>Declaration issued &gt;300 days ago. Collector award inquiry under Section 23 must be settled within 65 days to prevent total acquisition cancellation.</p>
+              </div>
+              <button class="btn btn-primary" onclick="alert('Directive dispatched to State Chief Secretaries to fast-track Section 23 awards.')">
+                Dispatch Secretarial Directive &rarr;
+              </button>
+            </div>
+
+            <div class="bottleneck-item high">
+              <div class="b-left">
+                <span class="priority-pill amber">HIGH PRIORITY</span>
+                <h4>Stage-II Forest Conservation Act Clearance Lag (10,748 Ha)</h4>
+                <p>Stage-I clearance granted 14 months ago. Final MoEFCC tree felling and net present value (NPV) clearance lagging across 68 linear packages.</p>
+              </div>
+              <button class="btn btn-secondary" onclick="alert('Inter-ministerial coordination meeting initiated with Ministry of Environment (MoEFCC).')">
+                Schedule MoEFCC Review
+              </button>
+            </div>
+
+            <div class="bottleneck-item attention">
+              <div class="b-left">
+                <span class="priority-pill blue">ATTENTION REQUIRED</span>
+                <h4>Trapped Escrow Funds under Section 64 Reference (&#8377;14,570 Cr)</h4>
+                <p>Commercial banks holding &#8377;14,570 Cr in district escrow accounts due to disputed legal heirships and partition suits in reference courts.</p>
+              </div>
+              <button class="btn btn-secondary" onclick="alert('Special Lok Adalat conciliation benches requested from State Legal Services Authority.')">
+                Request Lok Adalat Benches
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 11: AI PREDICTION & DECISION SUPPORT
+             ============================================================== -->
+        <section class="module-pane" id="mod-ai-decision">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Heuristic &amp; Machine-Learning Forecasting</span>
+              <h2 class="headline-h2">AI Prediction &amp; Decision Support Center</h2>
+              <p class="headline-desc">Non-binding mathematical estimations designed to assist senior leadership in pre-empting statutory lapses.</p>
+              <div class="ai-disclaimer-pill">&#9888; Decision-support heuristics &bull; Not legally binding official government decrees</div>
+            </div>
+          </div>
+
+          <div class="grid-split-2">
+            
+            <!-- Dynamic Success Gauge Card -->
+            <div class="gov-chart-card">
+              <h3 class="chart-h3">National Project Success Probability Score</h3>
+              <p class="chart-sub">Computed across 3,428 active packages factoring JMS speeds, dispute density, and DBT clearances.</p>
+              
+              <div class="ai-score-meter-wrap">
+                <div class="ai-circle-gauge">
+                  <strong class="gauge-num">82.4%</strong>
+                  <span class="gauge-lbl">PROBABILITY</span>
+                </div>
+                <div class="ai-factors-breakdown">
+                  <div class="factor-row"><span>DBT Fund Clearance Index:</span> <strong class="text-emerald">+38% (High)</strong></div>
+                  <div class="factor-row"><span>Cadastral RoR Clean Title Rate:</span> <strong class="text-emerald">+32% (Stable)</strong></div>
+                  <div class="factor-row"><span>Section 25 Lapsing Risk:</span> <strong class="text-rose">-12% (Drag)</strong></div>
+                  <div class="factor-row"><span>Judicial Injunction Ratio:</span> <strong class="text-amber">-8% (Drag)</strong></div>
+                </div>
+              </div>
+
+              <div class="ai-confidence-badge">
+                Confidence Rating: <strong>94.2% (High Reliability)</strong> &bull; Based on 148,250 Ha verified dataset
+              </div>
+            </div>
+
+            <!-- AI Recommended Interventions -->
+            <div class="gov-chart-card">
+              <h3 class="chart-h3">AI Algorithmic Administrative Directives</h3>
+              
+              <ul class="ai-recommendation-list">
+                <li>
+                  <span class="rec-num">1</span>
+                  <div>
+                    <strong>Prioritize Section 23 Awards in UP and Maharashtra</strong>
+                    <p>845 projects clustered at Section 19 declaration. Directing district collectors to execute awards will prevent &#8377;18,000 Cr re-notification cost.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rec-num">2</span>
+                  <div>
+                    <strong>Reallocate 45 Surveyors to Sultanpur &amp; Chandauli Circles</strong>
+                    <p>Field measurement survey delays currently causing a 28-day backlog in final RoR verification.</p>
+                  </div>
+                </li>
+                <li>
+                  <span class="rec-num">3</span>
+                  <div>
+                    <strong>Convene MoEFCC Forest Clearance Fast-Track Panel</strong>
+                    <p>Clearing 6,752 Ha Stage-II diversions will unlock 82 stalled linear expressway packages immediately.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 12: ALERT & ESCALATION SYSTEM
+             ============================================================== -->
+        <section class="module-pane" id="mod-alerts-escalations">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Automated Threshold Monitors</span>
+              <h2 class="headline-h2">Alert &amp; Escalation Matrix</h2>
+              <p class="headline-desc">Rules-based trigger engine monitoring statutory deadlines and administrative stalls.</p>
+            </div>
+          </div>
+
+          <div class="gov-chart-card">
+            <div class="alerts-feed-stack" id="alertsFeedStack">
+              <!-- Dynamically Populated -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 13: STATUTORY REPORTING HUB
+             ============================================================== -->
+        <section class="module-pane" id="mod-reporting-hub">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Parliamentary &amp; Administrative Exports</span>
+              <h2 class="headline-h2">Statutory Reporting Hub &amp; CSV Downloader</h2>
+              <p class="headline-desc">Generate exportable nationwide schedules for parliamentary questions, budget audits, and state reviews.</p>
+            </div>
+          </div>
+
+          <div class="reports-hub-grid">
+            <div class="report-export-box">
+              <h4>National Acquisition Master Dossier (.CSV)</h4>
+              <p>Full 34-state table detailing proposed acreage, possession secured, compensation disbursed, and PAF settlements.</p>
+              <button class="btn btn-primary" onclick="window.authApp.exportMasterCsv()">Download Master CSV &darr;</button>
+            </div>
+
+            <div class="report-export-box">
+              <h4>Undisbursed Escrow &amp; Litigation Audit (.CSV)</h4>
+              <p>Audit breakdown of &#8377;24,285 Cr escrow funds across title disputes, heirship verifications, and court injunctions.</p>
+              <button class="btn btn-primary" onclick="window.authApp.exportEscrowCsv()">Download Escrow Audit &darr;</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 14: STATE & AGENCY COMPARISON ENGINE
+             ============================================================== -->
+        <section class="module-pane" id="mod-comparison-engine">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Comparative Performance Benchmarking</span>
+              <h2 class="headline-h2">State vs. State &amp; Agency Comparison</h2>
+              <p class="headline-desc">Benchmarking acquisition velocity, compensation turnaround, and statutory compliance.</p>
+            </div>
+          </div>
+
+          <div class="gov-chart-card">
+            <div class="comparison-toolbar">
+              <span>Compare Top Corridors:</span>
+              <div class="comp-tags">
+                <span class="comp-pill active">Uttar Pradesh vs. Maharashtra</span>
+                <span class="comp-pill">NHAI vs. DFCCIL</span>
+                <span class="comp-pill">FY 2023 vs. FY 2024</span>
+              </div>
+            </div>
+
+            <div class="table-responsive" style="margin-top: 20px;">
+              <table class="gov-data-table">
+                <thead>
+                  <tr>
+                    <th>Benchmark Dimension</th>
+                    <th>Uttar Pradesh (480 Projects)</th>
+                    <th>Maharashtra (412 Projects)</th>
+                    <th>Variance / Delta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Land Acquisition Rate</strong></td>
+                    <td><span class="text-emerald font-bold">80.0% (22,560 Ha)</span></td>
+                    <td>78.0% (19,110 Ha)</td>
+                    <td><span class="badge-tag green">+2.0% UP Lead</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Compensation Disbursed (PFMS)</strong></td>
+                    <td>&#8377; 21,800 Cr</td>
+                    <td><span class="text-cyan font-bold">&#8377; 24,100 Cr</span></td>
+                    <td><span class="badge-tag cyan">&#8377; 2,300 Cr MH Lead</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Active High Court Stay Orders</strong></td>
+                    <td>240 Cases</td>
+                    <td><span class="text-rose font-bold">312 Cases</span></td>
+                    <td><span class="badge-tag red">MH Dispute Lag</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Average Possession SLA</strong></td>
+                    <td><span class="text-emerald font-bold">14.2 Months</span></td>
+                    <td>16.8 Months</td>
+                    <td><span class="badge-tag green">UP 2.6 Mo Faster</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 15: SECURITY & AUDIT TRAIL
+             ============================================================== -->
+        <section class="module-pane" id="mod-audit-security">
+          <div class="pane-headline-strip">
+            <div>
+              <span class="gov-kicker">Apex Regulatory Ledger</span>
+              <h2 class="headline-h2">Security Architecture &amp; Immutable Audit Trail</h2>
+              <p class="headline-desc">Cryptographically logged events tracking executive secretarial directives, approvals, and portal access.</p>
+            </div>
+          </div>
+
+          <div class="gov-chart-card">
+            <div class="table-responsive">
+              <table class="gov-data-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp (IST)</th>
+                    <th>Authorized Official</th>
+                    <th>Jurisdiction</th>
+                    <th>Supervisory Action Executed</th>
+                    <th>Integrity Hash</th>
+                  </tr>
+                </thead>
+                <tbody id="apexAuditTrailTable">
+                  <!-- Dynamically Rendered -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast Messenger -->
+  <div class="auth-toast-box" id="authToastBox"></div>
+
+  <!-- Apex Authority Engine -->
+  <script src="authority-portal.js"></script>
+</body>
+</html>

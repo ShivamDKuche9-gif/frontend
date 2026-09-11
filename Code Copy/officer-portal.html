@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Field &amp; Land Verification Portal | NLAMS (DoLR)</title>
+
+  <!-- Typography: Inter, Outfit, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- MapLibre GL JS CDN for Advanced GIS Cartography -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" />
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+
+  <link rel="stylesheet" href="officer-portal.css" />
+</head>
+<body>
+
+  <div class="officer-app-layout">
+
+    <!-- ==============================================================
+         SIDEBAR NAVIGATION (10 PRIMARY SECTIONS + ROLE BADGE)
+         ============================================================== -->
+    <aside class="officer-sidebar" id="officerSidebar">
+      
+      <!-- Top Authority Header -->
+      <div class="sidebar-header">
+        <div class="gov-crest-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/>
+            <path d="M12 8v4m0 4h.01"/>
+          </svg>
+        </div>
+        <div class="header-text">
+          <h1 class="brand-h1">NLAMS &bull; VERIFY</h1>
+          <span class="brand-dept">Land Records Directorate</span>
+        </div>
+      </div>
+
+      <!-- Authenticated Officer Identity Strip -->
+      <div class="officer-identity-card">
+        <div class="officer-avatar" id="officerAvatarBadge">LAO</div>
+        <div class="officer-meta">
+          <strong id="officerNameDisplay">Shri R. K. Sharma</strong>
+          <span class="text-cyan font-bold" id="officerRoleDisplay">District LAO / Collector</span>
+          <span class="text-subtle" id="officerJurisdiction">Dist: Varanasi, UP</span>
+        </div>
+      </div>
+
+      <!-- Role-Based Navigation Menu -->
+      <nav class="sidebar-nav">
+        <ul class="nav-menu-list">
+          <li>
+            <button class="nav-btn active" data-mod="mod-dashboard">
+              <span class="icon">&#9638;</span>
+              <span>01. Dashboard</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-requests">
+              <span class="icon">&#128229;</span>
+              <span>02. Incoming PIA Requests</span>
+              <span class="pill-count" id="pendingRequestsBadge">1</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-docs" id="navItemDocs">
+              <span class="icon">&#128196;</span>
+              <span>03. Document Verification</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-land-records" id="navItemLand">
+              <span class="icon">&#128214;</span>
+              <span>04. Land Record Verification</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-gis" id="navItemGis">
+              <span class="icon">&#127757;</span>
+              <span>05. GIS &amp; Geo-Tagging</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-field-visit" id="navItemField">
+              <span class="icon">&#128205;</span>
+              <span>06. Field Visits &amp; Survey</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-app-verify" id="navItemAppVerify">
+              <span class="icon">&#10004;</span>
+              <span>07. Application Verification</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-report-gen" id="navItemReport">
+              <span class="icon">&#128203;</span>
+              <span>08. Verification Reports</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-workflow-forward" id="navItemWorkflow">
+              <span class="icon">&#10148;</span>
+              <span>09. Workflow &amp; Forwarding</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-notifications">
+              <span class="icon">&#128276;</span>
+              <span>10. Notifications</span>
+              <span class="pill-count pill-amber" id="notifBadge">2</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-search">
+              <span class="icon">&#128269;</span>
+              <span>11. Search &amp; Filter</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-audit">
+              <span class="icon">&#128220;</span>
+              <span>12. Audit Trail</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" data-mod="mod-profile">
+              <span class="icon">&#128100;</span>
+              <span>13. Officer Profile</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidebar Exit -->
+      <div class="sidebar-exit-box">
+        <a href="login.html" class="exit-btn">Sign Out of Verification Session</a>
+      </div>
+    </aside>
+
+    <!-- ==============================================================
+         MAIN OPERATIONAL WORKSPACE
+         ============================================================== -->
+    <div class="officer-main-stage">
+      
+      <!-- Top Utility Header -->
+      <header class="officer-top-bar">
+        <div class="bar-left">
+          <button class="drawer-btn" id="drawerToggle" aria-label="Toggle Navigation">&#9776;</button>
+          <span class="active-inspection-chip">
+            <span class="status-indicator"></span> Active Dossier: <strong id="activeDossierHeader">NHAI-LA-2025-UP04-0982</strong>
+          </span>
+        </div>
+
+        <div class="bar-right">
+          <div class="role-clearance-badge" id="roleClearanceBadge">SLAO Full Clearance</div>
+          <a href="index.html" class="return-home-link">&larr; Main Portal</a>
+        </div>
+      </header>
+
+      <!-- Scrollable Module Container -->
+      <main class="officer-body-content" id="moduleContainer">
+
+        <!-- ==============================================================
+             MODULE 01: DASHBOARD
+             ============================================================== -->
+        <section class="module-pane active" id="mod-dashboard">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Verification Command Deck</span>
+              <h2 class="headline-h2">Land Scrutiny &amp; Field Verification Console</h2>
+              <p class="headline-p">Manage incoming project requisitions, perform cadastral inspections, and execute statutory recommendations.</p>
+            </div>
+          </div>
+
+          <!-- KPI Metric Band -->
+          <div class="metric-tiles-grid">
+            <div class="metric-tile">
+              <span class="tile-label">Assigned Requisitions</span>
+              <div class="tile-number" id="kpiAssigned">3 Projects</div>
+              <span class="tile-sub text-cyan">From NHAI &amp; Railways</span>
+            </div>
+            <div class="metric-tile border-amber">
+              <span class="tile-label">Pending Verification</span>
+              <div class="tile-number text-amber" id="kpiPending">2 Pending</div>
+              <span class="tile-sub">SLA Countdown Active</span>
+            </div>
+            <div class="metric-tile border-green">
+              <span class="tile-label">Completed &amp; Recommended</span>
+              <div class="tile-number text-green" id="kpiCompleted">1 Forwarded</div>
+              <span class="tile-sub">To State Revenue Nodal</span>
+            </div>
+            <div class="metric-tile border-red">
+              <span class="tile-label">Returned for Correction</span>
+              <div class="tile-number text-red" id="kpiReturned">0 Returned</div>
+              <span class="tile-sub">Rejection grounds tracked</span>
+            </div>
+          </div>
+
+          <!-- Grid: Urgent Cases & Active Queue -->
+          <div class="grid-layout-2">
+            <div class="gov-card">
+              <div class="card-title-row">
+                <h3 class="card-h3">Urgent Statutory Action Queue</h3>
+                <span class="badge-status bs-rejected">&#9888; Section 25 Lapsing Risk</span>
+              </div>
+              <div class="urgent-alert-box">
+                <strong>NHAI Package IV &bull; Chandauli / Varanasi Corridor</strong>
+                <p>Section 19 Declaration published 310 days ago. Collector award inquiry under Section 23 must be concluded within 55 days or acquisition proceedings lapse.</p>
+                <button class="btn btn-primary" style="margin-top: 10px;" onclick="window.officerApp.navigateTo('mod-requests')">
+                  Open Application Dossier &rarr;
+                </button>
+              </div>
+            </div>
+
+            <div class="gov-card">
+              <div class="card-title-row">
+                <h3 class="card-h3">Recent Verification Activities</h3>
+                <span class="link-span" onclick="window.officerApp.navigateTo('mod-audit')">Full Audit Ledger &rarr;</span>
+              </div>
+              <ul class="activity-feed-list" id="dashboardActivityFeed">
+                <!-- Dynamically Rendered -->
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 02: INCOMING PIA REQUESTS
+             ============================================================== -->
+        <section class="module-pane" id="mod-requests">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Requisition Inward Register</span>
+              <h2 class="headline-h2">Incoming PIA Acquisition Requisitions</h2>
+              <p class="headline-p">Scrutinize requisitions submitted by Project Implementing Agencies before field surveyor deployment.</p>
+            </div>
+          </div>
+
+          <div class="gov-card">
+            <div class="table-responsive">
+              <table class="gov-table">
+                <thead>
+                  <tr>
+                    <th>Application / Project ID</th>
+                    <th>Submitting PIA</th>
+                    <th>Corridor Alignment</th>
+                    <th>Requested Extent</th>
+                    <th>Estimated Funds</th>
+                    <th>Current Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="incomingRequestsTableBody">
+                  <!-- Dynamically populated from shared store -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 03: DOCUMENT VERIFICATION
+             ============================================================== -->
+        <section class="module-pane" id="mod-docs">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">DMS Scrutiny</span>
+              <h2 class="headline-h2">Statutory Document Verification Vault</h2>
+              <p class="headline-p">Inspect and verify submitted Joint Measurement Surveys, Form A requisitions, and gazette drafts.</p>
+            </div>
+          </div>
+
+          <div class="gov-card">
+            <div class="table-responsive">
+              <table class="gov-table">
+                <thead>
+                  <tr>
+                    <th>Document Title</th>
+                    <th>Statutory Category</th>
+                    <th>Version</th>
+                    <th>Verification State</th>
+                    <th>Officer Scrutiny Action</th>
+                  </tr>
+                </thead>
+                <tbody id="officerDocsTableBody">
+                  <!-- Dynamically Rendered -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 04: LAND RECORD VERIFICATION (RoR AUDIT)
+             ============================================================== -->
+        <section class="module-pane" id="mod-land-records">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Tenure Reconciliation</span>
+              <h2 class="headline-h2">Land Record Verification vs. Official RoR</h2>
+              <p class="headline-p">Cross-verify PIA-requisitioned Khasra numbers against the State Land Records Database (Bhoomi / Bhulekh).</p>
+            </div>
+          </div>
+
+          <div class="gov-card">
+            <div class="table-responsive">
+              <table class="gov-table">
+                <thead>
+                  <tr>
+                    <th>Village &amp; Khasra No.</th>
+                    <th>PIA Claimed Extent</th>
+                    <th>Official RoR Record</th>
+                    <th>Tenure Status</th>
+                    <th>Reconciliation Result</th>
+                    <th>Officer Sign-off</th>
+                  </tr>
+                </thead>
+                <tbody id="landRecordComparisonTable">
+                  <!-- Dynamically Rendered -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 05: GIS & GEO-TAGGING MODULE (MAPLIBRE GL JS)
+             ============================================================== -->
+        <section class="module-pane" id="mod-gis">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Spatial Cadastral Cartography</span>
+              <h2 class="headline-h2">GIS Cadastral Verification &amp; Geo-Fence Map</h2>
+              <p class="headline-p">Interactive MapLibre GL engine with live OpenStreetMap/Carto tiles, alignment corridors, and cadastral parcel inspection.</p>
+            </div>
+            <div class="gis-btn-row">
+              <button class="btn btn-secondary" id="btnCaptureLiveGps">&#128205; Capture My Live GPS</button>
+              <button class="btn btn-primary" id="btnDetectMismatch">&#9888; Run Spatial Mismatch Check</button>
+            </div>
+          </div>
+
+          <!-- Interactive Map Container -->
+          <div class="gis-map-card">
+            <div class="gis-toolbar-strip">
+              <div class="gis-coords-readout" id="mapCoordsReadout">Lat: 25.3176&deg; N | Lon: 82.9739&deg; E (Varanasi Corridor)</div>
+              <div class="gis-layer-pills">
+                <span class="layer-pill active" id="pillCorridor">Corridor Buffer</span>
+                <span class="layer-pill active" id="pillParcels">Khasra Polygons</span>
+                <span class="layer-pill" id="pillMismatch">Mismatch Overlay</span>
+              </div>
+            </div>
+
+            <!-- MapLibre GL Map Viewport -->
+            <div id="maplibreCanvas" class="maplibre-container"></div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 06: FIELD VERIFICATION
+             ============================================================== -->
+        <section class="module-pane" id="mod-field-visit">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Physical Ground-Truthing</span>
+              <h2 class="headline-h2">On-Site Field Verification Dossier</h2>
+              <p class="headline-p">Record physical tree enumerations, structural encumbrances, waterbodies, and geo-tagged photographic evidence.</p>
+            </div>
+          </div>
+
+          <form class="gov-card" id="formFieldInspection">
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label">Inspected Parcel (Khasra) *</label>
+                <input type="text" class="form-input" id="fieldKhasra" value="Khasra 43, Rampur Kalan" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">GPS Tagged Coordinates *</label>
+                <input type="text" class="form-input font-mono" id="fieldGpsCoords" value="25.3176° N, 82.9739° E" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Inspection Date &amp; Time *</label>
+                <input type="datetime-local" class="form-input" id="fieldTimestamp" required />
+              </div>
+            </div>
+
+            <div class="form-grid-3" style="margin-top: 14px;">
+              <div class="form-group">
+                <label class="form-label">Physical Land Use Observed *</label>
+                <select class="form-select" id="fieldLandUse">
+                  <option value="Double-Cropped Agricultural">Double-Cropped Agricultural</option>
+                  <option value="Single-Cropped Irrigated">Single-Cropped Irrigated</option>
+                  <option value="Homestead / Residential">Homestead / Residential</option>
+                  <option value="Barren / Wasteland">Barren / Wasteland</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Structural Encumbrance Observed *</label>
+                <select class="form-select" id="fieldStructures">
+                  <option value="None / Clear Land">None / Clear Land</option>
+                  <option value="1 Pucca House &bull; 2 Tube-wells">1 Pucca House &bull; 2 Tube-wells</option>
+                  <option value="Borewell &amp; Boundary Wall">Borewell &amp; Boundary Wall</option>
+                  <option value="Religious / Community Structure (Requires Shifting)">Religious / Community Structure</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Tree Enumeration (Count) *</label>
+                <input type="number" class="form-input" id="fieldTreeCount" value="14" required />
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 14px;">
+              <label class="form-label">Surveyor / Revenue Officer Physical Ground Observations *</label>
+              <textarea class="form-textarea" id="fieldRemarks" rows="3" required>Boundary demarcations verified with RTK-DGPS. Minor structural fence overlaps on northern edge of Khasra 43. No unauthorized religious encroachment detected.</textarea>
+            </div>
+
+            <div class="btn-action-row">
+              <button type="submit" class="btn btn-primary">Save &amp; Submit Field Inspection Dossier &rarr;</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 07: APPLICATION VERIFICATION CHECKLIST
+             ============================================================== -->
+        <section class="module-pane" id="mod-app-verify">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Statutory Scrutiny Checklist</span>
+              <h2 class="headline-h2">12-Point Comprehensive Verification Checklist</h2>
+              <p class="headline-p">Mandatory multi-criteria evaluation before formal recommendation or rejection under the RFCTLARR Act.</p>
+            </div>
+          </div>
+
+          <div class="gov-card">
+            <div class="table-responsive">
+              <table class="gov-table">
+                <thead>
+                  <tr>
+                    <th>Statutory Verification Parameter</th>
+                    <th>Scrutinizing Department</th>
+                    <th>Verification Decision</th>
+                    <th>Officer Notes</th>
+                  </tr>
+                </thead>
+                <tbody id="verificationChecklistBody">
+                  <!-- Dynamically Rendered -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 08: VERIFICATION REPORTS
+             ============================================================== -->
+        <section class="module-pane" id="mod-report-gen">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Statutory Report</span>
+              <h2 class="headline-h2">Compiled Verification &amp; Scrutiny Dossier</h2>
+              <p class="headline-p">Consolidated formal summary generated from revenue records, cadastral surveys, and field inspections.</p>
+            </div>
+            <button class="btn btn-primary" id="btnDownloadReportPdf" onclick="window.print()">Print Official Dossier</button>
+          </div>
+
+          <div class="gov-card report-paper" id="compiledReportPaper">
+            <div class="report-header-banner">
+              <div class="text-center">
+                <h3>GOVERNMENT OF UTTAR PRADESH &bull; REVENUE DEPARTMENT</h3>
+                <h4>OFFICE OF THE SPECIAL LAND ACQUISITION COLLECTOR (SLAO), VARANASI</h4>
+                <div class="font-mono text-cyan" style="margin-top: 4px;">Formal Verification Report &bull; Ref: VNS/LA-2025/NHAI-PKG4</div>
+              </div>
+            </div>
+
+            <div class="report-meta-grid">
+              <div><span>Application ID:</span> <strong id="repAppId">NLAMS-REQ-2025-UP-9842</strong></div>
+              <div><span>Target Project:</span> <strong>6-Lane Varanasi-Kolkata Corridor (Pkg 4)</strong></div>
+              <div><span>Requisitioning Agency:</span> <strong>NHAI (PIU Varanasi)</strong></div>
+              <div><span>Land Requisitioned:</span> <strong>385.500 Ha</strong></div>
+              <div><span>Cadastral Parcels Verified:</span> <strong>32 Villages &bull; 412 Plots</strong></div>
+              <div><span>Estimated Compensation:</span> <strong>&#8377; 642.50 Cr</strong></div>
+            </div>
+
+            <div class="report-summary-box">
+              <h4>Findings &amp; Scrutiny Summary</h4>
+              <p>Joint Measurement Survey (JMS) verified by Revenue Tehsildar. Cadastral parcel polygons cross-checked against Bhulekh RoRs. Out of 32 revenue villages, 31 have clean titles. 1 parcel (Khasra 49) under judicial reference in the Competent Authority Court.</p>
+            </div>
+
+            <div class="report-signatures">
+              <div>
+                <div class="sig-line"></div>
+                <strong>Shri Amit Verma</strong>
+                <span>Cadastral Surveyor / Amin</span>
+              </div>
+              <div>
+                <div class="sig-line"></div>
+                <strong>Shri V. P. Singh</strong>
+                <span>Tehsildar / Revenue Officer</span>
+              </div>
+              <div>
+                <div class="sig-line"></div>
+                <strong>Shri R. K. Sharma</strong>
+                <span>Special Land Acquisition Collector</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 09: WORKFLOW & FORWARDING (REJECTION POWER)
+             ============================================================== -->
+        <section class="module-pane" id="mod-workflow-forward">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Statutory Final Decision</span>
+              <h2 class="headline-h2">Workflow Dispatch, Recommendation &amp; Rejection</h2>
+              <p class="headline-p">Take the final statutory action on the application. Rejections and correction requests reflect immediately in the PIA portal.</p>
+            </div>
+          </div>
+
+          <div class="grid-layout-2">
+            <!-- Action Console -->
+            <div class="gov-card">
+              <h3 class="card-h3">Execute Statutory Action</h3>
+              <div class="form-group" style="margin: 16px 0;">
+                <label class="form-label">Officer Final Statutory Finding / Reason *</label>
+                <textarea class="form-textarea" id="decisionRemarks" rows="4" placeholder="State official grounds for recommendation, correction request, or statutory rejection..."></textarea>
+              </div>
+
+              <!-- Action Decision Buttons -->
+              <div class="decision-btn-stack">
+                <button class="btn btn-emerald" id="btnRecommendForward">
+                  &#10004; Recommend &amp; Forward to State Nodal Authority
+                </button>
+                <button class="btn btn-amber" id="btnRequestCorrection">
+                  &#9888; Return to PIA for Required Corrections
+                </button>
+                <button class="btn btn-rose" id="btnRejectApplication">
+                  &#10008; Reject Requisition with Stated Cause
+                </button>
+              </div>
+            </div>
+
+            <!-- Workflow Visual Path -->
+            <div class="gov-card">
+              <h3 class="card-h3">Current Statutory Lifecycle Stage</h3>
+              <div class="officer-tracking-stepper">
+                <div class="step-item done"><div class="dot">&#10003;</div><span>PIA Submitted</span></div>
+                <div class="step-item done"><div class="dot">&#10003;</div><span>Officer Received</span></div>
+                <div class="step-item done"><div class="dot">&#10003;</div><span>Document Check</span></div>
+                <div class="step-item done"><div class="dot">&#10003;</div><span>Land RoR Check</span></div>
+                <div class="step-item done"><div class="dot">&#10003;</div><span>GIS Mapping</span></div>
+                <div class="step-item done"><div class="dot">&#10003;</div><span>Field Visit</span></div>
+                <div class="step-item active" id="stepDecisionNode"><div class="dot">&bull;</div><span>Officer Decision</span></div>
+                <div class="step-item pending" id="stepGovReviewNode"><div class="dot">&#9675;</div><span>Government Review</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 10: NOTIFICATIONS
+             ============================================================== -->
+        <section class="module-pane" id="mod-notifications">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Action Dispatch</span>
+              <h2 class="headline-h2">Officer Alerts &amp; Regulatory Broadcasts</h2>
+              <p class="headline-p">Statutory alerts, calendar deadlines, and inter-departmental inquiries.</p>
+            </div>
+          </div>
+
+          <div class="gov-card">
+            <div class="feed-container" id="officerNotifContainer">
+              <!-- Dynamically Rendered -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 11: SEARCH & FILTERS
+             ============================================================== -->
+        <section class="module-pane" id="mod-search">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Registry Query</span>
+              <h2 class="headline-h2">Cross-Jurisdiction Master Search</h2>
+              <p class="headline-p">Search across Application IDs, Khasra parcels, village names, and agency dossiers.</p>
+            </div>
+          </div>
+
+          <div class="gov-card" style="margin-bottom: 20px;">
+            <input type="text" class="form-input font-bold" id="searchFilterInput" placeholder="Type Application ID, Khasra Number (e.g., 43), Village Name, or PIA..." />
+          </div>
+
+          <div class="gov-card">
+            <div class="table-responsive">
+              <table class="gov-table">
+                <thead>
+                  <tr>
+                    <th>Application ID</th>
+                    <th>Project</th>
+                    <th>Village</th>
+                    <th>Survey / Khasra</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="searchResultsTableBody">
+                  <!-- Dynamically Filtered -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 12: AUDIT TRAIL
+             ============================================================== -->
+        <section class="module-pane" id="mod-audit">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Immutable Record</span>
+              <h2 class="headline-h2">Chronological Audit Ledger</h2>
+              <p class="headline-p">Cryptographically timestamped record of every officer verification, inspection sign-off, and status change.</p>
+            </div>
+          </div>
+
+          <div class="gov-card">
+            <div class="table-responsive">
+              <table class="gov-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Officer &amp; Role</th>
+                    <th>Application ID</th>
+                    <th>Action Taken</th>
+                    <th>Previous Status</th>
+                    <th>New Status</th>
+                  </tr>
+                </thead>
+                <tbody id="auditTrailTableBody">
+                  <!-- Dynamically Rendered -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MODULE 13: OFFICER PROFILE
+             ============================================================== -->
+        <section class="module-pane" id="mod-profile">
+          <div class="pane-headline-row">
+            <div>
+              <span class="badge-tag">Official Identity</span>
+              <h2 class="headline-h2">Officer Credentials &amp; Jurisdiction</h2>
+              <p class="headline-p">Accredited revenue credentials, digital signature status, and assigned district jurisdiction.</p>
+            </div>
+          </div>
+
+          <div class="grid-layout-2">
+            <div class="gov-card">
+              <h3 class="card-h3" style="margin-bottom: 16px;">Revenue Officer Details</h3>
+              <div class="profile-row"><span>Official Full Name:</span> <strong>Shri R. K. Sharma</strong></div>
+              <div class="profile-row"><span>Designation:</span> <strong id="profDesignation">Special Land Acquisition Collector (SLAO)</strong></div>
+              <div class="profile-row"><span>Department:</span> <strong>Revenue Department, Govt. of Uttar Pradesh</strong></div>
+              <div class="profile-row"><span>Assigned Jurisdiction:</span> <strong>Varanasi, Chandauli &amp; Mirzapur Districts</strong></div>
+              <div class="profile-row"><span>Gov Email:</span> <strong>lao.varanasi@up.gov.in</strong></div>
+            </div>
+
+            <div class="gov-card">
+              <h3 class="card-h3" style="margin-bottom: 16px;">Security &amp; DSC Keys</h3>
+              <div class="profile-row"><span>e-Sign (DSC Token):</span> <strong class="text-green">&#10003; Registered &amp; Active</strong></div>
+              <div class="profile-row"><span>Authentication Tier:</span> <strong>Two-Factor (Aadhaar OTP + Token)</strong></div>
+              <div class="profile-row"><span>Session Security:</span> <strong>TLS 1.3 Active</strong></div>
+              <button class="btn btn-secondary" style="margin-top: 14px;" onclick="alert('Password reset link dispatched to registered email: lao.varanasi@up.gov.in');">
+                Update Master Credential Password
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="officer-toast-box" id="officerToastBox"></div>
+
+  <!-- Custom Logic & MapLibre Script -->
+  <script src="officer-portal.js"></script>
+</body>
+</html>

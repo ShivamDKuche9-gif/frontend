@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PIA Executive Portal | National Land Acquisition & Management System (NLAMS)</title>
+
+  <!-- Typography: Inter, Outfit, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pia-portal.css" />
+</head>
+<body>
+
+  <!-- App Layout Wrapper -->
+  <div class="pia-app-layout">
+
+    <!-- ==========================================
+         SIDEBAR: AGENCY IDENTITY & 11 MODULE TABS
+         ========================================== -->
+    <aside class="pia-sidebar" id="piaSidebar">
+      
+      <!-- Top Agency Brand -->
+      <div class="sidebar-header">
+        <div class="agency-emblem-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div class="agency-meta-text">
+          <h1 class="brand-title">NLAMS &bull; PIA</h1>
+          <span class="brand-sub">Project Agency Portal</span>
+        </div>
+      </div>
+
+      <!-- Quick Agency Identity Badge & Switcher -->
+      <div class="agency-profile-chip">
+        <div class="chip-avatar" id="agencyBadgeCode">NHAI</div>
+        <div class="chip-info">
+          <strong id="agencyNameDisplay">NHAI - PIU Varanasi</strong>
+          <span id="agencyTypeDisplay">National Highway Authority</span>
+        </div>
+        <select class="agency-switcher-select" id="agencySwitcher" title="Switch Demo Agency Identity">
+          <option value="NHAI" selected>NHAI (Highways)</option>
+          <option value="DFCCIL">DFCCIL (Railways / DFC)</option>
+          <option value="UPSIDC">UPSIDC (State Industrial)</option>
+        </select>
+      </div>
+
+      <!-- Module Navigation List -->
+      <nav class="sidebar-nav">
+        <ul class="nav-menu">
+          <li>
+            <button class="nav-item-btn active" data-module="mod-dashboard">
+              <span class="nav-icon">&#9638;</span>
+              <span class="nav-label">01. Home / Dashboard</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-module="mod-create-project">
+              <span class="nav-icon">&#10010;</span>
+              <span class="nav-label">02. Create New Project</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-module="mod-land-request">
+              <span class="nav-icon">&#9964;</span>
+              <span class="nav-label">03. Land Requirement Request</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-module="mod-fund-request">
+              <span class="nav-icon">&#8377;</span>
+              <span class="nav-label">04. Fund Request</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-module="mod-dms">
+              <span class="nav-icon">&#128196;</span>
+              <span class="nav-label">05. Document Management</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-module="mod-workflow">
+              <span class="nav-icon">&#10004;</span>
+              <span class="nav-label">06. Submission &amp; Workflow</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-module="mod-progress">
+              <span class="nav-icon">&#128200;</span>
+              <span class="nav-label">07. Project Progress</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-module="mod-tracking">
+              <span class="nav-icon">&#10148;</span>
+              <span class="nav-label">08. Application Tracking</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-module="mod-notifications">
+              <span class="nav-icon">&#128276;</span>
+              <span class="nav-label">09. Notifications</span>
+              <span class="nav-badge" id="notifCountBadge">3</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-module="mod-profile">
+              <span class="nav-icon">&#128100;</span>
+              <span class="nav-label">10. Profile &amp; Organization</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-module="mod-reports">
+              <span class="nav-icon">&#128190;</span>
+              <span class="nav-label">11. Reports &amp; Downloads</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Sidebar Footer Return to Main Portal -->
+      <div class="sidebar-footer">
+        <!-- AFTER (Goes up to root index.html) -->
+        <button type="button" class="portal-exit-btn" id="portalExitBtn" onclick="window.location.href='../index.html'">
+          <span>&larr; Exit to Public Portal</span>
+        </button>
+        </a>
+      </div>
+    </aside>
+
+    <!-- ==========================================
+         MAIN CONTENT STAGE
+         ========================================== -->
+    <div class="pia-main-wrapper">
+      
+      <!-- Top Operational App Bar -->
+      <header class="pia-top-bar">
+        <div class="top-bar-left">
+          <button class="mobile-menu-toggle" id="sidebarToggleBtn" aria-label="Toggle Navigation">&#9776;</button>
+          <span class="active-project-tag">
+            <span class="dot-active"></span> Active Context: <strong id="currentProjectCodeHeader">NHAI/EC-VNS-PKG4/2024</strong>
+          </span>
+        </div>
+
+        <div class="top-bar-right">
+          <div class="clock-display" id="liveClock">IST --:--:--</div>
+          <a href="../login.html" class="logout-btn" title="Sign out of PIA Session">Logout</a>
+        </div>
+      </header>
+
+      <!-- Dynamic Viewport Area -->
+      <main class="pia-content-body" id="piaContentBody">
+
+        <!-- ==========================================
+             MODULE 01: PIA HOME / DASHBOARD
+             ========================================== -->
+        <section class="module-pane active" id="mod-dashboard">
+          <div class="pane-header">
+            <div>
+              <span class="gov-chip">Executive Overview</span>
+              <h2 class="pane-title">Project Implementation Command Deck</h2>
+              <p class="pane-sub">Welcome back, <strong>Chief Project Director (PIU Package IV)</strong>. Here is the operational summary of active requisitions and statutory clearances.</p>
+            </div>
+            <button class="btn btn-primary" onclick="window.piaApp.navigateTo('mod-create-project')">
+              + Register New Proposal
+            </button>
+          </div>
+
+          <!-- Hero KPI Grid -->
+          <div class="dashboard-kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-label">Active Corridor Projects</span>
+              <div class="kpi-val" id="dashTotalProjects">4 Projects</div>
+              <span class="kpi-hint text-cyan">2 Greenfield &bull; 2 Brownfield</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Land Requisitioned</span>
+              <div class="kpi-val">1,240 <span class="unit">Ha</span></div>
+              <span class="kpi-hint">Across 32 Revenue Villages</span>
+            </div>
+            <div class="kpi-card border-emerald">
+              <span class="kpi-label">Possession Secured</span>
+              <div class="kpi-val text-emerald">892.4 <span class="unit">Ha</span></div>
+              <div class="kpi-pill pill-emerald">71.9% Transferred</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Compensation Disbursed</span>
+              <div class="kpi-val">&#8377;642.50 <span class="unit">Cr</span></div>
+              <span class="kpi-hint text-cyan">Direct PFMS Bank Credits</span>
+            </div>
+          </div>
+
+          <!-- Mid Section: Pending Actions & Recent Applications -->
+          <div class="grid-split-2">
+            <!-- Pending Actions -->
+            <div class="dash-card">
+              <div class="card-head-row">
+                <h3 class="card-h3">Critical Actions &amp; Deadlines</h3>
+                <span class="badge-amber">3 Actions Pending</span>
+              </div>
+              <ul class="action-alert-list" id="dashPendingActionsList">
+                <!-- Dynamically Populated -->
+              </ul>
+            </div>
+
+            <!-- Recent Requisitions Table -->
+            <div class="dash-card">
+              <div class="card-head-row">
+                <h3 class="card-h3">Recent Proposals in Review</h3>
+                <span class="link-action" onclick="window.piaApp.navigateTo('mod-tracking')">View Complete Track &rarr;</span>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Project / Proposal ID</th>
+                      <th>District</th>
+                      <th>Area (Ha)</th>
+                      <th>Current Stage</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dashRecentAppsTable">
+                    <!-- Dynamically Populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             MODULE 02: CREATE NEW PROJECT
+             ========================================== -->
+        <section class="module-pane" id="mod-create-project">
+          <div class="pane-header">
+            <div>
+              <span class="gov-chip">New Requisition Dossier</span>
+              <h2 class="pane-title">Initiate Infrastructure Project Proposal</h2>
+              <p class="pane-sub">Register a new national infrastructure alignment into the NLAMS master registry. Sets up Form A baseline records.</p>
+            </div>
+          </div>
+
+          <form class="pia-form-card" id="formNewProject">
+            <div class="form-section-title">1. Administrative &amp; Geographic Details</div>
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label">Project Name *</label>
+                <input type="text" class="form-input" id="projName" placeholder="e.g., 6-Lane Varanasi-Ranchi Economic Corridor" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Infrastructure Category *</label>
+                <select class="form-select" id="projType" required>
+                  <option value="National Highway">National Highway / Expressway</option>
+                  <option value="Freight Rail Corridor">Dedicated Rail Freight Corridor</option>
+                  <option value="Industrial Smart City">Industrial Corridor / Node</option>
+                  <option value="Multimodal Logistics">Multi-Modal Logistics Park (MMLP)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Sponsoring Ministry *</label>
+                <input type="text" class="form-input" id="projMinistry" value="Ministry of Road Transport &amp; Highways (MoRTH)" readonly />
+              </div>
+              <div class="form-group">
+                <label class="form-label">State *</label>
+                <select class="form-select" id="projState" required>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Bihar">Bihar</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Primary District *</label>
+                <input type="text" class="form-input" id="projDistrict" placeholder="e.g., Varanasi / Chandauli" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Corridor Alignment Extent (KM) *</label>
+                <input type="text" class="form-input" id="projChainage" placeholder="e.g., Ch. 0+000 to Ch. 74+200" required />
+              </div>
+            </div>
+
+            <div class="form-section-title">2. Scope, Estimates &amp; Social Baseline</div>
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label">Estimated Project Capital Cost (&#8377; Cr) *</label>
+                <input type="number" step="0.01" class="form-input" id="projCost" placeholder="e.g., 3450.00" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Total Land Required (Hectares) *</label>
+                <input type="number" step="0.001" class="form-input" id="projLandReq" placeholder="e.g., 385.500" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Expected Execution Timeline (Months) *</label>
+                <input type="number" class="form-input" id="projTimeline" placeholder="e.g., 36" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Estimated Affected Families (PAFs) *</label>
+                <input type="number" class="form-input" id="projPafs" placeholder="e.g., 620" required />
+              </div>
+              <div class="form-group span-2">
+                <label class="form-label">Strategic Public Purpose Justification *</label>
+                <textarea class="form-textarea" id="projPurpose" rows="2" placeholder="Detail economic benefit, industrial connectivity, and freight transit efficiency under Section 4 SIA criteria..." required></textarea>
+              </div>
+            </div>
+
+            <div class="form-btn-actions">
+              <button type="button" class="btn btn-secondary" id="btnSaveProjectDraft">Save Draft</button>
+              <button type="submit" class="btn btn-primary">Generate Dossier &amp; Proceed to Land Request &rarr;</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- ==========================================
+             MODULE 03: LAND REQUIREMENT REQUEST
+             ========================================== -->
+        <section class="module-pane" id="mod-land-request">
+          <div class="pane-header">
+            <div>
+              <span class="gov-chip">Cadastral Demarcation</span>
+              <h2 class="pane-title">Land Requirement &amp; Parcel Schedule</h2>
+              <p class="pane-sub">Submit village-level parcel schedules and spatial tenure classifications for Section 11 preliminary notifications.</p>
+            </div>
+          </div>
+
+          <div class="grid-split-2">
+            <!-- Form Card -->
+            <form class="pia-form-card" id="formLandRequest">
+              <div class="form-section-title">Schedule Details</div>
+              
+              <div class="form-group">
+                <label class="form-label">Associated Project *</label>
+                <select class="form-select" id="landReqProjSelect" required>
+                  <!-- Populated from Projects List -->
+                </select>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label">Revenue Village *</label>
+                  <input type="text" class="form-input" id="landVillage" placeholder="e.g., Rampur Kalan" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Khasra / Survey Numbers *</label>
+                  <input type="text" class="form-input" id="landKhasra" placeholder="e.g., 42/1, 43, 48, 52/3" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Required Extent (Hectares) *</label>
+                  <input type="number" step="0.001" class="form-input" id="landExtent" placeholder="e.g., 18.420" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Tenure Classification *</label>
+                  <select class="form-select" id="landTenure" required>
+                    <option value="Private Agriculture">Private Agriculture (First Schedule)</option>
+                    <option value="Government Revenue">State Revenue / Gram Sabha Land</option>
+                    <option value="Forest Land (FC Act)">Forest Land (Requires MoEFCC Diversion)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">GIS Spatial Coordinates (GeoJSON / Lat-Long Bounds) *</label>
+                <input type="text" class="form-input font-mono" id="landGisCoords" value="[[25.3176, 82.9739], [25.3210, 82.9810], [25.3140, 82.9850]]" required />
+              </div>
+
+              <div class="form-btn-actions">
+                <button type="submit" class="btn btn-primary">Add Schedule to Land Registry &rarr;</button>
+              </div>
+            </form>
+
+            <!-- Active Schedules Table -->
+            <div class="dash-card">
+              <div class="card-head-row">
+                <h3 class="card-h3">Current Parcel Requisitions</h3>
+                <span class="gov-badge emerald" id="landScheduleCount">3 Schedules Logged</span>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Village</th>
+                      <th>Khasra</th>
+                      <th>Area (Ha)</th>
+                      <th>Tenure</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="landSchedulesTable">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             MODULE 04: FUND REQUEST & BUDGETING
+             ========================================== -->
+        <section class="module-pane" id="mod-fund-request">
+          <div class="pane-header">
+            <div>
+              <span class="gov-chip">Financial Escrow Routing</span>
+              <h2 class="pane-title">Compensation &amp; R&amp;R Fund Requisition</h2>
+              <p class="pane-sub">Request statutory fund sanction from the Central Ministry for depositing into the District Collector’s escrow account.</p>
+            </div>
+          </div>
+
+          <div class="grid-split-2">
+            <form class="pia-form-card" id="formFundRequest">
+              <div class="form-section-title">Cost Head Allocations</div>
+
+              <div class="form-group">
+                <label class="form-label">Target Infrastructure Project *</label>
+                <select class="form-select" id="fundProjectSelect" required></select>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label">Land Market Value (&#8377; Cr) *</label>
+                  <input type="number" step="0.01" class="form-input" id="fundMarketVal" placeholder="32.50" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Statutory Solatium 100% (&#8377; Cr) *</label>
+                  <input type="number" step="0.01" class="form-input" id="fundSolatium" placeholder="32.50" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">R&amp;R Second Schedule Grants (&#8377; Cr) *</label>
+                  <input type="number" step="0.01" class="form-input" id="fundRr" placeholder="14.20" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Administrative Charges (&#8377; Cr) *</label>
+                  <input type="number" step="0.01" class="form-input" id="fundAdmin" placeholder="2.80" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Total Amount Requested (&#8377; Cr)</label>
+                <input type="text" class="form-input font-mono font-bold text-cyan" id="fundTotalDisplay" value="&#8377; 0.00 Cr" readonly />
+              </div>
+
+              <div class="form-btn-actions">
+                <button type="submit" class="btn btn-primary">Transmit Fund Request to Ministry &rarr;</button>
+              </div>
+            </form>
+
+            <div class="dash-card">
+              <h3 class="card-h3">Fund Disbursement Ledger</h3>
+              <div class="finance-status-box">
+                <div class="fin-row">
+                  <span>Sanctioned Allocation:</span>
+                  <strong id="finSanctioned">&#8377; 184.00 Cr</strong>
+                </div>
+                <div class="fin-row">
+                  <span>Deposited into Collector Escrow:</span>
+                  <strong class="text-emerald" id="finReleased">&#8377; 140.00 Cr</strong>
+                </div>
+                <div class="fin-row">
+                  <span>Pending Release Request:</span>
+                  <strong class="text-amber" id="finPending">&#8377; 44.00 Cr</strong>
+                </div>
+              </div>
+
+              <div class="p-bar-label-group" style="margin-top: 20px;">
+                <span>Disbursement Clearance Index</span>
+                <strong>76.0%</strong>
+              </div>
+              <div class="prog-track"><div class="prog-fill emerald" style="width: 76%;"></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             MODULE 05: DOCUMENT MANAGEMENT SYSTEM (DMS)
+             ========================================== -->
+        <section class="module-pane" id="mod-dms">
+          <div class="pane-header">
+            <div>
+              <span class="gov-chip">Immutable Records</span>
+              <h2 class="pane-title">Statutory Document Management Vault</h2>
+              <p class="pane-sub">Upload, version-control, preview, and track e-Signed statutory submissions and surveyor dossiers.</p>
+            </div>
+          </div>
+
+          <div class="dash-card" style="margin-bottom: 24px;">
+            <form class="dms-upload-strip" id="formDocUpload">
+              <div class="form-group" style="flex: 1;">
+                <label class="form-label">Document Title *</label>
+                <input type="text" class="form-input" id="docTitle" placeholder="e.g., Joint_Measurement_Survey_Pkg4.pdf" required />
+              </div>
+              <div class="form-group" style="width: 220px;">
+                <label class="form-label">Category *</label>
+                <select class="form-select" id="docCategory" required>
+                  <option value="Detailed Project Report (DPR)">DPR / Feasibility</option>
+                  <option value="JMS Cadastral Survey">JMS Cadastral Survey</option>
+                  <option value="Section 11 Draft">Section 11 Draft Gazette</option>
+                  <option value="SIA Social Baseline">SIA Baseline Report</option>
+                </select>
+              </div>
+              <div class="form-group" style="width: 140px;">
+                <label class="form-label">Version</label>
+                <input type="text" class="form-input font-mono" id="docVersion" value="v1.2" required />
+              </div>
+              <button type="submit" class="btn btn-primary" style="margin-top: 22px;">Upload Document</button>
+            </form>
+          </div>
+
+          <div class="dash-card">
+            <h3 class="card-h3">Vault Document Registry</h3>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Document Name</th>
+                    <th>Classification</th>
+                    <th>Version</th>
+                    <th>SHA-256 Hash</th>
+                    <th>Upload Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="dmsTableBody">
+                  <!-- Dynamically Rendered -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             MODULE 06: SUBMISSION & APPROVAL WORKFLOW
+             ========================================== -->
+        <section class="module-pane" id="mod-workflow">
+          <div class="pane-header">
+            <div>
+              <span class="gov-chip">Statutory Gateways</span>
+              <h2 class="pane-title">Application Validation &amp; Submission Workflow</h2>
+              <p class="pane-sub">Verify pre-requisites against the digital checklist before formal transmission to the District Collector and Ministry.</p>
+            </div>
+          </div>
+
+          <div class="grid-split-2">
+            <!-- Digital Validation Checklist -->
+            <div class="dash-card">
+              <h3 class="card-h3">Pre-Submission Validation Checklist</h3>
+              <p class="form-sub-hint">The system prevents transmission unless all statutory requirements are satisfied.</p>
+              
+              <div class="checklist-stack" id="preChecklist">
+                <label class="chk-item">
+                  <input type="checkbox" id="chkSia" checked />
+                  <span>Section 4 Social Impact Assessment (SIA) conducted &amp; published</span>
+                </label>
+                <label class="chk-item">
+                  <input type="checkbox" id="chkJms" checked />
+                  <span>Joint Measurement Survey (JMS) verified by Revenue Amin / Tehsildar</span>
+                </label>
+                <label class="chk-item">
+                  <input type="checkbox" id="chkEscrow" checked />
+                  <span>Estimated land acquisition funds earmarked in Project Escrow</span>
+                </label>
+                <label class="chk-item">
+                  <input type="checkbox" id="chkNoc" checked />
+                  <span>Forest &amp; Environmental In-Principle Stage-I Clearance obtained</span>
+                </label>
+              </div>
+
+              <div class="form-btn-actions" style="margin-top: 24px;">
+                <button class="btn btn-primary" id="btnTransmitApplication">
+                  Submit to Competent Authority (CALA) &rarr;
+                </button>
+              </div>
+            </div>
+
+            <!-- Current Application Status Banner -->
+            <div class="dash-card">
+              <h3 class="card-h3">Current Requisition Status</h3>
+              <div class="submission-receipt" id="submissionReceipt">
+                <div class="receipt-row">
+                  <span>Application Tracking Code:</span>
+                  <strong class="font-mono text-cyan" id="appTrackingCode">NLAMS-REQ-2025-UP-9842</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Reviewing Authority:</span>
+                  <strong>District Collector / CALA (Varanasi)</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Current Action State:</span>
+                  <span class="badge-emerald" id="appActionState">Under District Scrutiny</span>
+                </div>
+                <div class="receipt-row">
+                  <span>Statutory SLA Window:</span>
+                  <span>60 Days for Section 15 Hearing</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             MODULE 07: PROJECT PROGRESS
+             ========================================== -->
+        <section class="module-pane" id="mod-progress">
+          <div class="pane-header">
+            <div>
+              <span class="gov-chip">Corridor Milestones</span>
+              <h2 class="pane-title">Comprehensive Project Progress Monitoring</h2>
+              <p class="pane-sub">Real-time status of statutory notifications, awards, compensation disbursements, and physical possession.</p>
+            </div>
+          </div>
+
+          <div class="progress-milestone-grid">
+            <div class="progress-box">
+              <span class="prog-title">Section 11 / 3A Notifications</span>
+              <div class="prog-val">32 / 32 Villages</div>
+              <div class="prog-track"><div class="prog-fill emerald" style="width: 100%;"></div></div>
+              <span class="prog-sub">100% Statutory notifications issued</span>
+            </div>
+
+            <div class="progress-box">
+              <span class="prog-title">Section 19 / 3D Declarations</span>
+              <div class="prog-val">28 / 32 Villages</div>
+              <div class="prog-track"><div class="prog-fill" style="width: 87.5%;"></div></div>
+              <span class="prog-sub">4 Villages under objection inquiry</span>
+            </div>
+
+            <div class="progress-box">
+              <span class="prog-title">Section 23 / 3G Awards Declared</span>
+              <div class="prog-val">24 / 32 Packages</div>
+              <div class="prog-track"><div class="prog-fill" style="width: 75.0%;"></div></div>
+              <span class="prog-sub">Circle rates &amp; solatium computed</span>
+            </div>
+
+            <div class="progress-box">
+              <span class="prog-title">Physical Land Possession</span>
+              <div class="prog-val text-emerald">892.4 / 1,240 Ha</div>
+              <div class="prog-track"><div class="prog-fill emerald" style="width: 71.9%;"></div></div>
+              <span class="prog-sub">Handover certificates issued</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             MODULE 08: APPLICATION TRACKING TIMELINE
+             ========================================== -->
+        <section class="module-pane" id="mod-tracking">
+          <div class="pane-header">
+            <div>
+              <span class="gov-chip">Lifecycle Visibility</span>
+              <h2 class="pane-title">Visual Statutory Application Tracking</h2>
+              <p class="pane-sub">End-to-end operational visibility of the active requisition through government administrative levels.</p>
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <div class="tracking-stepper">
+              
+              <div class="step-node completed">
+                <div class="step-circle">&#10003;</div>
+                <div class="step-info">
+                  <h4>Drafting</h4>
+                  <p>PIA alignment preparation &amp; shapefiles</p>
+                </div>
+              </div>
+
+              <div class="step-node completed">
+                <div class="step-circle">&#10003;</div>
+                <div class="step-info">
+                  <h4>Submitted</h4>
+                  <p>Requisition transmitted to portal</p>
+                </div>
+              </div>
+
+              <div class="step-node in-progress">
+                <div class="step-circle">&bull;</div>
+                <div class="step-info">
+                  <h4>District Verification</h4>
+                  <p>CALA / LAO joint survey verification</p>
+                </div>
+              </div>
+
+              <div class="step-node pending">
+                <div class="step-circle">&#9675;</div>
+                <div class="step-info">
+                  <h4>State Review</h4>
+                  <p>State revenue gazette publication</p>
+                </div>
+              </div>
+
+              <div class="step-node pending">
+                <div class="step-circle">&#9675;</div>
+                <div class="step-info">
+                  <h4>Central Clearance</h4>
+                  <p>DoLR / Ministry fund approval</p>
+                </div>
+              </div>
+
+              <div class="step-node pending">
+                <div class="step-circle">&#9675;</div>
+                <div class="step-info">
+                  <h4>Final Approval</h4>
+                  <p>Possession handover certificate</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             MODULE 09: NOTIFICATIONS
+             ========================================== -->
+        <section class="module-pane" id="mod-notifications">
+          <div class="pane-header">
+            <div>
+              <span class="gov-chip">Agency Broadcasts</span>
+              <h2 class="pane-title">Directives, Deadlines &amp; Query Alerts</h2>
+              <p class="pane-sub">Official communication from the District Collector, Ministry of Rural Development, and State Revenue authorities.</p>
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <div class="notif-feed-list" id="notifListContainer">
+              <!-- Dynamically Populated -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             MODULE 10: PROFILE & ORGANIZATION
+             ========================================== -->
+        <section class="module-pane" id="mod-profile">
+          <div class="pane-header">
+            <div>
+              <span class="gov-chip">Identity &amp; Credentials</span>
+              <h2 class="pane-title">PIA Organization Profile &amp; Officers</h2>
+              <p class="pane-sub">Registered operational details, authorized signatories, and cryptographic security credentials.</p>
+            </div>
+          </div>
+
+          <div class="grid-split-2">
+            <div class="pia-form-card">
+              <div class="form-section-title">Organization Record</div>
+              <div class="profile-meta-row"><span>Agency Entity:</span> <strong>National Highways Authority of India (NHAI)</strong></div>
+              <div class="profile-meta-row"><span>Field Unit:</span> <strong>Project Implementation Unit (PIU), Varanasi</strong></div>
+              <div class="profile-meta-row"><span>Agency Registration Code:</span> <strong class="font-mono text-cyan">NHAI-PIU-UP-094</strong></div>
+              <div class="profile-meta-row"><span>Assigned Nodal Officer:</span> <strong>Chief General Manager (Technical)</strong></div>
+              <div class="profile-meta-row"><span>Official Email:</span> <strong>piu.varanasi@nhai.org</strong></div>
+              <div class="profile-meta-row"><span>Mobile / Contact:</span> <strong>+91 542 2284XXX</strong></div>
+            </div>
+
+            <div class="pia-form-card">
+              <div class="form-section-title">Security &amp; DSC Keys</div>
+              <div class="profile-meta-row"><span>Digital Signature (DSC):</span> <strong class="text-emerald">&#10003; Valid &amp; Registered</strong></div>
+              <div class="profile-meta-row"><span>Transport Encryption:</span> <strong>TLS 1.3 High Assurance</strong></div>
+              <div class="profile-meta-row"><span>Last Session Login:</span> <strong class="font-mono" id="lastLoginTime">Today, 09:30 AM IST</strong></div>
+              <button class="btn btn-secondary" style="margin-top: 14px;" onclick="alert('Password reset link has been dispatched to authorized official email: piu.varanasi@nhai.org');">
+                Change Master Key Password
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             MODULE 11: REPORTS & DOWNLOADS
+             ========================================== -->
+        <section class="module-pane" id="mod-reports">
+          <div class="pane-header">
+            <div>
+              <span class="gov-chip">Compliance Documentation</span>
+              <h2 class="pane-title">Executive Reports &amp; Statutory Exports</h2>
+              <p class="pane-sub">Export project schedules, compensation ledgers, and land acquisition dossiers for parliamentary scrutiny and departmental reviews.</p>
+            </div>
+          </div>
+
+          <div class="reports-grid">
+            <div class="report-box">
+              <h4 class="rep-title">Project Land Master Dossier (.CSV)</h4>
+              <p class="rep-desc">Comprehensive schedule of all 32 villages, Khasra numbers, tenure classification, and compensation amounts.</p>
+              <button class="btn btn-primary" id="btnExportProjectCsv">Download CSV Export &darr;</button>
+            </div>
+
+            <div class="report-box">
+              <h4 class="rep-title">Fund Utilization &amp; Escrow Audit (.CSV)</h4>
+              <p class="rep-desc">Direct Benefit Transfer disbursal records, solatium breakdown, and district escrow balances.</p>
+              <button class="btn btn-primary" id="btnExportFundCsv">Download Fund Audit &darr;</button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Logic -->
+  <script src="pia-portal.js"></script>
+</body>
+</html>

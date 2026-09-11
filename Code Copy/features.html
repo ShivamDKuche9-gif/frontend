@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features & Capabilities | National Land Acquisition & Management System</title>
+
+  <!-- Typography: Inter, Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. WHITE & SOVEREIGN GOLD TOKENS & RESET
+       ========================================================================== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-heading: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Canvas & Surfaces */
+      --bg-white: #ffffff;
+      --bg-ivory: #faf8f5;
+      --bg-card: #ffffff;
+
+      /* Sovereign Gold Palette */
+      --gold-900: #78350f;
+      --gold-800: #92400e;
+      --gold-700: #b45309;
+      --gold-600: #d97706;
+      --gold-500: #f59e0b;
+      --gold-100: #fef3c7;
+      --gold-50:  #fffbeb;
+
+      /* Gov Accents */
+      --emerald-700: #047857;
+      --emerald-600: #059669;
+      --emerald-100: #d1fae5;
+      --rose-600: #e11d48;
+      --rose-100: #ffe4e6;
+
+      /* Shadows & Borders */
+      --border-subtle: rgba(15, 23, 42, 0.08);
+      --border-gold: rgba(217, 119, 6, 0.25);
+      --border-gold-focus: rgba(217, 119, 6, 0.6);
+      --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      --gold-shadow-hover: 0 12px 30px rgba(217, 119, 6, 0.12);
+
+      /* Typography */
+      --text-main: #0f172a;
+      --text-heading: #1e293b;
+      --text-muted: #475569;
+      --text-subtle: #64748b;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --container-max: 1280px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-white);
+      color: var(--text-main);
+      font-family: var(--font-body);
+    }
+
+    body {
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Scroll progress bar */
+    .scroll-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, #d97706, #fbbf24, #059669);
+      z-index: 99999;
+      transition: width 0.1s linear;
+    }
+
+    /* ==========================================================================
+       2. REUSABLE ATOMS & BADGES
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-wrap {
+      padding: 96px 0;
+      position: relative;
+    }
+
+    .section-wrap.alt-bg {
+      background-color: var(--bg-ivory);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 840px;
+      margin: 0 auto 56px;
+    }
+
+    .gov-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      background: var(--gold-50);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-800);
+    }
+
+    .gov-badge.emerald {
+      background: var(--emerald-100);
+      border-color: rgba(5, 150, 105, 0.3);
+      color: var(--emerald-700);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+      font-weight: 800;
+      color: var(--text-heading);
+      line-height: 1.18;
+      letter-spacing: -0.5px;
+      margin-bottom: 18px;
+    }
+
+    .section-desc {
+      font-size: clamp(1rem, 1.4vw, 1.15rem);
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .demo-disclaimer {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold-800);
+      background: var(--gold-50);
+      border: 1px dashed var(--gold-600);
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s var(--ease);
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(217, 119, 6, 0.25);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--gold-shadow-hover);
+      background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--gold-900);
+      border: 1px solid var(--border-gold);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gold-50);
+      border-color: var(--gold-600);
+      transform: translateY(-2px);
+    }
+
+    /* Scroll reveal transitions */
+    .reveal-fade {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+      will-change: opacity, transform;
+    }
+
+    .reveal-fade.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Top Utility Breadcrumb Bar */
+    .top-utility-bar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 64px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+    }
+
+    .utility-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .portal-logo-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-heading);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .portal-logo-link svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--gold-600);
+    }
+
+    .portal-logo-link span {
+      font-size: 0.72rem;
+      color: var(--gold-700);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      margin-left: 6px;
+    }
+
+    .back-home-link {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--gold-800);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: var(--gold-50);
+      border: 1px solid var(--border-gold);
+      transition: all 0.2s ease;
+    }
+
+    .back-home-link:hover {
+      background: var(--gold-600);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+    }
+
+    /* ==========================================================================
+       SECTION 01: HERO
+       ========================================================================== */
+    .features-hero {
+      padding: 70px 0 90px;
+      background: radial-gradient(circle at 70% 30%, rgba(245, 158, 11, 0.08) 0%, transparent 65%), var(--bg-white);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .hero-badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .hero-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(2.4rem, 4.8vw, 4.2rem);
+      font-weight: 800;
+      color: var(--text-heading);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 22px;
+    }
+
+    .hero-highlight {
+      background: linear-gradient(135deg, #b45309 20%, #d97706 60%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .hero-lead {
+      font-size: clamp(1rem, 1.4vw, 1.18rem);
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 34px;
+    }
+
+    .hero-network-frame {
+      background: var(--bg-ivory);
+      border: 1px solid var(--border-gold);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      position: relative;
+    }
+
+    .hero-network-svg {
+      width: 100%;
+      height: 380px;
+      display: block;
+    }
+
+    /* ==========================================================================
+       SECTION 02: 10-STAGE WORKFLOW LIFECYCLE
+       ========================================================================== */
+    .timeline-rail {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      scrollbar-width: thin;
+      scrollbar-color: var(--gold-500) transparent;
+    }
+
+    .timeline-rail::-webkit-scrollbar {
+      height: 6px;
+    }
+    .timeline-rail::-webkit-scrollbar-thumb {
+      background: var(--gold-500);
+      border-radius: 10px;
+    }
+
+    .wf-stage-btn {
+      flex: 0 0 auto;
+      background: var(--bg-ivory);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 12px 18px;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading);
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .wf-stage-btn:hover {
+      background: var(--gold-50);
+      border-color: var(--border-gold);
+      color: var(--gold-900);
+    }
+
+    .wf-stage-btn.active {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      border-color: var(--gold-700);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+    }
+
+    .wf-badge-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.08);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+    }
+
+    .wf-stage-btn.active .wf-badge-num {
+      background: #ffffff;
+      color: var(--gold-800);
+      font-weight: 800;
+    }
+
+    .wf-detail-card {
+      margin-top: 28px;
+      background: #ffffff;
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    /* ==========================================================================
+       SECTION 03: GIS PARCEL INTELLIGENCE & FILTER
+       ========================================================================== */
+    .gis-filter-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid var(--border-gold);
+      border-radius: 12px 12px 0 0;
+      padding: 14px 20px;
+      gap: 12px;
+    }
+
+    .gis-filter-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .gis-filter-btn {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-ivory);
+      color: var(--text-main);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .gis-filter-btn.active {
+      background: var(--gold-600);
+      color: #ffffff;
+      border-color: var(--gold-600);
+      box-shadow: 0 2px 8px rgba(217, 119, 6, 0.2);
+    }
+
+    .cadastral-canvas-wrap {
+      border: 1px solid var(--border-gold);
+      border-top: none;
+      border-radius: 0 0 16px 16px;
+      background: #fcfbf9;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .cadastral-svg {
+      width: 100%;
+      height: 420px;
+      display: block;
+    }
+
+    /* Parcel Polygon Styles */
+    .cad-parcel {
+      cursor: pointer;
+      stroke-width: 1.8;
+      transition: all 0.3s ease;
+    }
+
+    .cad-parcel.acquired {
+      fill: rgba(5, 150, 105, 0.16);
+      stroke: #059669;
+    }
+
+    .cad-parcel.in-process {
+      fill: rgba(217, 119, 6, 0.16);
+      stroke: #d97706;
+    }
+
+    .cad-parcel.disputed {
+      fill: rgba(225, 29, 72, 0.16);
+      stroke: #e11d48;
+    }
+
+    .cad-parcel:hover, .cad-parcel.is-active {
+      fill-opacity: 0.45;
+      stroke-width: 3.2;
+      filter: drop-shadow(0 0 8px rgba(217, 119, 6, 0.4));
+    }
+
+    .cad-parcel.is-dimmed {
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .gis-meta-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .gis-meta-box {
+      background: #ffffff;
+      border: 1px solid var(--border-gold);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    /* ==========================================================================
+       SECTION 04: REAL-TIME NATIONAL DASHBOARD
+       ========================================================================== */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .dash-kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px 16px;
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .dash-kpi-card:hover {
+      border-color: var(--border-gold-focus);
+      box-shadow: var(--gold-shadow-hover);
+      transform: translateY(-3px);
+    }
+
+    .dash-kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--gold-500);
+    }
+
+    .dash-kpi-card.emerald::before { background: var(--emerald-600); }
+
+    .dash-kpi-title {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-subtle);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .dash-kpi-val {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .dash-kpi-sub {
+      font-size: 0.72rem;
+      color: var(--emerald-700);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       SECTION 05: ROLE-BASED ACCESS (RBAC HIERARCHY)
+       ========================================================================== */
+    .rbac-tree {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .rbac-node {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      background: #ffffff;
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .rbac-node:hover {
+      border-color: var(--gold-600);
+      box-shadow: var(--gold-shadow-hover);
+      transform: translateX(4px);
+    }
+
+    .rbac-node-left {
+      background: var(--bg-ivory);
+      padding: 20px;
+      border-right: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rbac-node-left h4 {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-heading);
+    }
+
+    .rbac-node-right {
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       SECTION 06: SMART DOCUMENT MANAGEMENT
+       ========================================================================== */
+    .dms-box {
+      background: #ffffff;
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .dms-table-wrap {
+      overflow-x: auto;
+    }
+
+    .dms-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .dms-table th {
+      background: var(--bg-ivory);
+      padding: 14px 18px;
+      font-family: var(--font-heading);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      color: var(--gold-900);
+      border-bottom: 1px solid var(--border-gold);
+    }
+
+    .dms-table td {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+    }
+
+    .dms-table tr:hover td {
+      background: var(--gold-50);
+    }
+
+    /* ==========================================================================
+       SECTION 07 & 08: COMPENSATION, POSSESSION & R&R
+       ========================================================================== */
+    .feature-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .feature-panel {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+    }
+
+    .feature-panel:hover {
+      border-color: var(--border-gold);
+      box-shadow: var(--gold-shadow-hover);
+    }
+
+    .progress-line-group {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .prog-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(15, 23, 42, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .prog-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #d97706, #fbbf24);
+      border-radius: 4px;
+      transition: width 1.2s ease-out;
+    }
+
+    .prog-fill.emerald { background: linear-gradient(90deg, #059669, #34d399); }
+
+    /* ==========================================================================
+       SECTION 09 & 10: TIMELINE ALERTS & PREDICTIVE RISK SCORE
+       ========================================================================== */
+    .risk-alert-row {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .risk-score-card {
+      background: #ffffff;
+      border: 1px solid rgba(225, 29, 72, 0.35);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(225, 29, 72, 0.08);
+    }
+
+    /* ==========================================================================
+       SECTION 11 & 12: APIS & MOBILE SURVEYOR APP
+       ========================================================================== */
+    .mobile-api-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .phone-mockup {
+      width: 310px;
+      height: 560px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 8px solid #cbd5e1;
+      border-radius: 34px;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-screen {
+      padding: 18px;
+      background: #faf8f5;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* ==========================================================================
+       SECTION 13, 14 & 15: SECURITY, REPORTS MIS & SCALABILITY
+       ========================================================================== */
+    .mis-action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--card-shadow);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .impact-hex-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .impact-box {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 26px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+    }
+
+    .impact-box:hover {
+      border-color: var(--border-gold-focus);
+      box-shadow: var(--gold-shadow-hover);
+      transform: translateY(-4px);
+    }
+
+    /* ==========================================================================
+       FINAL CTA & FOOTER
+       ========================================================================== */
+    .final-cta-card {
+      background: linear-gradient(135deg, #ffffff 0%, var(--bg-ivory) 100%);
+      border: 1px solid var(--border-gold);
+      border-radius: 20px;
+      padding: clamp(40px, 6vw, 65px);
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(217, 119, 6, 0.1);
+    }
+
+    .features-footer {
+      background: var(--bg-ivory);
+      border-top: 1px solid var(--border-gold);
+      padding: 40px 0;
+      font-size: 0.84rem;
+      color: var(--text-subtle);
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .hero-grid, .risk-alert-row, .mobile-api-split, .wf-detail-card {
+        grid-template-columns: 1fr;
+      }
+      .dashboard-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .feature-split-grid, .impact-hex-grid, .gis-meta-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .rbac-node {
+        grid-template-columns: 1fr;
+      }
+      .rbac-node-left {
+        border-right: none;
+        border-bottom: 1px solid var(--border-gold);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .dashboard-grid, .feature-split-grid, .impact-hex-grid, .gis-meta-strip {
+        grid-template-columns: 1fr;
+      }
+      .section-wrap {
+        padding: 65px 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .scroll-progress-bar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Scroll Progress Bar -->
+  <div class="scroll-progress-bar" id="progressBar"></div>
+
+  <!-- Top Utility Breadcrumb -->
+  <nav class="top-utility-bar">
+    <div class="container utility-flex">
+      <a href="index.html" class="portal-logo-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+        GOVPORTAL <span>&bull; SIH 26016 Features Dossier</span>
+      </a>
+
+      <a href="index.html" class="back-home-link">&larr; Return to Home Portal</a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ==========================================================================
+         01 — HERO
+         ========================================================================== -->
+    <section class="features-hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-badges-row">
+            <span class="gov-badge"><span class="badge-dot"></span> SIH 26016</span>
+            <span class="gov-badge emerald">DoLR &bull; Ministry of Rural Development</span>
+            <span class="gov-badge">National Digital Platform</span>
+          </div>
+
+          <h1 class="hero-heading">
+            Everything Land Acquisition. <span class="hero-highlight">One Connected Platform.</span>
+          </h1>
+
+          <p class="hero-lead">
+            The platform digitizes the statutory land acquisition lifecycle from project proposal submission to final possession—interconnecting statutory workflows, spatial cadastral GIS, immutable documentation, direct compensation, and rehabilitation monitoring.
+          </p>
+
+          <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <a href="#gis-section" class="btn btn-primary">Interactive GIS Engine &darr;</a>
+            <a href="#workflow-section" class="btn btn-secondary">Explore 10-Stage Workflow &rarr;</a>
+          </div>
+
+          <div class="demo-disclaimer">
+            <span>&#9888;</span> Architectural prototype developed for Smart India Hackathon &bull; Functional Capabilities Tour
+          </div>
+        </div>
+
+        <!-- Animated SVG GIS / Network Graphic -->
+        <div class="hero-network-frame">
+          <svg class="hero-network-svg" viewBox="0 0 500 380" fill="none">
+            <!-- Interconnecting routing rays -->
+            <path d="M60 190 L200 90 L360 110 L440 240 L280 310 L140 280 Z" stroke="rgba(217, 119, 6, 0.35)" stroke-width="1.8" stroke-dasharray="4 4" />
+            <line x1="200" y1="90" x2="280" y2="310" stroke="rgba(217, 119, 6, 0.25)" stroke-width="1.6" />
+            <line x1="60" y1="190" x2="360" y2="110" stroke="rgba(5, 150, 105, 0.25)" stroke-width="1.6" />
+            
+            <!-- Nodes -->
+            <g transform="translate(200, 90)">
+              <circle r="12" fill="#d97706" stroke="#ffffff" stroke-width="2.5" />
+              <text y="30" text-anchor="middle" fill="#78350f" font-size="11" font-weight="800">DoLR Apex</text>
+            </g>
+            <g transform="translate(360, 110)">
+              <circle r="9" fill="#059669" stroke="#ffffff" stroke-width="2" />
+              <text y="24" text-anchor="middle" fill="#475569" font-size="10" font-weight="700">State Nodal</text>
+            </g>
+            <g transform="translate(440, 240)">
+              <circle r="9" fill="#b45309" stroke="#ffffff" stroke-width="2" />
+              <text y="22" text-anchor="middle" fill="#475569" font-size="10" font-weight="700">District LAO</text>
+            </g>
+            <g transform="translate(280, 310)">
+              <circle r="8" fill="#f59e0b" stroke="#ffffff" stroke-width="2" />
+              <text y="22" text-anchor="middle" fill="#475569" font-size="10" font-weight="700">Agency (NHAI)</text>
+            </g>
+            <g transform="translate(60, 190)">
+              <circle r="8" fill="#e11d48" stroke="#ffffff" stroke-width="2" />
+              <text y="20" text-anchor="middle" fill="#475569" font-size="10" font-weight="700">Cadastral Plot</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         02 — END-TO-END DIGITAL WORKFLOW
+         ========================================================================== -->
+    <section class="section-wrap alt-bg" id="workflow-section">
+      <div class="container">
+        <div class="section-header reveal-fade">
+          <span class="gov-badge">Statutory RFCTLARR Lifecycle</span>
+          <h2 class="section-title">End-to-End Digital Workflow</h2>
+          <p class="section-desc">
+            A standardized, auditable procedural continuum mapped to the provisions of the Right to Fair Compensation and Transparency in Land Acquisition, Rehabilitation and Resettlement Act, 2013.
+          </p>
+        </div>
+
+        <div class="reveal-fade">
+          <!-- 10-Stage Buttons -->
+          <div class="timeline-rail" id="workflowRail">
+            <button class="wf-stage-btn active" data-stage="1"><span class="wf-badge-num">1</span> Proposal</button>
+            <button class="wf-stage-btn" data-stage="2"><span class="wf-badge-num">2</span> Verification</button>
+            <button class="wf-stage-btn" data-stage="3"><span class="wf-badge-num">3</span> Approval</button>
+            <button class="wf-stage-btn" data-stage="4"><span class="wf-badge-num">4</span> Notification</button>
+            <button class="wf-stage-btn" data-stage="5"><span class="wf-badge-num">5</span> Survey & Geo-tagging</button>
+            <button class="wf-stage-btn" data-stage="6"><span class="wf-badge-num">6</span> Award</button>
+            <button class="wf-stage-btn" data-stage="7"><span class="wf-badge-num">7</span> Compensation</button>
+            <button class="wf-stage-btn" data-stage="8"><span class="wf-badge-num">8</span> Possession</button>
+            <button class="wf-stage-btn" data-stage="9"><span class="wf-badge-num">9</span> R&R</button>
+            <button class="wf-stage-btn" data-stage="10"><span class="wf-badge-num">10</span> Closure</button>
+          </div>
+
+          <!-- Dynamic Details Card -->
+          <div class="wf-detail-card">
+            <div>
+              <span id="wfMetaSeq" style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--gold-700);">STAGE 01 &bull; REQUISITION</span>
+              <h3 id="wfTitle" style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--text-heading); margin: 8px 0 12px;">Online Project Proposal Submission</h3>
+              <p id="wfDesc" style="color: var(--text-muted); font-size: 0.98rem; line-height: 1.7;">
+                Implementing agencies register project alignments, revenue village schedules, and required acreage limits online with geo-spatial shapefiles, creating an unalterable master requisition dossier.
+              </p>
+            </div>
+            <div style="background: var(--bg-ivory); border: 1px solid var(--border-gold); padding: 20px; border-radius: 12px;">
+              <div style="font-size: 0.82rem; color: var(--text-subtle); text-transform: uppercase; font-weight: 700;">Statutory Governing Mandate:</div>
+              <div id="wfStatute" style="font-weight: 800; font-size: 1.05rem; color: var(--text-heading); margin: 4px 0 14px;">Section 4 (SIA Preparation)</div>
+              <div style="font-size: 0.82rem; color: var(--text-subtle); text-transform: uppercase; font-weight: 700;">Primary Output:</div>
+              <div id="wfOutput" style="font-weight: 700; font-size: 0.95rem; color: var(--gold-800);">Form A Requisition Record</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         03 — GIS LAND PARCEL INTELLIGENCE (WITH INTERACTIVE FILTER)
+         ========================================================================== -->
+    <section class="section-wrap" id="gis-section">
+      <div class="container">
+        <div class="section-header reveal-fade">
+          <span class="gov-badge emerald">Spatial Cadastral Engine</span>
+          <h2 class="section-title">GIS Land Parcel Intelligence</h2>
+          <p class="section-desc">
+            Visualizing affected cadastral plots on geo-referenced maps with real-time statutory status filtering and spatial parcel inspections.
+          </p>
+        </div>
+
+        <div class="reveal-fade">
+          <!-- Filter Toolbar -->
+          <div class="gis-filter-toolbar">
+            <div style="font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--text-heading);">
+              Filter Cadastral Boundaries:
+            </div>
+            <div class="gis-filter-pills" id="gisFilterGroup">
+              <button class="gis-filter-btn active" data-filter="all">All Parcels (6)</button>
+              <button class="gis-filter-btn" data-filter="acquired">Acquired & Demarcated (3)</button>
+              <button class="gis-filter-btn" data-filter="in-process">In Award Inquiry (2)</button>
+              <button class="gis-filter-btn" data-filter="disputed">Disputed / Ref (1)</button>
+            </div>
+          </div>
+
+          <!-- Interactive SVG Cadastral Map Canvas -->
+          <div class="cadastral-canvas-wrap">
+            <svg class="cadastral-svg" viewBox="0 0 700 420" id="cadastralSvg">
+              <!-- Grid background -->
+              <defs>
+                <pattern id="featGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(15, 23, 42, 0.05)" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="700" height="420" fill="url(#featGrid)" />
+
+              <!-- Highway/Railway Alignment Corridor -->
+              <path d="M 0 210 Q 350 175 700 235" fill="none" stroke="rgba(245, 158, 11, 0.28)" stroke-width="48" stroke-linecap="round"/>
+              <path d="M 0 210 Q 350 175 700 235" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="8 6"/>
+
+              <!-- Parcel Polygons -->
+              <polygon points="40,110 140,95 165,185 65,200" class="cad-parcel acquired" data-category="acquired" data-id="LP-1041" data-village="Khasra 42, Rampur" data-area="3.42 ha" data-status="Acquired" data-comp="Disbursed (100%)" data-poss="Taken" data-rr="Completed"/>
+              <polygon points="140,95 260,80 290,175 165,185" class="cad-parcel acquired is-active" data-category="acquired" data-id="LP-1042" data-village="Khasra 43, Rampur" data-area="4.82 ha" data-status="Acquired" data-comp="Disbursed (100%)" data-poss="Completed" data-rr="In Progress"/>
+              <polygon points="260,80 390,95 425,180 290,175" class="cad-parcel in-process" data-category="in-process" data-id="LP-1043" data-village="Khasra 44, Sultanpur" data-area="5.15 ha" data-status="In Award Inquiry" data-comp="Assessed (Pending)" data-poss="Pending" data-rr="Scheduled"/>
+              <polygon points="390,95 520,85 545,190 425,180" class="cad-parcel in-process" data-category="in-process" data-id="LP-1044" data-village="Khasra 45, Sultanpur" data-area="2.90 ha" data-status="Sec 19 Declaration" data-comp="Under Scrutiny" data-poss="Pending" data-rr="Enumerated"/>
+              <polygon points="65,200 165,185 190,290 85,305" class="cad-parcel acquired" data-category="acquired" data-id="LP-1045" data-village="Khasra 48, Rampur" data-area="4.10 ha" data-status="Acquired" data-comp="Disbursed (100%)" data-poss="Taken" data-rr="Exempt"/>
+              <polygon points="290,175 425,180 460,290 315,280" class="cad-parcel disputed" data-category="disputed" data-id="LP-1046" data-village="Khasra 49, Mehrauli" data-area="6.25 ha" data-status="Disputed (Sec 64 Ref)" data-comp="Deposited with Court" data-poss="Stayed" data-rr="Pending Resolution"/>
+
+              <!-- Parcel Labels -->
+              <text x="75" y="155" fill="#0f172a" font-size="10" font-weight="700">LP-1041</text>
+              <text x="195" y="145" fill="#78350f" font-size="11" font-weight="800">LP-1042</text>
+              <text x="330" y="145" fill="#0f172a" font-size="10" font-weight="700">LP-1043</text>
+              <text x="445" y="145" fill="#0f172a" font-size="10" font-weight="700">LP-1044</text>
+              <text x="110" y="250" fill="#0f172a" font-size="10" font-weight="700">LP-1045</text>
+              <text x="355" y="245" fill="#0f172a" font-size="10" font-weight="700">LP-1046</text>
+            </svg>
+          </div>
+
+          <!-- Live Parcel Inspector Output Strip -->
+          <div class="gis-meta-strip">
+            <div class="gis-meta-box">
+              <span style="font-size: 0.72rem; color: var(--text-subtle); text-transform: uppercase; font-weight: 700;">Selected Parcel:</span>
+              <div id="gisId" style="font-family: var(--font-mono); font-size: 1.1rem; font-weight: 800; color: var(--gold-800);">LP-1042</div>
+            </div>
+            <div class="gis-meta-box">
+              <span style="font-size: 0.72rem; color: var(--text-subtle); text-transform: uppercase; font-weight: 700;">Village & Extent:</span>
+              <div id="gisVillage" style="font-weight: 700; font-size: 0.95rem; color: var(--text-heading);">Khasra 43 (4.82 ha)</div>
+            </div>
+            <div class="gis-meta-box">
+              <span style="font-size: 0.72rem; color: var(--text-subtle); text-transform: uppercase; font-weight: 700;">Compensation Status:</span>
+              <div id="gisComp" style="font-weight: 700; font-size: 0.95rem; color: var(--emerald-700);">Disbursed (100%)</div>
+            </div>
+            <div class="gis-meta-box">
+              <span style="font-size: 0.72rem; color: var(--text-subtle); text-transform: uppercase; font-weight: 700;">Physical Possession:</span>
+              <div id="gisPoss" style="font-weight: 700; font-size: 0.95rem; color: var(--text-heading);">Completed</div>
+            </div>
+          </div>
+          <div class="demo-disclaimer" style="width: 100%; justify-content: center;">
+            Illustrative Cadastral Map Engine &bull; Click parcels to inspect or use filter pills above
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         04 — REAL-TIME NATIONAL DASHBOARD
+         ========================================================================== -->
+    <section class="section-wrap alt-bg" id="dashboard-section">
+      <div class="container">
+        <div class="section-header reveal-fade">
+          <span class="gov-badge">Telemetry & Oversight</span>
+          <h2 class="section-title">Real-Time National Dashboard</h2>
+          <p class="section-desc">
+            Aggregating decentralized district revenue inputs into macro executive indicators for Central and State authorities.
+          </p>
+          <div class="demo-disclaimer">&#9888; Illustrative Demonstration Metrics — For Demonstration Purposes Only</div>
+        </div>
+
+        <div class="dashboard-grid reveal-fade">
+          <div class="dash-kpi-card">
+            <div class="dash-kpi-title">Land Proposed</div>
+            <div class="dash-kpi-val">24,850 ha</div>
+            <div class="dash-kpi-sub">Across 180 Projects</div>
+          </div>
+          <div class="dash-kpi-card">
+            <div class="dash-kpi-title">Area Notified (Sec 11)</div>
+            <div class="dash-kpi-val">19,420 ha</div>
+            <div class="dash-kpi-sub">78.1% of proposed</div>
+          </div>
+          <div class="dash-kpi-card emerald">
+            <div class="dash-kpi-title">Area Acquired</div>
+            <div class="dash-kpi-val">14,380 ha</div>
+            <div class="dash-kpi-sub">Awards Declared</div>
+          </div>
+          <div class="dash-kpi-card">
+            <div class="dash-kpi-title">Compensation Assessed</div>
+            <div class="dash-kpi-val">₹10,640 Cr</div>
+            <div class="dash-kpi-sub">Valuation Matrix</div>
+          </div>
+          <div class="dash-kpi-card emerald">
+            <div class="dash-kpi-title">Compensation Paid</div>
+            <div class="dash-kpi-val">₹8,420 Cr</div>
+            <div class="dash-kpi-sub">Direct DBT Disbursal</div>
+          </div>
+          <div class="dash-kpi-card">
+            <div class="dash-kpi-title">Affected Families</div>
+            <div class="dash-kpi-val">14,820</div>
+            <div class="dash-kpi-sub">Enumerated in SIA</div>
+          </div>
+          <div class="dash-kpi-card">
+            <div class="dash-kpi-title">Displaced Families</div>
+            <div class="dash-kpi-val">3,140</div>
+            <div class="dash-kpi-sub">Requiring Relocation</div>
+          </div>
+          <div class="dash-kpi-card emerald">
+            <div class="dash-kpi-title">Possession Status</div>
+            <div class="dash-kpi-val">68.2%</div>
+            <div class="dash-kpi-sub">Handed to Agency</div>
+          </div>
+          <div class="dash-kpi-card">
+            <div class="dash-kpi-title">R&R Progress</div>
+            <div class="dash-kpi-val">91.4%</div>
+            <div class="dash-kpi-sub">Second Schedule Norms</div>
+          </div>
+          <div class="dash-kpi-card emerald">
+            <div class="dash-kpi-title">Timeline Adherence</div>
+            <div class="dash-kpi-val">84.0%</div>
+            <div class="dash-kpi-sub">Within Sec 25 Limit</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         05 — ROLE-BASED ACCESS
+         ========================================================================== -->
+    <section class="section-wrap" id="rbac-section">
+      <div class="container">
+        <div class="section-header reveal-fade">
+          <span class="gov-badge">Administrative Hierarchy</span>
+          <h2 class="section-title">Role-Based Workspaces (RBAC)</h2>
+          <p class="section-desc">
+            Enforcing statutory segregation of duties across federal, provincial, and district administrative tiers.
+          </p>
+        </div>
+
+        <div class="rbac-tree reveal-fade">
+          <div class="rbac-node">
+            <div class="rbac-node-left">
+              <span class="badge-dot" style="background: #d97706;"></span>
+              <h4>Central Ministry (DoLR)</h4>
+            </div>
+            <div class="rbac-node-right">
+              <span>National progress analytics, cross-state benchmark comparisons, and statutory policy formulation.</span>
+              <span class="gov-badge" style="margin: 0;">Full Visibility</span>
+            </div>
+          </div>
+
+          <div class="rbac-node">
+            <div class="rbac-node-left">
+              <span class="badge-dot" style="background: #059669;"></span>
+              <h4>State Government</h4>
+            </div>
+            <div class="rbac-node-right">
+              <span>State gazette notification releases, inter-district administrative routing, and appellate arbitration tracking.</span>
+              <span class="gov-badge emerald" style="margin: 0;">Statewide</span>
+            </div>
+          </div>
+
+          <div class="rbac-node">
+            <div class="rbac-node-left">
+              <span class="badge-dot" style="background: #b45309;"></span>
+              <h4>District Collector / LAO</h4>
+            </div>
+            <div class="rbac-node-right">
+              <span>Award inquiry execution, solatium calculation, objection hearings, and physical possession certificates.</span>
+              <span class="gov-badge" style="margin: 0;">Jurisdiction</span>
+            </div>
+          </div>
+
+          <div class="rbac-node">
+            <div class="rbac-node-left">
+              <span class="badge-dot" style="background: #f59e0b;"></span>
+              <h4>Implementing Agency</h4>
+            </div>
+            <div class="rbac-node-right">
+              <span>Requisition submission, alignment shapefile updates, compensation fund deposits, and land takeover.</span>
+              <span class="gov-badge" style="margin: 0;">Project Scope</span>
+            </div>
+          </div>
+
+          <div class="rbac-node">
+            <div class="rbac-node-left">
+              <span class="badge-dot" style="background: #059669;"></span>
+              <h4>Field Survey Officials</h4>
+            </div>
+            <div class="rbac-node-right">
+              <span>Mobile cadastral geo-tagging, ground asset enumeration (trees/wells), and digital photo verification.</span>
+              <span class="gov-badge emerald" style="margin: 0;">Field Only</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         06 — SMART DOCUMENT MANAGEMENT
+         ========================================================================== -->
+    <section class="section-wrap alt-bg" id="dms-section">
+      <div class="container">
+        <div class="section-header reveal-fade">
+          <span class="gov-badge">Verifiable Digital Trail</span>
+          <h2 class="section-title">Smart Document Management</h2>
+          <p class="section-desc">
+            Centralized document vault with cryptographic version history, authorized access permissions, and automated gazette generation.
+          </p>
+        </div>
+
+        <div class="dms-box reveal-fade">
+          <div class="dms-table-wrap">
+            <table class="dms-table">
+              <thead>
+                <tr>
+                  <th>Statutory Record</th>
+                  <th>Classification</th>
+                  <th>Version</th>
+                  <th>Audit Hash</th>
+                  <th>Officer e-Sign</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Preliminary_Notification_Sec11.pdf</strong></td>
+                  <td>Gazette Notice</td>
+                  <td><span class="gov-badge" style="margin:0; padding:2px 8px;">v1.3</span></td>
+                  <td><code>0x8f2d...c914</code></td>
+                  <td><span style="color:var(--emerald-700); font-weight:700;">&#10003; Verified</span></td>
+                  <td>14-Jan-2025 11:24</td>
+                </tr>
+                <tr>
+                  <td><strong>Joint_Measurement_Survey_Record.geojson</strong></td>
+                  <td>Spatial Cadastral</td>
+                  <td><span class="gov-badge" style="margin:0; padding:2px 8px;">v2.0</span></td>
+                  <td><code>0x4b71...a302</code></td>
+                  <td><span style="color:var(--emerald-700); font-weight:700;">&#10003; Verified</span></td>
+                  <td>18-Jan-2025 16:40</td>
+                </tr>
+                <tr>
+                  <td><strong>Collector_Award_Valuation_Matrix.xlsx</strong></td>
+                  <td>Section 23 Award</td>
+                  <td><span class="gov-badge" style="margin:0; padding:2px 8px;">v1.0</span></td>
+                  <td><code>0x9e12...77fe</code></td>
+                  <td><span style="color:var(--gold-800); font-weight:700;">&#9888; Under Audit</span></td>
+                  <td>20-Jan-2025 09:15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         07 & 08 — COMPENSATION, POSSESSION & R&R
+         ========================================================================== -->
+    <section class="section-wrap" id="compensation-section">
+      <div class="container">
+        <div class="section-header reveal-fade">
+          <span class="gov-badge emerald">Human & Fiscal Governance</span>
+          <h2 class="section-title">Compensation & Resettlement Tracking</h2>
+          <p class="section-desc">
+            Direct benefit disbursement linked with respectful, longitudinal monitoring of affected families.
+          </p>
+        </div>
+
+        <div class="feature-split-grid reveal-fade">
+          <div class="feature-panel">
+            <span class="gov-badge">Financial Execution</span>
+            <h3 style="font-family:var(--font-heading); font-size:1.4rem; color:var(--text-heading); margin:10px 0;">Compensation & Possession</h3>
+            <p style="color:var(--text-muted); font-size:0.95rem;">
+              Automated circle rate valuation factoring in statutory 100% solatium and 12% additional interest per annum under the First Schedule.
+            </p>
+            <div class="progress-line-group">
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:6px;">
+                  <span>Direct PFMS Bank Disbursal</span>
+                  <span>79.1%</span>
+                </div>
+                <div class="prog-track"><div class="prog-fill emerald" style="width: 79.1%;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:6px;">
+                  <span>Physical Demarcation & Possession</span>
+                  <span>68.2%</span>
+                </div>
+                <div class="prog-track"><div class="prog-fill" style="width: 68.2%;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-panel">
+            <span class="gov-badge emerald">Social Safeguard</span>
+            <h3 style="font-family:var(--font-heading); font-size:1.4rem; color:var(--text-heading); margin:10px 0;">Rehabilitation & Resettlement (R&R)</h3>
+            <p style="color:var(--text-muted); font-size:0.95rem;">
+              Continuous tracking of affected family entitlements, alternative housing unit construction, and displacement allowances under the Second Schedule.
+            </p>
+            <div class="progress-line-group">
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:6px;">
+                  <span>Housing Unit Handover</span>
+                  <span>91.4%</span>
+                </div>
+                <div class="prog-track"><div class="prog-fill emerald" style="width: 91.4%;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:700; margin-bottom:6px;">
+                  <span>Civic Infrastructure Provision</span>
+                  <span>84.0%</span>
+                </div>
+                <div class="prog-track"><div class="prog-fill" style="width: 84%;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         09 & 10 — SMART TIMELINE & PREDICTIVE ANALYTICS
+         ========================================================================== -->
+    <section class="section-wrap alt-bg" id="analytics-section">
+      <div class="container">
+        <div class="section-header reveal-fade">
+          <span class="gov-badge">Data-Driven Early Warning</span>
+          <h2 class="section-title">Timeline Monitoring & Predictive Risk</h2>
+          <p class="section-desc">
+            Early detection of administrative stagnations and statutory lapsing risks under Section 25.
+          </p>
+        </div>
+
+        <div class="risk-alert-row reveal-fade">
+          <!-- Notification Feed -->
+          <div style="background:#ffffff; border:1px solid var(--border-gold); border-radius:16px; padding:28px; box-shadow:var(--card-shadow);">
+            <h3 style="font-family:var(--font-heading); font-size:1.25rem; color:var(--text-heading); margin-bottom:16px;">Automated Statutory Alerts</h3>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div style="padding:14px; background:var(--gold-50); border:1px solid var(--border-gold); border-radius:8px; display:flex; justify-content:space-between;">
+                <div>
+                  <strong style="color:var(--gold-900); font-size:0.9rem;">Section 25 Lapsing Window (45 Days Remaining)</strong>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">Package IV &bull; Award inquiry pending final signature</div>
+                </div>
+                <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-700);">URGENT</span>
+              </div>
+              <div style="padding:14px; background:var(--bg-ivory); border:1px solid var(--border-subtle); border-radius:8px; display:flex; justify-content:space-between;">
+                <div>
+                  <strong style="color:var(--text-heading); font-size:0.9rem;">JMS Ground Truthing Scheduled</strong>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">Circle Mehrauli &bull; Surveyor batch deployed</div>
+                </div>
+                <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-subtle);">2h ago</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Risk Score Card UI -->
+          <div class="risk-score-card">
+            <span style="font-size:0.75rem; font-family:var(--font-mono); font-weight:800; color:var(--rose-600); background:var(--rose-100); padding:4px 10px; border-radius:4px;">
+              PROJECT RISK SCORE: 68/100 (MODERATE)
+            </span>
+            <h3 style="font-family:var(--font-heading); font-size:1.3rem; color:var(--text-heading); margin:12px 0 6px;">Predicted Bottleneck Anomaly</h3>
+            <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6;">
+              Automated pattern detection identifies historical delays in Section 19 final declaration across Sultanpur district.
+            </p>
+            <div class="demo-disclaimer" style="width:100%; justify-content:center; margin-top:16px;">
+              Illustrative Demonstration of Predictive Decision Support
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         11 & 12 — API & MOBILE SURVEYOR EXPERIENCE
+         ========================================================================== -->
+    <section class="section-wrap" id="mobile-api-section">
+      <div class="container">
+        <div class="section-header reveal-fade">
+          <span class="gov-badge">Interoperability & Field Mobility</span>
+          <h2 class="section-title">Connected APIs & Mobile Field Operations</h2>
+          <p class="section-desc">
+            Interfacing with national land records and giving field revenue surveyors real-time geo-tagging tools.
+          </p>
+        </div>
+
+        <div class="mobile-api-split reveal-fade">
+          <!-- Phone Mockup -->
+          <div>
+            <div class="phone-mockup">
+              <div style="width:110px; height:16px; background:#cbd5e1; margin:0 auto; border-radius:0 0 10px 10px;"></div>
+              <div class="phone-screen">
+                <div style="display:flex; justify-content:space-between; font-size:0.72rem; font-weight:700; color:var(--gold-800);">
+                  <span>FIELD SURVEY v2.4</span>
+                  <span style="color:var(--emerald-700);">● GPS Locked</span>
+                </div>
+                <div style="background:#ffffff; border:1px solid var(--border-gold); padding:12px; border-radius:8px;">
+                  <span style="font-size:0.7rem; color:var(--text-subtle);">ACTIVE PLOT</span>
+                  <div style="font-weight:800; font-size:0.95rem; color:var(--text-heading);">LP-1042 (Khasra 43)</div>
+                  <div style="font-family:var(--font-mono); font-size:0.72rem; color:var(--gold-700);">Lat: 28.6141° N | Lon: 77.2094° E</div>
+                </div>
+                <div style="background:#ffffff; border:1px dashed var(--border-gold); padding:16px; border-radius:8px; text-align:center;">
+                  <span style="font-size:0.75rem; color:var(--text-main); font-weight:600;">Boundary Photo Evidence Verified</span>
+                </div>
+                <div style="margin-top:auto;">
+                  <button style="width:100%; background:linear-gradient(135deg,#d97706,#b45309); color:#fff; border:none; padding:10px; border-radius:6px; font-weight:700; font-size:0.82rem;">
+                    Sync Field Dossier &rarr;
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- API Interoperability -->
+          <div>
+            <h3 style="font-family:var(--font-heading); font-size:1.6rem; color:var(--text-heading); margin-bottom:14px;">
+              Designed to Connect National Infrastructure
+            </h3>
+            <p style="color:var(--text-muted); font-size:0.98rem; line-height:1.7; margin-bottom:20px;">
+              The architecture is designed to interface with authorized national platforms through secure API gateways rather than creating another disconnected silo.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+              <span class="gov-badge">DILRMP / State RoR (Bhoomi, Bhulekh)</span>
+              <span class="gov-badge emerald">PFMS / DBT Payment Gateway</span>
+              <span class="gov-badge">Bhuvan / ISRO GIS Services</span>
+              <span class="gov-badge">PM GatiShakti National Master Plan</span>
+              <span class="gov-badge">DigiLocker & Aadhaar e-Sign</span>
+            </div>
+            <div class="demo-disclaimer" style="margin-top:20px;">
+              Engineered for integration with authorized government systems via secure REST APIs
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         13, 14 & 15 — SECURITY, REPORTS MIS & SCALABILITY
+         ========================================================================== -->
+    <section class="section-wrap alt-bg" id="mis-section">
+      <div class="container">
+        <div class="section-header reveal-fade">
+          <span class="gov-badge">Governance Intelligence</span>
+          <h2 class="section-title">Reports, Security & Nationwide Scalability</h2>
+          <p class="section-desc">
+            Automated statutory gazette compilation, layered encryption defense, and multi-tenant scaling across all 36 States/UTs.
+          </p>
+        </div>
+
+        <div class="reveal-fade">
+          <!-- Simulated Live MIS Action Bar with Real CSV Download -->
+          <div class="mis-action-bar">
+            <div>
+              <strong style="color:var(--text-heading); font-size:1.05rem;">National Executive MIS Generator</strong>
+              <div style="font-size:0.82rem; color:var(--text-subtle);">Export real-time acquisition dossiers for parliamentary & departmental reviews</div>
+            </div>
+            <button class="btn btn-primary" id="btnExportCsv">
+              Download Sample MIS (.CSV) &darr;
+            </button>
+          </div>
+
+          <!-- Impact Grid -->
+          <div class="impact-hex-grid">
+            <div class="impact-box">
+              <h4 style="font-family:var(--font-heading); font-size:1.15rem; color:var(--text-heading); margin-bottom:8px;">End-to-End Transparency</h4>
+              <p style="font-size:0.9rem; color:var(--text-muted);">A consolidated digital trail of every statutory notice, objection hearing, and award inquiry.</p>
+            </div>
+            <div class="impact-box">
+              <h4 style="font-family:var(--font-heading); font-size:1.15rem; color:var(--text-heading); margin-bottom:8px;">Strict Accountability</h4>
+              <p style="font-size:0.9rem; color:var(--text-muted);">Timestamped officer actions and immutable audit logging eliminate procedural ambiguity.</p>
+            </div>
+            <div class="impact-box">
+              <h4 style="font-family:var(--font-heading); font-size:1.15rem; color:var(--text-heading); margin-bottom:8px;">Inter-Agency Speed</h4>
+              <p style="font-size:0.9rem; color:var(--text-muted);">Central ministries, state nodal departments, and district collectors access unified metrics simultaneously.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FINAL CTA
+         ========================================================================== -->
+    <section class="section-wrap">
+      <div class="container">
+        <div class="final-cta-card reveal-fade">
+          <h2 style="font-family:var(--font-heading); font-size:clamp(2rem,3.8vw,3rem); font-weight:800; color:var(--text-heading); margin-bottom:16px;">
+            "From fragmented processes to one connected view of land acquisition."
+          </h2>
+          <p style="color:var(--text-muted); font-size:1.1rem; max-width:740px; margin:0 auto 28px; line-height:1.7;">
+            Built for Smart India Hackathon Problem Statement 26016 to empower the Department of Land Resources (DoLR) with end-to-end operational clarity.
+          </p>
+          <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+            <a href="index.html" class="btn btn-primary">&larr; Return to Home Portal</a>
+            <a href="about.html" class="btn btn-secondary">Read Full Architecture &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="features-footer">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div>
+        <strong style="color:var(--text-heading);">Department of Land Resources (DoLR)</strong>
+        <div>Ministry of Rural Development, Government of India</div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--gold-800);">
+        SIH 26016 Functional Demonstration Prototype
+      </div>
+      <div>
+        &copy; 2025 National Land Acquisition & Management System
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       VANILLA JAVASCRIPT CONTROLLERS
+       ========================================================================== -->
+  <script>
+    (function initFeaturesPortal() {
+      'use strict';
+
+      /* 1. SCROLL PROGRESS BAR */
+      const progressBar = document.getElementById('progressBar');
+      window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        if (progressBar) progressBar.style.width = scrolled + '%';
+      }, { passive: true });
+
+      /* 2. INTERSECTION OBSERVER ANIMATION REVEAL */
+      const revealItems = document.querySelectorAll('.reveal-fade');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealItems.forEach((el) => observer.observe(el));
+      } else {
+        revealItems.forEach((el) => el.classList.add('is-revealed'));
+      }
+
+      /* 3. 10-STAGE WORKFLOW LIFECYCLE CONTROLLER */
+      const workflowData = {
+        1: {
+          seq: "STAGE 01 • REQUISITION FILING",
+          title: "Online Project Proposal Submission",
+          desc: "Implementing agencies (NHAI, Railways, Port Trusts) submit project alignments, revenue village schedules, and required acreage limits online with geo-spatial shapefiles.",
+          statute: "Section 4 (SIA Preparation)",
+          output: "Form A Project Requisition Dossier"
+        },
+        2: {
+          seq: "STAGE 02 • ADMINISTRATIVE SCRUTINY",
+          title: "Digital Revenue Verification & Validation",
+          desc: "District Land Acquisition Officers (LAOs) cross-verify requisitioned parcel boundaries against digitized state Land Record databases (Bhoomi/Bhulekh) to confirm clear title.",
+          statute: "Section 4(2) Verification",
+          output: "Verification Checklist Certificate"
+        },
+        3: {
+          seq: "STAGE 03 • COMPETENT APPROVAL",
+          title: "Inter-Departmental Clearance Routing",
+          desc: "Workflow automatically routes proposals to appropriate administrative levels (District Collector or State Secretary) based on acreage thresholds.",
+          statute: "Section 7 (SIA Scrutiny)",
+          output: "Statutory Approval Order"
+        },
+        4: {
+          seq: "STAGE 04 • STATUTORY NOTIFICATION",
+          title: "Section 11 Preliminary Gazette Notification",
+          desc: "Digital compilation and publishing of preliminary notifications in the Official Gazette, local vernacular dailies, and on the portal to invite public objections.",
+          statute: "Section 11(1) of RFCTLARR Act",
+          output: "Official Section 11 Gazette Notice"
+        },
+        5: {
+          seq: "STAGE 05 • SPATIAL SURVEY & CADASTRAL MAPPING",
+          title: "Joint Measurement Survey (JMS) & Geo-Tagging",
+          desc: "On-ground cadastral mapping using DGPS, drone imagery, and surveyor mobile apps to geo-fence each affected plot and enumerate trees, structures, and wells.",
+          statute: "Section 12 (Ground Survey)",
+          output: "Digital JMS Cadastral Map"
+        },
+        6: {
+          seq: "STAGE 06 • STATUTORY AWARD DETERMINATION",
+          title: "Collector Award & Solatium Calculation",
+          desc: "Automated circle rate lookup coupled with statutory 100% Solatium and 12% additional interest per annum under the First Schedule.",
+          statute: "Section 23 & 30 Collector Award",
+          output: "Form 10 Statutory Award Matrix"
+        },
+        7: {
+          seq: "STAGE 07 • COMPENSATION DISBURSEMENT",
+          title: "Direct Benefit Transfer (PFMS Integration)",
+          desc: "Direct electronic transfer of compensation sums to Aadhaar-verified bank accounts of rightful titleholders, eliminating cash intermediaries.",
+          statute: "Section 77 (Payment Provisions)",
+          output: "DBT UTR Transaction Receipts"
+        },
+        8: {
+          seq: "STAGE 08 • PHYSICAL POSSESSION",
+          title: "Land Demarcation & Formal Handover",
+          desc: "Upon 100% compensation settlement, physical possession is taken by the Collector and parcels are transferred to the agency free of encumbrances.",
+          statute: "Section 38 (Taking Possession)",
+          output: "Form 16 Possession Certificate"
+        },
+        9: {
+          seq: "STAGE 09 • REHABILITATION & RESETTLEMENT",
+          title: "Second Schedule R&R Implementation",
+          desc: "Continuous tracking of housing unit allotments, displacement allowances, infrastructural civic amenities, and employment/annuity benefits.",
+          statute: "Section 31 & Second Schedule",
+          output: "R&R Completion Audit Report"
+        },
+        10: {
+          seq: "STAGE 10 • PROJECT COMPLETION & CLOSURE",
+          title: "Consolidated Historical Revenue Record",
+          desc: "Permanent archiving of all legal notifications, geo-spatial plots, gazette notices, and compensation receipts into the national land archive.",
+          statute: "Section 99 (Record Updating)",
+          output: "Updated RoR & Project Closure"
+        }
+      };
+
+      const wfButtons = document.querySelectorAll('.wf-stage-btn');
+      const wfMetaSeq = document.getElementById('wfMetaSeq');
+      const wfTitle = document.getElementById('wfTitle');
+      const wfDesc = document.getElementById('wfDesc');
+      const wfStatute = document.getElementById('wfStatute');
+      const wfOutput = document.getElementById('wfOutput');
+
+      wfButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          wfButtons.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const stageId = btn.getAttribute('data-stage');
+          const data = workflowData[stageId];
+          if (data) {
+            wfMetaSeq.innerText = data.seq;
+            wfTitle.innerText = data.title;
+            wfDesc.innerText = data.desc;
+            wfStatute.innerText = data.statute;
+            wfOutput.innerText = data.output;
+          }
+        });
+      });
+
+      /* 4. INTERACTIVE GIS PARCEL FILTER & INSPECTOR */
+      const filterButtons = document.querySelectorAll('.gis-filter-btn');
+      const parcels = document.querySelectorAll('.cad-parcel');
+
+      const gisId = document.getElementById('gisId');
+      const gisVillage = document.getElementById('gisVillage');
+      const gisComp = document.getElementById('gisComp');
+      const gisPoss = document.getElementById('gisPoss');
+
+      // Click to filter parcels dynamically
+      filterButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          filterButtons.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const filterCategory = btn.getAttribute('data-filter');
+
+          parcels.forEach((parcel) => {
+            const parcelCategory = parcel.getAttribute('data-category');
+
+            if (filterCategory === 'all' || parcelCategory === filterCategory) {
+              parcel.classList.remove('is-dimmed');
+            } else {
+              parcel.classList.add('is-dimmed');
+            }
+          });
+        });
+      });
+
+      // Click to inspect individual parcel
+      parcels.forEach((poly) => {
+        poly.addEventListener('click', () => {
+          parcels.forEach((p) => p.classList.remove('is-active'));
+          poly.classList.add('is-active');
+
+          if (gisId) {
+            gisId.innerText = poly.getAttribute('data-id');
+            gisVillage.innerText = poly.getAttribute('data-village') + ' (' + poly.getAttribute('data-area') + ')';
+            gisComp.innerText = poly.getAttribute('data-comp');
+            gisPoss.innerText = poly.getAttribute('data-poss');
+          }
+        });
+      });
+
+      /* 5. SIMULATED LIVE CSV DOWNLOAD FOR SECTION 14 */
+      const btnExportCsv = document.getElementById('btnExportCsv');
+      if (btnExportCsv) {
+        btnExportCsv.addEventListener('click', () => {
+          const csvContent = 
+            "data:text/csv;charset=utf-8," +
+            "Parcel_ID,Khasra_No,Village,District,Acquisition_Extent_Ha,Statutory_Status,Compensation_Assessed_INR,Disbursed_INR,Possession_Status\n" +
+            "LP-1041,42,Rampur,Sultanpur,3.42,Acquired,45000000,45000000,Taken\n" +
+            "LP-1042,43,Rampur,Sultanpur,4.82,Acquired,62000000,62000000,Completed\n" +
+            "LP-1043,44,Sultanpur,Sultanpur,5.15,In Award Inquiry,71000000,0,Pending\n" +
+            "LP-1044,45,Sultanpur,Sultanpur,2.90,Sec 19 Declaration,39000000,0,Pending\n" +
+            "LP-1045,48,Rampur,Sultanpur,4.10,Acquired,54000000,54000000,Taken\n" +
+            "LP-1046,49,Mehrauli,Sultanpur,6.25,Disputed Sec 64,82000000,0,Stayed";
+
+          const encodedUri = encodeURI(csvContent);
+          const link = document.createElement("a");
+          link.setAttribute("href", encodedUri);
+          link.setAttribute("download", "DoLR_Statutory_Acquisition_Report_SIH26016.csv");
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>

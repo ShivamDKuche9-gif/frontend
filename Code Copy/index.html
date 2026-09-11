@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>National Digital Gateway | GovPortal</title>
+
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ==========================================
+       MAIN NAVIGATION BAR (UNTOUCHED)
+       ========================================== -->
+  <header>
+    <nav class="gov-navbar" id="mainNavbar">
+      
+      <!-- Brand Logo & Title -->
+      <a href="index.html" class="gov-brand" aria-label="Home">
+        <div class="emblem-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" class="emblem-shield" />
+            <path d="M12 7v5" class="emblem-stem" />
+            <circle cx="12" cy="15" r="1.2" class="emblem-dot" />
+          </svg>
+        </div>
+        <div class="brand-meta">
+          <span class="brand-title">LAMS</span>
+          <span class="brand-sub">Official Digital Service</span>
+        </div>
+      </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Navigation Links Container -->
+      <div class="nav-menu-container" id="navMenu">
+        <ul class="nav-links">
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="features.html" class="nav-link">Features</a></li>
+          <li><a href="https://bhoomirashi.gov.in/auth/revamp/la_act.pdf" class="nav-link">Guideline Acts</a></li>
+          <li><a href="#contact" class="nav-link">Contact Us</a></li>
+        </ul>
+
+        <!-- White Transparent Login Button with Dynamic Color-Shifting Letters -->
+        <a href="login.html" class="btn-login" id="loginBtn">
+          <span class="char" style="--char-index: 1;">L</span>
+          <span class="char" style="--char-index: 2;">O</span>
+          <span class="char" style="--char-index: 3;">G</span>
+          <span class="char" style="--char-index: 4;">I</span>
+          <span class="char" style="--char-index: 5;">N</span>
+
+          <svg class="login-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/>
+            <line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+        </a>
+      </div>
+
+    </nav>
+  </header>
+
+  <!-- ==========================================
+       FULLSCREEN 4K VIDEO HERO SECTION
+       ========================================== -->
+  <main class="hero-video-section">
+    <!-- Local 4K Background Video -->
+    <video 
+      class="bg-video" 
+      id="bgVideo" 
+      autoplay 
+      muted 
+      loop 
+      playsinline 
+      preload="auto">
+      <source src="videos/hero-video.mp4" type="video/mp4" />
+      Your browser does not support HTML5 video.
+    </video>
+
+    <!-- Multi-Layer Vignette & Contrast Overlay -->
+    <div class="video-overlay"></div>
+
+    <!-- Animated Hero Content -->
+    <div class="hero-content">
+      <div class="hero-badge">
+        
+      </div>
+
+      <h1 class="hero-title">
+        <span class="title-line">Digitizing Land Acquisition,</span>
+        <span class="title-line title-highlight">Empowering Progress</span>
+      </h1>
+
+      <p class="hero-desc">
+        Bridging citizens and government with transparent, end-to-end digital workflows.
+      </p>
+
+      <!-- Glassmorphic Scroll Indicator -->
+      <div class="scroll-indicator">
+        <div class="mouse-icon">
+          <span class="mouse-wheel"></span>
+        </div>
+        <span>EXPLORE INITIATIVES</span>
+      </div>
+    </div>
+  </main>
+
+
+
+
+
+
+  <!-- ==========================================
+       MISSION OVERVIEW SECTION (LIGHT GREEN PATTERN)
+       ========================================== -->
+  <section class="overview-section">
+    <div class="overview-container">
+      <div class="overview-card">
+        
+        <!-- Section Category Pill -->
+        <div class="overview-pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="9" y1="21" x2="9" y2="9"></line>
+          </svg>
+        </div>
+
+        <!-- Heading -->
+        <h2 class="overview-title">
+          Unified. Transparent. Real-Time Land Management
+        </h2>
+
+        <!-- Description -->
+        <p class="overview-desc">
+          Welcome to the National Land Acquisition & Management System—a unified digital platform developed for the Department of Land Resources (DoLR), Ministry of Rural Development. Designed to modernize the entire land acquisition lifecycle under the RFCTLARR Act, the platform seamlessly connects Central Ministries, State Governments, District Authorities, and Project Implementing Agencies from initial proposal submission to final land possession.
+        </p>
+
+        <!-- Institutional Accent Border -->
+        <div class="card-accent-line"></div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- ==========================================
+       INSIGHTS SECTION (4K BG & 3D GLASS CARDS)
+       ========================================== -->
+  <section class="insights-section" id="insights">
+    <!-- 4K Background Image Container with Fallback & Overlay -->
+    <div class="insights-bg"></div>
+    <div class="insights-overlay"></div>
+
+    <div class="insights-container">
+      
+      <!-- Section Header -->
+      <div class="insights-header">
+        <div class="insights-badge">
+          <span class="badge-amber-dot"></span>
+          Intelligent Land Governance
+        </div>
+        <h2 class="insights-title">Insights & Capabilities</h2>
+        <p class="insights-subtitle">
+          Next-generation analytical tools and spatial intelligence driving transparency, regulatory compliance, and automated execution.
+        </p>
+      </div>
+
+      <!-- 8-Card Interactive 3D Grid (Descriptions Removed) -->
+      <div class="insights-grid" id="insightsGrid">
+
+        <!-- Card 1: Plot Boundaries -->
+        <div class="insight-card" data-index="1">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                <line x1="8" y1="2" x2="8" y2="18"></line>
+                <line x1="16" y1="6" x2="16" y2="22"></line>
+              </svg>
+            </div>
+            <div class="card-tag">GIS & Cadastral</div>
+            <h3 class="card-title">Visualisation of Plot/Parcel Boundaries</h3>
+            <div class="card-status"><span>View Map</span> &rarr;</div>
+          </div>
+        </div>
+
+        <!-- Card 2: Process Management -->
+        <div class="insight-card" data-index="2">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </div>
+            <div class="card-tag">Workflow Engine</div>
+            <h3 class="card-title">Land Acquisition Process Management</h3>
+            <div class="card-status"><span>View Workflow</span> &rarr;</div>
+          </div>
+        </div>
+
+        <!-- Card 3: Land Valuation -->
+        <div class="insight-card" data-index="3">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <div class="card-tag">Financial Analytics</div>
+            <h3 class="card-title">Land Valuation & Compensation</h3>
+            <div class="card-status"><span>View Rates</span> &rarr;</div>
+          </div>
+        </div>
+
+        <!-- Card 4: Encroachment Detection -->
+        <div class="insight-card" data-index="4">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <div class="card-tag">Surveillance AI</div>
+            <h3 class="card-title">Encroachment Detection and Tracking</h3>
+            <div class="card-status"><span>View Alerts</span> &rarr;</div>
+          </div>
+        </div>
+
+        <!-- Card 5: Data Analysis Reports -->
+        <div class="insight-card" data-index="5">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+            </div>
+            <div class="card-tag">Executive BI</div>
+            <h3 class="card-title">Data Analysis Reports Management</h3>
+            <div class="card-status"><span>View MIS</span> &rarr;</div>
+          </div>
+        </div>
+
+        <!-- Card 6: Administrative Control -->
+        <div class="insight-card" data-index="6">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <div class="card-tag">Governance & Audit</div>
+            <h3 class="card-title">Administrative Control</h3>
+            <div class="card-status"><span>Console</span> &rarr;</div>
+          </div>
+        </div>
+
+        <!-- Card 7: Customisation & Configuration -->
+        <div class="insight-card" data-index="7">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+            </div>
+            <div class="card-tag">Adaptive Framework</div>
+            <h3 class="card-title">Customisation and Configuration</h3>
+            <div class="card-status"><span>Configure</span> &rarr;</div>
+          </div>
+        </div>
+
+        <!-- Card 8: RBAC -->
+        <div class="insight-card" data-index="8">
+          <div class="card-glow"></div>
+          <div class="card-content">
+            <div class="card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <div class="card-tag">Security & Identity</div>
+            <h3 class="card-title">Role-Based Access Control (RBAC)</h3>
+            <div class="card-status"><span>Permissions</span> &rarr;</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- ==========================================================================
+       NATIONAL LAND ACQUISITION DASHBOARD & TELEMETRY SECTION
+       ========================================================================== -->
+  <section class="national-dashboard-section" id="national-dashboard">
+    <div class="dash-outer-container">
+      
+      <!-- Section Institutional Header -->
+      <div class="dash-master-header">
+        <div class="dash-badge-row">
+          <span class="dash-live-badge"><span class="dash-live-dot"></span> Official Baseline Telemetry</span>
+          <span class="dash-date-pill">Data Reference: March 31, 2024 (FY 2023–24)</span>
+          <span class="dash-scope-pill">Pan-India &bull; 34 States/UTs &bull; 684 Districts</span>
+        </div>
+        <h2 class="dash-headline">National Land Acquisition & Infrastructure Dashboard</h2>
+        <p class="dash-subtext">
+          Aggregated real-time statutory metrics synthesized under the RFCTLARR Act, 2013 and Central Infrastructure Portals (DoLR &amp; Bhoomi Rashi / MoRTH).
+        </p>
+      </div>
+
+      <!-- Main High-Contrast White Architectural Deck -->
+      <div class="dash-paper-deck">
+        
+        <!-- ==========================================
+             PART 1: HERO EXECUTIVE SUMMARY KPIS
+             ========================================== -->
+        <div class="dash-kpi-band">
+          
+          <div class="dash-kpi-cell">
+            <span class="kpi-label">Total Projects Monitored</span>
+            <div class="kpi-metric" data-val="3428">3,428</div>
+            <span class="kpi-tagline">Active, Pipeline &amp; Closed</span>
+          </div>
+
+          <div class="dash-kpi-cell">
+            <span class="kpi-label">Total Land Proposed</span>
+            <div class="kpi-metric">148,250 <span class="kpi-unit">Ha</span></div>
+            <span class="kpi-tagline">Notified Across Packages</span>
+          </div>
+
+          <div class="dash-kpi-cell highlight-cell">
+            <span class="kpi-label">Land Acquired (Possession)</span>
+            <div class="kpi-metric text-emerald">109,705 <span class="kpi-unit">Ha</span></div>
+            <div class="kpi-stat-chip emerald-chip">74.0% Acquisition Rate</div>
+          </div>
+
+          <div class="dash-kpi-cell">
+            <span class="kpi-label">Total Compensation Awarded</span>
+            <div class="kpi-metric">&#8377;1,42,850 <span class="kpi-unit">Cr</span></div>
+            <span class="kpi-tagline">Statutory Section 23 Awards</span>
+          </div>
+
+          <div class="dash-kpi-cell highlight-cell">
+            <span class="kpi-label">Compensation Disbursed</span>
+            <div class="kpi-metric text-blue">&#8377;1,18,565 <span class="kpi-unit">Cr</span></div>
+            <div class="kpi-stat-chip blue-chip">83.0% via PFMS/DBT</div>
+          </div>
+
+          <div class="dash-kpi-cell">
+            <span class="kpi-label">R&amp;R Packages Disbursed</span>
+            <div class="kpi-metric">384,120 <span class="kpi-unit">Fam.</span></div>
+            <span class="kpi-tagline">82.9% of 462,800 Affected</span>
+          </div>
+
+        </div>
+
+        <!-- ==========================================
+             PART 2: INTERACTIVE MODULE TABS BAR
+             ========================================== -->
+        <div class="dash-tab-navigation" role="tablist">
+          <button class="dash-tab-btn active" data-tab="tab-pipeline" role="tab" aria-selected="true">
+            <span class="tab-index">01</span> Statutory Project Pipeline
+          </button>
+          <button class="dash-tab-btn" data-tab="tab-land" role="tab" aria-selected="false">
+            <span class="tab-index">02</span> Land Classification &amp; Forest
+          </button>
+          <button class="dash-tab-btn" data-tab="tab-finance" role="tab" aria-selected="false">
+            <span class="tab-index">03</span> Financial Clearance &amp; Escrow
+          </button>
+          <button class="dash-tab-btn" data-tab="tab-rr" role="tab" aria-selected="false">
+            <span class="tab-index">04</span> R&amp;R Citizen Welfare
+          </button>
+          <button class="dash-tab-btn" data-tab="tab-disputes" role="tab" aria-selected="false">
+            <span class="tab-index">05</span> Disputes &amp; Litigation
+          </button>
+          <button class="dash-tab-btn" data-tab="tab-states" role="tab" aria-selected="false">
+            <span class="tab-index">06</span> State Benchmark Table
+          </button>
+        </div>
+
+        <!-- ==========================================
+             PART 3: TAB CONTENT MODULES
+             ========================================== -->
+        <div class="dash-tab-content-area">
+
+          <!-- MODULE A: STATUTORY PROJECT PIPELINE -->
+          <div class="dash-panel active" id="tab-pipeline" role="tabpanel">
+            <div class="panel-header-sub">
+              <div>
+                <h3 class="panel-h3">Statutory Lifecycle Pipeline (3,428 Total Projects)</h3>
+                <p class="panel-p">Tracks project distribution across statutory stages under the RFCTLARR Act to pinpoint administrative bottlenecks.</p>
+              </div>
+              <span class="pipeline-warning-badge">&#9888; Clustered Bottleneck: Section 19 Declarations (24.6%)</span>
+            </div>
+
+            <div class="pipeline-grid">
+              
+              <div class="pipe-card">
+                <div class="pipe-top">
+                  <span class="pipe-step">Stage 1</span>
+                  <span class="pipe-pct">12.0%</span>
+                </div>
+                <div class="pipe-title">Pre-Notification / Survey</div>
+                <div class="pipe-count">412 Projects</div>
+                <div class="pipe-progress"><div class="pipe-fill" style="width: 12.0%;"></div></div>
+                <span class="pipe-sub">Joint Measurement Surveys in progress</span>
+              </div>
+
+              <div class="pipe-card">
+                <div class="pipe-top">
+                  <span class="pipe-step">Stage 2</span>
+                  <span class="pipe-pct">18.1%</span>
+                </div>
+                <div class="pipe-title">Section 11 / 3A Notification</div>
+                <div class="pipe-count">620 Projects</div>
+                <div class="pipe-progress"><div class="pipe-fill" style="width: 18.1%;"></div></div>
+                <span class="pipe-sub">Gazette issued &bull; 60-day objections open</span>
+              </div>
+
+              <div class="pipe-card bottleneck-card">
+                <div class="pipe-top">
+                  <span class="pipe-step text-amber">Stage 3 &bull; Critical</span>
+                  <span class="pipe-pct text-amber">24.6%</span>
+                </div>
+                <div class="pipe-title">Section 19 / 3D Declaration</div>
+                <div class="pipe-count text-amber">845 Projects</div>
+                <div class="pipe-progress"><div class="pipe-fill bg-amber" style="width: 24.6%;"></div></div>
+                <span class="pipe-sub">Awaiting award before Sec 25 12-mo lapse</span>
+              </div>
+
+              <div class="pipe-card">
+                <div class="pipe-top">
+                  <span class="pipe-step">Stage 4</span>
+                  <span class="pipe-pct">17.8%</span>
+                </div>
+                <div class="pipe-title">Section 23 / 3G Award Inquiry</div>
+                <div class="pipe-count">611 Projects</div>
+                <div class="pipe-progress"><div class="pipe-fill" style="width: 17.8%;"></div></div>
+                <span class="pipe-sub">Circle rate validation &amp; 100% Solatium</span>
+              </div>
+
+              <div class="pipe-card">
+                <div class="pipe-top">
+                  <span class="pipe-step">Stage 5</span>
+                  <span class="pipe-pct">16.9%</span>
+                </div>
+                <div class="pipe-title">Compensation &amp; Possession</div>
+                <div class="pipe-count">580 Projects</div>
+                <div class="pipe-progress"><div class="pipe-fill" style="width: 16.9%;"></div></div>
+                <span class="pipe-sub">PFMS direct credit &amp; physical handover</span>
+              </div>
+
+              <div class="pipe-card completed-card">
+                <div class="pipe-top">
+                  <span class="pipe-step text-emerald">Stage 6</span>
+                  <span class="pipe-pct text-emerald">10.5%</span>
+                </div>
+                <div class="pipe-title">Acquired &amp; Closed</div>
+                <div class="pipe-count text-emerald">360 Projects</div>
+                <div class="pipe-progress"><div class="pipe-fill bg-emerald" style="width: 10.5%;"></div></div>
+                <span class="pipe-sub">100% possession &amp; RoR updated</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- MODULE B: LAND CLASSIFICATION & FOREST -->
+          <div class="dash-panel" id="tab-land" role="tabpanel">
+            <div class="panel-header-sub">
+              <div>
+                <h3 class="panel-h3">Land Tenure Demarcation &amp; Forest Diversions</h3>
+                <p class="panel-p">Analysis of 148,250 Hectares proposed across Private, Government, and Forest regulatory categories.</p>
+              </div>
+            </div>
+
+            <div class="land-category-grid">
+              
+              <div class="land-type-card">
+                <div class="land-card-head">
+                  <div>
+                    <h4 class="land-type-title">Private Land (Tenure Holders)</h4>
+                    <span class="land-sub-info">Requires statutory First Schedule compensation &amp; solatium</span>
+                  </div>
+                  <span class="land-rate-pill">77.0% Acquired</span>
+                </div>
+                <div class="land-metric-comparison">
+                  <div>
+                    <span class="metric-tiny-label">Proposed</span>
+                    <strong>102,300 Ha</strong>
+                  </div>
+                  <div class="text-right">
+                    <span class="metric-tiny-label">Possession Handed</span>
+                    <strong class="text-emerald">78,771 Ha</strong>
+                  </div>
+                </div>
+                <div class="prog-track-lg"><div class="prog-fill-lg bg-emerald" style="width: 77%;"></div></div>
+              </div>
+
+              <div class="land-type-card">
+                <div class="land-card-head">
+                  <div>
+                    <h4 class="land-type-title">Government / Revenue Land</h4>
+                    <span class="land-sub-info">Inter-departmental transfer from state revenue registries</span>
+                  </div>
+                  <span class="land-rate-pill">85.0% Transferred</span>
+                </div>
+                <div class="land-metric-comparison">
+                  <div>
+                    <span class="metric-tiny-label">Proposed</span>
+                    <strong>28,450 Ha</strong>
+                  </div>
+                  <div class="text-right">
+                    <span class="metric-tiny-label">Transferred to Agency</span>
+                    <strong class="text-blue">24,182 Ha</strong>
+                  </div>
+                </div>
+                <div class="prog-track-lg"><div class="prog-fill-lg bg-blue" style="width: 85%;"></div></div>
+              </div>
+
+              <div class="land-type-card forest-card">
+                <div class="land-card-head">
+                  <div>
+                    <h4 class="land-type-title">Forest Land Diversion (FC Act, 1980)</h4>
+                    <span class="land-sub-info">Requires Stage-I &amp; Stage-II approval from MoEFCC</span>
+                  </div>
+                  <span class="forest-bottleneck-pill">&#9888; 38.5% Final Clearances</span>
+                </div>
+                <div class="land-metric-comparison">
+                  <div>
+                    <span class="metric-tiny-label">Total Required</span>
+                    <strong>17,500 Ha</strong>
+                  </div>
+                  <div class="text-right">
+                    <span class="metric-tiny-label">Stage-II Clearance</span>
+                    <strong class="text-amber">6,752 Ha</strong>
+                  </div>
+                </div>
+                <div class="prog-track-lg"><div class="prog-fill-lg bg-amber" style="width: 38.5%;"></div></div>
+                <div class="forest-breakdown-row">
+                  <span>Stage-I (In-Principle): <strong>4,200 Ha (24.0%)</strong></span>
+                  <span>Pending Stage-II Diversion: <strong>6,548 Ha (37.5%)</strong></span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- MODULE C: FINANCIAL CLEARANCE & ESCROW -->
+          <div class="dash-panel" id="tab-finance" role="tabpanel">
+            <div class="panel-header-sub">
+              <div>
+                <h3 class="panel-h3">Compensation Outlay &amp; Escrow Bottleneck Breakdown</h3>
+                <p class="panel-p">&#8377;1,18,565 Cr disbursed via PFMS. Audit of the &#8377;24,285 Cr remaining undisbursed in district authority escrows.</p>
+              </div>
+            </div>
+
+            <div class="finance-grid">
+              
+              <!-- Left: SVG Ring Chart -->
+              <div class="finance-visual-box">
+                <h4 class="box-inner-h4">Escrowed Funds Distribution (&#8377;24,285 Cr)</h4>
+                
+                <div class="ring-chart-container">
+                  <svg class="ring-svg" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="75" fill="none" stroke="#f1f5f9" stroke-width="26" />
+                    <!-- 60% Title Disputes (Dashoffset calculation for 471.2 circ) -->
+                    <circle cx="100" cy="100" r="75" fill="none" stroke="#e11d48" stroke-width="26" 
+                            stroke-dasharray="282.7 471.2" stroke-dashoffset="0" />
+                    <!-- 25% KYC Issues -->
+                    <circle cx="100" cy="100" r="75" fill="none" stroke="#f59e0b" stroke-width="26" 
+                            stroke-dasharray="117.8 471.2" stroke-dashoffset="-282.7" />
+                    <!-- 15% Admin Release -->
+                    <circle cx="100" cy="100" r="75" fill="none" stroke="#0284c7" stroke-width="26" 
+                            stroke-dasharray="70.7 471.2" stroke-dashoffset="-400.5" />
+                  </svg>
+                  <div class="ring-center-stat">
+                    <span class="center-sub">UNDISBURSED</span>
+                    <strong class="center-num">&#8377;24,285</strong>
+                    <span class="center-cr">CRORE</span>
+                  </div>
+                </div>
+
+                <div class="finance-legend">
+                  <div class="legend-item"><span class="legend-bullet bg-rose"></span> Title Disputes (60%): <strong>&#8377;14,570 Cr</strong></div>
+                  <div class="legend-item"><span class="legend-bullet bg-amber"></span> KYC / Legal Heirs (25%): <strong>&#8377;6,071 Cr</strong></div>
+                  <div class="legend-item"><span class="legend-bullet bg-blue"></span> Admin Release (15%): <strong>&#8377;3,644 Cr</strong></div>
+                </div>
+              </div>
+
+              <!-- Right: Financial Clearance Metrics -->
+              <div class="finance-summary-box">
+                <h4 class="box-inner-h4">Direct Benefit Transfer Clearance Audit</h4>
+                
+                <div class="finance-stat-row">
+                  <div>
+                    <span class="stat-row-label">Total Valuation Demand Raised</span>
+                    <strong class="stat-row-val">&#8377;1,42,850 Cr</strong>
+                  </div>
+                  <span class="gov-badge" style="margin: 0;">100% Demand</span>
+                </div>
+
+                <div class="finance-stat-row">
+                  <div>
+                    <span class="stat-row-label">Electronic DBT Direct Bank Credits</span>
+                    <strong class="stat-row-val text-emerald">&#8377;1,18,565 Cr</strong>
+                  </div>
+                  <span class="gov-badge emerald" style="margin: 0;">83.0% Executed</span>
+                </div>
+
+                <div class="finance-callout">
+                  <strong>Statutory Insight:</strong> 60% of all trapped escrow capital is held up under <em>Section 64 judicial references</em>. The platform’s legal tracking module is designed to accelerate court resolutions to free these infrastructure funds.
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- MODULE D: R&R CITIZEN WELFARE -->
+          <div class="dash-panel" id="tab-rr" role="tabpanel">
+            <div class="panel-header-sub">
+              <div>
+                <h3 class="panel-h3">Rehabilitation &amp; Resettlement (R&amp;R) Mandate</h3>
+                <p class="panel-p">Safeguarding 462,800 Project Affected Families (PAFs) under mandatory Second Schedule welfare provisions.</p>
+              </div>
+              <div class="rr-index-pill">National R&amp;R Index: <strong>82.9% Completed</strong></div>
+            </div>
+
+            <div class="rr-metrics-grid">
+              
+              <div class="rr-card">
+                <div class="rr-icon-circle">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                </div>
+                <div class="rr-meta">
+                  <span class="rr-label">Resettlement Sites Developed</span>
+                  <div class="rr-value">418 Sites</div>
+                  <span class="rr-sub">Equipped with civic infrastructure</span>
+                </div>
+              </div>
+
+              <div class="rr-card">
+                <div class="rr-icon-circle">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                </div>
+                <div class="rr-meta">
+                  <span class="rr-label">Plots / Houses Handed Over</span>
+                  <div class="rr-value">228,450 <span class="kpi-unit">Families</span></div>
+                  <span class="rr-sub">Physical rehabilitation completed</span>
+                </div>
+              </div>
+
+              <div class="rr-card">
+                <div class="rr-icon-circle">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                </div>
+                <div class="rr-meta">
+                  <span class="rr-label">One-Time Cash Grants Settled</span>
+                  <div class="rr-value">155,670 <span class="kpi-unit">Families</span></div>
+                  <span class="rr-sub">In lieu of homestead land</span>
+                </div>
+              </div>
+
+              <div class="rr-card">
+                <div class="rr-icon-circle">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                </div>
+                <div class="rr-meta">
+                  <span class="rr-label">Skill Training &amp; Jobs Provided</span>
+                  <div class="rr-value">18,420 <span class="kpi-unit">Candidates</span></div>
+                  <span class="rr-sub">Mandated sustainable livelihoods</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- MODULE E: DISPUTES & LITIGATION -->
+          <div class="dash-panel" id="tab-disputes" role="tabpanel">
+            <div class="panel-header-sub">
+              <div>
+                <h3 class="panel-h3">Judicial Injunctions &amp; Dispute Tracking</h3>
+                <p class="panel-p">Monitoring 18,450 judicial and arbitration challenges to minimize infrastructure stay-order lead times.</p>
+              </div>
+            </div>
+
+            <div class="dispute-metrics-grid">
+              <div class="dispute-stat-card">
+                <span class="disp-label">Total Litigations Filed</span>
+                <div class="disp-val">18,450</div>
+                <span class="disp-sub">Across High Courts &amp; Tribunals</span>
+              </div>
+              <div class="dispute-stat-card">
+                <span class="disp-label">Cases Disposed / Resolved</span>
+                <div class="disp-val text-emerald">11,230</div>
+                <div class="kpi-stat-chip emerald-chip">60.8% Resolution Rate</div>
+              </div>
+              <div class="dispute-stat-card">
+                <span class="disp-label">Active Stay Orders</span>
+                <div class="disp-val text-rose">2,120</div>
+                <span class="disp-sub">Immediate project halt risks</span>
+              </div>
+              <div class="dispute-stat-card">
+                <span class="disp-label">Divisional Arbitrations</span>
+                <div class="disp-val text-amber">5,100</div>
+                <span class="disp-sub">Arbitrator hearings underway</span>
+              </div>
+              <div class="dispute-stat-card">
+                <span class="disp-label">Average Resolution Cycle</span>
+                <div class="disp-val">14.2 <span class="kpi-unit">Mo.</span></div>
+                <span class="disp-sub">From filing to award amendment</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODULE F: STATE BENCHMARK TABLE -->
+          <div class="dash-panel" id="tab-states" role="tabpanel">
+            <div class="panel-header-sub">
+              <div>
+                <h3 class="panel-h3">State-Level Performance Benchmark League</h3>
+                <p class="panel-p">Comparative execution velocity across highest infrastructure investment corridors.</p>
+              </div>
+            </div>
+
+            <div class="dash-table-wrapper">
+              <table class="state-league-table">
+                <thead>
+                  <tr>
+                    <th>State / Union Territory</th>
+                    <th>Projects</th>
+                    <th>Proposed (Ha)</th>
+                    <th>Acquired (Ha)</th>
+                    <th>Compensation Paid</th>
+                    <th>Acquisition Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Maharashtra</strong></td>
+                    <td>412</td>
+                    <td>24,500</td>
+                    <td>19,110</td>
+                    <td>&#8377;24,100 Cr</td>
+                    <td>
+                      <div class="table-progress-wrap">
+                        <div class="table-bar"><div class="table-fill bg-emerald" style="width: 78%;"></div></div>
+                        <span class="table-pct">78%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Uttar Pradesh</strong></td>
+                    <td>480</td>
+                    <td>28,200</td>
+                    <td>22,560</td>
+                    <td>&#8377;21,800 Cr</td>
+                    <td>
+                      <div class="table-progress-wrap">
+                        <div class="table-bar"><div class="table-fill bg-emerald" style="width: 80%;"></div></div>
+                        <span class="table-pct">80%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Gujarat</strong></td>
+                    <td>265</td>
+                    <td>16,800</td>
+                    <td>13,776</td>
+                    <td>&#8377;15,200 Cr</td>
+                    <td>
+                      <div class="table-progress-wrap">
+                        <div class="table-bar"><div class="table-fill bg-emerald" style="width: 82%;"></div></div>
+                        <span class="table-pct">82%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Madhya Pradesh</strong></td>
+                    <td>310</td>
+                    <td>18,500</td>
+                    <td>14,060</td>
+                    <td>&#8377;9,850 Cr</td>
+                    <td>
+                      <div class="table-progress-wrap">
+                        <div class="table-bar"><div class="table-fill bg-blue" style="width: 76%;"></div></div>
+                        <span class="table-pct">76%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Tamil Nadu</strong></td>
+                    <td>290</td>
+                    <td>14,300</td>
+                    <td>10,296</td>
+                    <td>&#8377;13,450 Cr</td>
+                    <td>
+                      <div class="table-progress-wrap">
+                        <div class="table-bar"><div class="table-fill bg-blue" style="width: 72%;"></div></div>
+                        <span class="table-pct">72%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="table-row-muted">
+                    <td><strong>Remaining 29 States/UTs</strong></td>
+                    <td>1,671</td>
+                    <td>45,950</td>
+                    <td>29,903</td>
+                    <td>&#8377;34,165 Cr</td>
+                    <td>
+                      <div class="table-progress-wrap">
+                        <div class="table-bar"><div class="table-fill bg-amber" style="width: 65%;"></div></div>
+                        <span class="table-pct">65%</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ==========================================================================
+       FROSTED WHITE GLASS INDIA MAP WITH BACKGROUND VIDEO & IMPERIAL GOLD HOVER
+       ========================================================================== -->
+  <section class="map-video-section" id="national-map">
+    
+    <!-- Background Video -->
+    <video class="map-background-video" autoplay muted loop playsinline preload="auto">
+      <source src="videos/map-background.mp4" type="video/mp4">
+    </video>
+
+    <!-- Frosted Semi-Transparent White Glass Overlay -->
+    <div class="map-frosted-overlay"></div>
+
+    <!-- Map Content Container -->
+    <div class="map-content-wrapper">
+      
+      <!-- Institutional Header (Gold & Dark Slate) -->
+      <div class="map-head-block">
+        <div class="map-pill-strip">
+          <span class="gold-badge"><span class="gold-dot"></span> Survey of India Datum</span>
+          <span class="gold-badge">Pan-India Cadastral Progress</span>
+        </div>
+        <h2 class="map-title-gold">National Spatial Land Acquisition Map</h2>
+        <p class="map-subtitle-slate">
+          Hover over any State or Union Territory. The state will lift upward in 3D, revealing real-time acquisition rates, project counts, and compensation disbursed under the RFCTLARR Act.
+        </p>
+      </div>
+
+      <!-- Frosted White Map Board -->
+      <div class="map-white-board">
+        
+        <!-- Legend Strip -->
+        <div class="map-top-bar">
+          <div class="map-bar-item">
+            <span class="bar-lbl">NATIONAL COVERAGE</span>
+            <span class="bar-val">34 States &amp; UTs (684 Districts)</span>
+          </div>
+          <div class="map-bar-item">
+            <span class="bar-lbl">TOTAL POSSESSION</span>
+            <span class="bar-val text-gold">109,705 Hectares (74.0%)</span>
+          </div>
+          <div class="map-legend">
+            <span class="legend-pill"><span class="pill-dot bg-gold-dark"></span> 80%+ High Velocity</span>
+            <span class="legend-pill"><span class="pill-dot bg-gold-mid"></span> 70% – 79%</span>
+            <span class="legend-pill"><span class="pill-dot bg-gold-light"></span> &lt;70%</span>
+          </div>
+        </div>
+
+        <!-- SVG Map Container -->
+        <div class="map-viewport-box" id="mapViewportBox">
+          <svg class="india-map-svg" viewBox="0 0 950 900" id="officialIndiaSvg">
+            <!-- Rendered dynamically by script.js using india-data.js -->
+          </svg>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Floating 3D Golden Glass Telemetry HUD Card -->
+    <div class="floating-gold-hud" id="floatingGoldHud">
+      <div class="hud-top">
+        <div>
+          <span class="hud-code" id="hudStateCode">STATE JURISDICTION</span>
+          <h4 class="hud-name" id="hudStateName">Maharashtra</h4>
+        </div>
+        <span class="hud-badge" id="hudAcqRate">78.0%</span>
+      </div>
+
+      <div class="hud-divider"></div>
+
+      <div class="hud-metrics-grid">
+        <div class="hud-cell">
+          <span class="hud-lbl">PROJECTS</span>
+          <strong class="hud-val text-gold" id="hudProjects">412</strong>
+        </div>
+        <div class="hud-cell">
+          <span class="hud-lbl">PROPOSED</span>
+          <strong class="hud-val" id="hudProposed">24,500 Ha</strong>
+        </div>
+        <div class="hud-cell">
+          <span class="hud-lbl">ACQUIRED</span>
+          <strong class="hud-val text-gold" id="hudAcquired">19,110 Ha</strong>
+        </div>
+        <div class="hud-cell">
+          <span class="hud-lbl">DISBURSED (PFMS)</span>
+          <strong class="hud-val" id="hudCompensation">&#8377;24,100 Cr</strong>
+        </div>
+      </div>
+
+      <div class="hud-footer">
+        <span>Active Injunctions: <strong class="text-rose" id="hudLitigation">312 Cases</strong></span>
+        <span class="hud-tier-pill" id="hudTier">Tier 1 Corridor</span>
+      </div>
+    </div>
+
+  </section>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- ==========================================
+       FREQUENTLY ASKED QUESTIONS SECTION
+       ========================================== -->
+  <section class="faq-section" id="faq">
+    <div class="faq-container reveal-on-scroll">
+      
+      <!-- Section Header -->
+      <div class="faq-header-wrap">
+        <div class="faq-badge">Help & Knowledge Base</div>
+        <h2 class="faq-title">Frequently Asked Questions</h2>
+        <p class="faq-subtitle">
+          Find direct answers to common questions regarding regulatory procedures, portal workflows, and digital documentation.
+        </p>
+      </div>
+
+      <!-- Single-Open Accordion Container -->
+      <div class="faq-accordion" id="faqAccordion">
+
+        <!-- Question 1 -->
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-q-text">1. What is the primary goal of the National Land Acquisition & Management System?</span>
+            <span class="faq-icon-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer-wrapper">
+            <div class="faq-answer-content">
+              <p>This web-based platform digitizes the entire land acquisition lifecycle, completely replacing fragmented manual systems and state-specific processes.<br>  
+It covers every phase from the initial project proposal submission down to the final physical possession of the land.<br>  
+By providing standardized workflows, the system enables seamless coordination among Central Ministries, State Governments, District Authorities, and Project Implementing Agencies.  
+Users can manage online submissions, digital scrutiny, document approvals, automated workflow routing, and comprehensive status tracking at every operational stage.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-q-text">2. How does the system ensure fair compensation and rehabilitation?</span>
+            <span class="faq-icon-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer-wrapper">
+            <div class="faq-answer-content">
+              <p>The platform strictly aligns with the statutory requirements of the RFCTLARR Act, 2013.<br>  
+It features automated tools to monitor real-time data regarding compensation assessed and disbursed. <br> 
+The system actively tracks Rehabilitation and Resettlement (R&R) progress and logs the exact number of affected and displaced families.<br>  
+Decision-makers receive customized MIS reports and executive dashboards that monitor timeline adherence, notifications issued, and awards declared to prevent project delays.<br></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-q-text">3. How are land parcels accurately tracked and visualized?</span>
+            <span class="faq-icon-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer-wrapper">
+            <div class="faq-answer-content">
+              <p>The platform utilizes advanced GIS technology for the geo-tagging of acquired land parcels.<br> 
+This enables the spatial visualization of project locations on interactive national maps, cleanly displaying the area notified versus the area ultimately acquired.<br>  
+To prevent overlaps and double-compensation, the system integrates seamlessly via API with existing land records, cadastral maps, and relevant government portals.<br></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span class="faq-q-text">4. Who is supposed to use this platform?</span>
+            <span class="faq-icon-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer-wrapper">
+            <div class="faq-answer-content">
+              <p>The primary users are government stakeholders, including Central Ministries, State Governments, District Authorities, and Project Implementing Agencies.<br>  
+The website uses secure role-based access control, meaning different officials only see and approve the specific data relevant to their department or jurisdiction.<br>
+It also features a mobile-responsive interface so field officers can collect and verify data directly on the ground.<br></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- ==========================================
+       NAVY BLUE FLOWING WATER FOOTER & CONTACT
+       ========================================== -->
+  <footer class="gov-footer" id="contact">
+    
+    <!-- Multi-Layered Flowing Water Waves (Option A) -->
+    <div class="water-wave-container">
+      <svg class="water-waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="wave-parallax">
+          <use href="#gentle-wave" x="48" y="0" class="wave-layer wave-1" />
+          <use href="#gentle-wave" x="48" y="3" class="wave-layer wave-2" />
+          <use href="#gentle-wave" x="48" y="5" class="wave-layer wave-3" />
+          <use href="#gentle-wave" x="48" y="7" class="wave-layer wave-4" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- Main Footer Content -->
+    <div class="footer-main">
+      <div class="footer-container">
+        <div class="footer-grid">
+
+          <!-- COLUMN 1: Official Authority Branding & Mandate -->
+          <div class="footer-col brand-col">
+            <div class="footer-brand-wrap">
+              <div class="footer-emblem">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" stroke="#38bdf8" fill="rgba(56, 189, 248, 0.15)"/>
+                  <path d="M12 7v5" stroke="#ffffff"/>
+                  <circle cx="12" cy="15" r="1.2" fill="#38bdf8"/>
+                </svg>
+              </div>
+              <div class="footer-brand-text">
+                <h3>Department of Land Resources</h3>
+                <span>Ministry of Rural Development, Govt. of India</span>
+              </div>
+            </div>
+            
+            <p class="footer-mission-text">
+              Dedicated to standardizing land administration, digital record modernization, and fair, transparent compensation under statutory national frameworks.
+            </p>
+
+            <div class="compliance-badges">
+              <span class="badge-tag">GIGW 3.0 Compliant</span>
+              <span class="badge-tag">NIC Certified</span>
+              <span class="badge-tag">ISO 27001 Security</span>
+            </div>
+          </div>
+
+          <!-- COLUMN 2: Official Indian Government Links -->
+          <div class="footer-col links-col">
+            <h4 class="footer-heading">Flagship Portals</h4>
+            <ul class="footer-links">
+              <li>
+                <a href="https://dolr.gov.in" target="_blank" rel="noopener noreferrer">
+                  Department of Land Resources (DoLR)
+                  <svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </li>
+              <li>
+                <a href="https://dilrmp.gov.in" target="_blank" rel="noopener noreferrer">
+                  Digital India Land Records (DILRMP)
+                  <svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </li>
+              <li>
+                <a href="https://rural.nic.in" target="_blank" rel="noopener noreferrer">
+                  Ministry of Rural Development (MoRD)
+                  <svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.india.gov.in" target="_blank" rel="noopener noreferrer">
+                  National Portal of India
+                  <svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </li>
+              <li>
+                <a href="https://gatishakti.gov.in" target="_blank" rel="noopener noreferrer">
+                  PM GatiShakti National Master Plan
+                  <svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </li>
+              <li>
+                <a href="https://pgportal.gov.in" target="_blank" rel="noopener noreferrer">
+                  CPGRAMS Public Grievances
+                  <svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- COLUMN 3: Statutory Acts & Frameworks -->
+          <div class="footer-col links-col">
+            <h4 class="footer-heading">Statutory Framework</h4>
+            <ul class="footer-links">
+              <li><a href="https://bhoomirashi.gov.in/auth/revamp/la_act.pdf">RFCTLARR Act, 2013 Provisions</a></li>
+              <li><a href="https://cdn.cseindia.org/attachments/0.72291500_1530872041_SIA-and-Social-Impact-Management-Plan-(SIMP).pdf">Social Impact Assessment (SIA) Rules</a></li>
+              <li><a href="https://cdnbbsr.s3waas.gov.in/s3d69116f8b0140cdeb1f99a4d5096ffe4/uploads/2024/02/20240224502633721.pdf">Rehabilitation & Resettlement (R&R) Norms</a></li>
+              <li><a href="https://share.google/mI7ghiZU5PbemaI7d">Direct Benefit Transfer (DBT) Guidelines</a></li>
+              <li><a href="https://bhoomirashi.gov.in/auth/revamp/la_act.pdf">State Land Acquisition Schedules</a></li>
+              <li><a href="https://bhoomirashi.gov.in/auth/revamp/la_act.pdf">Standard Operating Procedures (SOP)</a></li>
+            </ul>
+          </div>
+
+          <!-- COLUMN 4: Interactive Contact & Helpdesk Glass Cards -->
+          <div class="footer-col contact-col">
+            <h4 class="footer-heading">National Helpdesk</h4>
+            
+            <!-- Real-time Operational Status Pill -->
+            <div class="status-indicator-pill">
+              <span class="live-pulse"></span>
+              <span>Helpdesk Active (09:30 AM - 06:00 PM IST)</span>
+            </div>
+
+            <div class="contact-cards-stack">
+              <!-- Headquarters Address Card -->
+              <div class="contact-card">
+                <div class="c-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div class="c-card-info">
+                  <span class="c-label">Headquarters</span>
+                  <address>NBO Building, Nirman Bhawan, New Delhi – 110011</address>
+                </div>
+              </div>
+
+              <!-- Toll-Free Phone (Click to Call) -->
+              <a href="tel:1800111223" class="contact-card interactive-c-card">
+                <div class="c-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>
+                <div class="c-card-info">
+                  <span class="c-label">Toll-Free Helpline</span>
+                  <span class="c-val">1800-11-1223</span>
+                </div>
+                <span class="call-badge">Call Now</span>
+              </a>
+
+              <!-- Nodal Email (Click to Copy) -->
+              <div class="contact-card interactive-c-card" id="copyEmailCard" title="Click to copy email address">
+                <div class="c-card-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+                <div class="c-card-info">
+                  <span class="c-label">Nodal Support Email</span>
+                  <span class="c-val" id="emailText">support-dolr@gov.in</span>
+                </div>
+                <span class="copy-badge" id="copyFeedbackBadge">Copy</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Legal / NIC Attributions Strip -->
+    <div class="footer-bottom-strip">
+      <div class="footer-container bottom-flex">
+        <p class="copyright-text">
+          &copy; 2025 Department of Land Resources (DoLR), Ministry of Rural Development, Government of India.
+        </p>
+        <div class="footer-bottom-links">
+          <a href="#">Website Policies</a>
+          <span>&bull;</span>
+          <a href="#">Terms & Conditions</a>
+          <span>&bull;</span>
+          <a href="#">Help & Accessibility</a>
+          <span>&bull;</span>
+          <a href="https://bhuvan.nrsc.gov.in/ngmaps#3.65/22.91/82.78">Site Map</a>
+        </div>
+        <p class="nic-text">
+          Hosted & Powered by <strong>National Informatics Centre (NIC)</strong>
+        </p>
+      </div>
+    </div>
+
+  </footer>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Add india-data.js right here -->
+  <script src="india-data.js"></script>
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

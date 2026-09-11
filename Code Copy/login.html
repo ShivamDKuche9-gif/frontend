@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In | National Land Acquisition & Management System (NLAMS)</title>
+
+  <!-- Typography: Inter, Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. CSS RESET & DESIGN TOKENS
+       ========================================================================== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-brand: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Sovereign Gold Palette */
+      --gold-900: #78350f;
+      --gold-800: #92400e;
+      --gold-700: #b45309;
+      --gold-600: #d97706;
+      --gold-500: #f59e0b;
+      --gold-400: #fbbf24;
+      --gold-50:  #fffbeb;
+
+      /* Gov Accents */
+      --slate-950: #020617;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-600: #475569;
+      --slate-400: #94a3b8;
+      
+      --emerald-600: #059669;
+      --emerald-100: #d1fae5;
+      --rose-600: #e11d48;
+      --rose-100: #ffe4e6;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font-body);
+      color: var(--slate-900);
+      background-color: var(--slate-950);
+      overflow-x: hidden;
+    }
+
+    /* ==========================================================================
+       2. FULLSCREEN BACKGROUND & FROSTED GLASS STAGING
+       ========================================================================== */
+    .login-viewport {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    /* Background Image with Ambient Vignette */
+    .login-bg-layer {
+      position: fixed;
+      inset: 0;
+      background-image: url('images/7795297.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.65) saturate(1.1);
+      z-index: 1;
+      transform: scale(1.02);
+      transition: transform 10s ease-out;
+    }
+
+    .login-dark-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 40%, rgba(15, 23, 42, 0.6) 0%, rgba(2, 6, 23, 0.92) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Top Utility Back Link */
+    .login-nav-strip {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      z-index: 10;
+    }
+
+    .back-portal-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s var(--ease);
+    }
+
+    .back-portal-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateX(-3px);
+    }
+
+    /* ==========================================================================
+       3. TRANSPARENT WHITE GLASS LOGIN CARD
+       ========================================================================== */
+    .login-card-container {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      max-width: 540px;
+      margin: auto;
+      
+      /* Pure Transparent White Glass */
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(22px) saturate(160%);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      border: 1.5px solid rgba(217, 119, 6, 0.35);
+      border-radius: 22px;
+      box-shadow: 
+        0 25px 60px -10px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.9) inset;
+      overflow: hidden;
+      animation: cardEntrance 0.8s var(--ease) both;
+    }
+
+    @keyframes cardEntrance {
+      from { opacity: 0; transform: translateY(24px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Gold Government Header Trim */
+    .card-top-trim {
+      height: 6px;
+      width: 100%;
+      background: linear-gradient(90deg, #b45309, #d97706, #fbbf24, #059669);
+    }
+
+    .card-inner-padding {
+      padding: clamp(28px, 5vw, 42px);
+    }
+
+    /* Institutional Emblem & Heading */
+    .gov-auth-seal {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .seal-icon-box {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      background: #fffbeb;
+      border: 1px solid rgba(217, 119, 6, 0.4);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.15);
+    }
+
+    .seal-icon-box svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--gold-700);
+    }
+
+    .system-title {
+      font-family: var(--font-brand);
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      letter-spacing: -0.3px;
+      line-height: 1.15;
+    }
+
+    .system-sub {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--gold-800);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    /* ==========================================================================
+       4. THE 3 MAIN USER STAKEHOLDER TABS
+       ========================================================================== */
+    .stakeholder-tabs-nav {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      background: rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      padding: 4px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+    }
+
+    .tab-btn {
+      padding: 10px 6px;
+      border-radius: 7px;
+      border: none;
+      background: transparent;
+      font-family: var(--font-brand);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .tab-btn:hover {
+      color: var(--slate-900);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+    }
+
+    /* ==========================================================================
+       5. FORM ELEMENTS & DESIGNATION SELECTOR
+       ========================================================================== */
+    .login-form-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: var(--slate-700);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(15, 23, 42, 0.2);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--slate-900);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      outline: none;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--gold-600);
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+      background: #ffffff;
+    }
+
+    /* Alphanumeric Captcha Section */
+    .captcha-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .captcha-canvas-box {
+      position: relative;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 10px 18px;
+      min-width: 135px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      overflow: hidden;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .captcha-code-text {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 5px;
+      color: #fbbf24;
+      font-style: italic;
+      transform: skewX(-8deg);
+      text-shadow: 0 2px 8px rgba(245, 158, 11, 0.6);
+      position: relative;
+      z-index: 2;
+    }
+
+    .captcha-noise-line {
+      position: absolute;
+      width: 120%;
+      height: 1.5px;
+      background: rgba(251, 191, 36, 0.4);
+      transform: rotate(8deg);
+      pointer-events: none;
+    }
+
+    .captcha-refresh-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px solid rgba(15, 23, 42, 0.2);
+      color: var(--slate-700);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .captcha-refresh-btn:hover {
+      border-color: var(--gold-600);
+      color: var(--gold-700);
+      background: #fffbeb;
+    }
+
+    .captcha-refresh-btn svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.4s ease;
+    }
+
+    .captcha-refresh-btn:hover svg {
+      transform: rotate(180deg);
+    }
+
+    .captcha-input {
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 700;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    /* Submit Button with Light Sweep Sheen */
+    .btn-submit-auth {
+      position: relative;
+      width: 100%;
+      padding: 13px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      color: #ffffff;
+      font-family: var(--font-brand);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(217, 119, 6, 0.35);
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .btn-submit-auth::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 40%;
+      height: 200%;
+      background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transform: rotate(25deg);
+      transition: transform 0.75s ease;
+    }
+
+    .btn-submit-auth:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(217, 119, 6, 0.45);
+      background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    }
+
+    .btn-submit-auth:hover::before {
+      transform: translateX(380%) rotate(25deg);
+    }
+
+    .btn-submit-auth:active {
+      transform: translateY(0);
+    }
+
+    /* Error & Alert Banners */
+    .alert-banner {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .alert-banner.error {
+      background: var(--rose-100);
+      border: 1px solid rgba(225, 29, 72, 0.35);
+      color: var(--rose-600);
+    }
+
+    .alert-banner.success {
+      background: var(--emerald-100);
+      border: 1px solid rgba(5, 150, 105, 0.35);
+      color: var(--emerald-600);
+    }
+
+    /* SIH Evaluator Quick Fill Helpers */
+    .evaluator-quickfill-strip {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(15, 23, 42, 0.12);
+      text-align: center;
+    }
+
+    .quickfill-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--slate-600);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .quickfill-btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .q-btn {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 4px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: var(--slate-800);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .q-btn:hover {
+      background: #fffbeb;
+      border-color: var(--gold-600);
+      color: var(--gold-800);
+    }
+
+    /* Bottom Trust Notice */
+    .card-footer-notice {
+      background: rgba(15, 23, 42, 0.04);
+      border-top: 1px solid rgba(15, 23, 42, 0.08);
+      padding: 10px;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="login-viewport">
+    
+    <!-- Background Image & Dark Overlay -->
+    <div class="login-bg-layer"></div>
+    <div class="login-dark-overlay"></div>
+
+    <!-- Top Left Portal Navigation -->
+    <div class="login-nav-strip">
+      <a href="index.html" class="back-portal-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Return to Home Portal</span>
+      </a>
+    </div>
+
+    <!-- Main Transparent White Glass Card -->
+    <div class="login-card-container">
+      
+      <div class="card-top-trim"></div>
+
+      <div class="card-inner-padding">
+        
+        <!-- Institutional Logo & Seals -->
+        <div class="gov-auth-seal">
+          <div class="seal-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" stroke="#b45309" fill="rgba(217, 119, 6, 0.1)"/>
+              <path d="M12 7v5" stroke="#78350f"/>
+              <circle cx="12" cy="15" r="1" fill="#b45309"/>
+            </svg>
+          </div>
+          <h1 class="system-title">GOVPORTAL &bull; NLAMS</h1>
+          <div class="system-sub">Department of Land Resources &bull; Ministry of Rural Development</div>
+        </div>
+
+        <!-- 3 Main User Stakeholder Tabs -->
+        <div class="stakeholder-tabs-nav" role="tablist">
+          <button class="tab-btn active" id="tabGovAuth" type="button">
+            Government Authority
+          </button>
+          <button class="tab-btn" id="tabFieldOfficer" type="button">
+            Field / Officer
+          </button>
+          <button class="tab-btn" id="tabProjectAgency" type="button">
+            Project Agency
+          </button>
+        </div>
+
+        <!-- Dynamic Status Alert Box -->
+        <div class="alert-banner" id="statusAlert">
+          <span id="alertText">Notification message</span>
+        </div>
+
+        <!-- Login Form -->
+        <form id="nlamsLoginForm" class="login-form-stack" autocomplete="off">
+          
+          <!-- Category A, B, C Dynamic Designation Dropdown -->
+          <div class="form-group">
+            <label class="form-label" for="designationSelect">
+              <span>Designated Administrative Role</span>
+            </label>
+            <select class="form-select" id="designationSelect" required>
+              <!-- Populated dynamically based on selected tab -->
+            </select>
+          </div>
+
+          <!-- Official Email -->
+          <div class="form-group">
+            <label class="form-label" for="emailInput">
+              <span>Official Email Address</span>
+            </label>
+            <input 
+              class="form-input" 
+              type="email" 
+              id="emailInput" 
+              required 
+              placeholder="officer.name@gov.in" 
+            />
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="passwordInput">
+              <span>Security Password</span>
+              <a href="#forgot" style="color: var(--gold-700); text-decoration: none; font-size: 0.7rem;" onclick="alert('Password reset OTP service will be dispatched to your registered Aadhaar-seeded mobile number.');">Forgot?</a>
+            </label>
+            <input 
+              class="form-input" 
+              type="password" 
+              id="passwordInput" 
+              required 
+              placeholder="••••••••••••" 
+            />
+          </div>
+
+          <!-- Mathematical / Alphanumeric Captcha Box -->
+          <div class="form-group">
+            <label class="form-label" for="captchaInput">
+              <span>Security Verification (Captcha)</span>
+            </label>
+            <div class="captcha-row">
+              <div class="captcha-canvas-box" title="Security Captcha Image">
+                <div class="captcha-noise-line"></div>
+                <span class="captcha-code-text" id="captchaDisplay">7K9PX</span>
+              </div>
+              
+              <button class="captcha-refresh-btn" type="button" id="refreshCaptchaBtn" title="Refresh Captcha">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.23-5.19"/>
+                </svg>
+              </button>
+
+              <input 
+                class="form-input captcha-input" 
+                type="text" 
+                id="captchaInput" 
+                maxlength="5" 
+                required 
+                placeholder="CAPTCHA" 
+              />
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button class="btn-submit-auth" type="submit" id="submitBtn">
+            Authorize &amp; Sign In &rarr;
+          </button>
+
+        </form>
+
+        <!-- SIH Evaluator Quick Fill Helpers -->
+        <div class="evaluator-quickfill-strip">
+          <span class="quickfill-tag">SIH Evaluator 1-Click Credentials</span>
+          <div class="quickfill-btn-row">
+            <button class="q-btn" type="button" onclick="quickFill('ADMIN')">Gov Authority</button>
+            <button class="q-btn" type="button" onclick="quickFill('OFFICER')">District LAO</button>
+            <button class="q-btn" type="button" onclick="quickFill('AGENCY')">NHAI Agency</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Government Compliance Footer -->
+      <div class="card-footer-notice">
+        Protected by TLS 1.3 &bull; SHA-256 Audit Trail &bull; National Informatics Centre (NIC)
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ==========================================================================
+       LOGIN ENGINE & STATE CONTROLLER
+       ========================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // 1. Designation Registry mapped to the 3 main categories
+      const DESIGNATION_DATA = {
+        GOV_AUTH: [
+          { val: "CENTRAL_MINISTRY_DOLR", text: "Central Ministry (DoLR Apex Authority)" },
+          { val: "STATE_GOV_AUTHORITY", text: "State Revenue Department Authority" },
+          { val: "DISTRICT_COLLECTOR", text: "District Collector / Magistrate (DM)" }
+        ],
+        FIELD_OFFICER: [
+          { val: "STATE_NODAL_OFFICER", text: "State Nodal Land Acquisition Officer" },
+          { val: "DISTRICT_LAO", text: "Competent Authority / District LAO" },
+          { val: "FIELD_SURVEYOR", text: "Revenue Cadastral Surveyor / Amin" },
+          { val: "PROJECT_COLLECTOR", text: "Special Land Acquisition Collector (SLAC)" }
+        ],
+        PROJECT_AGENCY: [
+          { val: "NATIONAL_AGENCY_NHAI", text: "National Highways Authority of India (NHAI)" },
+          { val: "NATIONAL_AGENCY_RAILWAYS", text: "Ministry of Railways / DFC Corridor" },
+          { val: "STATE_PROJECT_DIR", text: "State Infrastructure Development Agency" },
+          { val: "PIA_CONCESSIONAIRE", text: "Project Implementing Agency (PIA) / Concessionaire" }
+        ]
+      };
+
+      let currentCategory = 'GOV_AUTH';
+      let activeCaptchaCode = '';
+      let failedLoginAttempts = 0;
+
+      // DOM Elements
+      const designationSelect = document.getElementById('designationSelect');
+      const captchaDisplay = document.getElementById('captchaDisplay');
+      const refreshCaptchaBtn = document.getElementById('refreshCaptchaBtn');
+      const statusAlert = document.getElementById('statusAlert');
+      const alertText = document.getElementById('alertText');
+      const loginForm = document.getElementById('nlamsLoginForm');
+      const emailInput = document.getElementById('emailInput');
+      const passwordInput = document.getElementById('passwordInput');
+      const captchaInput = document.getElementById('captchaInput');
+      const submitBtn = document.getElementById('submitBtn');
+
+      const tabGovAuth = document.getElementById('tabGovAuth');
+      const tabFieldOfficer = document.getElementById('tabFieldOfficer');
+      const tabProjectAgency = document.getElementById('tabProjectAgency');
+
+      // 2. Populate Designation Dropdown
+      function updateDesignations(categoryKey) {
+        currentCategory = categoryKey;
+        designationSelect.innerHTML = '';
+        DESIGNATION_DATA[categoryKey].forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item.val;
+          opt.textContent = item.text;
+          designationSelect.appendChild(opt);
+        });
+      }
+
+      // 3. Tab Navigation Controller
+      function setActiveTab(btn, categoryKey) {
+        [tabGovAuth, tabFieldOfficer, tabProjectAgency].forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        updateDesignations(categoryKey);
+        hideAlert();
+      }
+
+      tabGovAuth.addEventListener('click', () => setActiveTab(tabGovAuth, 'GOV_AUTH'));
+      tabFieldOfficer.addEventListener('click', () => setActiveTab(tabFieldOfficer, 'FIELD_OFFICER'));
+      tabProjectAgency.addEventListener('click', () => setActiveTab(tabProjectAgency, 'PROJECT_AGENCY'));
+
+      // 4. Alphanumeric Captcha Generator
+      function generateCaptcha() {
+        const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+        let code = '';
+        for (let i = 0; i < 5; i++) {
+          code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        activeCaptchaCode = code;
+        captchaDisplay.textContent = code;
+        captchaInput.value = '';
+      }
+
+      refreshCaptchaBtn.addEventListener('click', generateCaptcha);
+
+      // 5. Alert Helpers
+      function showAlert(msg, isError = true) {
+        statusAlert.className = isError ? 'alert-banner error' : 'alert-banner success';
+        alertText.textContent = msg;
+        statusAlert.style.display = 'flex';
+      }
+
+      function hideAlert() {
+        statusAlert.style.display = 'none';
+      }
+
+      // 6. Form Submission & Validation Controller
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        // Check Account Lockout
+        if (failedLoginAttempts >= 5) {
+          showAlert("Account temporarily locked due to excessive failed attempts. Please contact Central DoLR Admin.", true);
+          return;
+        }
+
+        // Validate Captcha
+        if (captchaInput.value.trim().toUpperCase() !== activeCaptchaCode) {
+          showAlert("Security Captcha does not match. Please verify and try again.", true);
+          generateCaptcha();
+          return;
+        }
+
+        // Validate Password Length
+        if (passwordInput.value.length < 6) {
+          showAlert("Invalid credentials: password must be at least 6 characters.", true);
+          failedLoginAttempts++;
+          generateCaptcha();
+          return;
+        }
+
+        // Simulate Successful Enterprise Authentication
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "Authenticating with DoLR Gateway...";
+
+        setTimeout(() => {
+          showAlert("Authentication Successful! Redirecting to National Portal...", false);
+          
+          // Store verified government session tokens
+          sessionStorage.setItem('NLAMS_AUTH_SESSION', JSON.stringify({
+            authenticated: true,
+            role: designationSelect.value,
+            category: currentCategory,
+            email: emailInput.value,
+            loginTime: new Date().toISOString()
+          }));
+
+          // Inside login.html form submit event listener (Section 6)
+          setTimeout(() => {
+            const selectedRole = designationSelect.value;
+
+            // Route 1: Government Authority (Apex Admin / State Gov / District Collector)
+            if (currentCategory === 'GOV_AUTH' || 
+                selectedRole === 'CENTRAL_MINISTRY_DOLR' || 
+                selectedRole === 'STATE_GOV_AUTHORITY' || 
+                selectedRole === 'DISTRICT_COLLECTOR') {
+              window.location.href = 'authority-portal/authority-portal.html';
+            } 
+            // Route 2: Field / Revenue / Survey Officer
+            else if (currentCategory === 'FIELD_OFFICER' || 
+                     selectedRole === 'DISTRICT_LAO' || 
+                     selectedRole === 'FIELD_SURVEYOR' || 
+                     selectedRole === 'STATE_NODAL_OFFICER') {
+              window.location.href = 'officer-portal.html';
+            } 
+            // Route 3: Project Agency (NHAI / Railways)
+            else if (currentCategory === 'PROJECT_AGENCY' || selectedRole === 'NATIONAL_AGENCY_NHAI') {
+              window.location.href = 'pia-portal-system/pia-portal.html';
+            } 
+            else {
+              window.location.href = 'index.html';
+            }
+          }, 1200);
+        }, 1000);
+      });
+
+      // 7. SIH 1-Click Quick Fill Helper
+      window.quickFill = function (type) {
+        hideAlert();
+        if (type === 'ADMIN') {
+          setActiveTab(tabGovAuth, 'GOV_AUTH');
+          designationSelect.value = "CENTRAL_MINISTRY_DOLR";
+          emailInput.value = "secretary.dolr@gov.in";
+          passwordInput.value = "NLAMS#Gov2024";
+        } else if (type === 'OFFICER') {
+          setActiveTab(tabFieldOfficer, 'FIELD_OFFICER');
+          designationSelect.value = "DISTRICT_LAO";
+          emailInput.value = "lao.sultanpur@up.gov.in";
+          passwordInput.value = "NLAMS#Gov2024";
+        } else {
+          setActiveTab(tabProjectAgency, 'PROJECT_AGENCY');
+          designationSelect.value = "NATIONAL_AGENCY_NHAI";
+          emailInput.value = "piu.pkg4@nhai.org";
+          passwordInput.value = "NLAMS#Gov2024";
+        }
+        captchaInput.value = activeCaptchaCode;
+      };
+
+      // Initial Load
+      updateDesignations('GOV_AUTH');
+      generateCaptcha();
+    })();
+  </script>
+</body>
+</html>

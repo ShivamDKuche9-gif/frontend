@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#050707">
+
+    <title>Land Acquisition & Management System</title>
+
+    <style>
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background: #050707;
+            font-family:
+                "Helvetica Neue",
+                Helvetica,
+                Arial,
+                sans-serif;
+            color: #fff;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        button {
+            font: inherit;
+        }
+
+
+        /* =========================================================
+           MAIN EXPERIENCE
+        ========================================================= */
+
+        .portal {
+            position: relative;
+            width: 100%;
+            height: 100svh;
+            min-height: 100vh;
+            overflow: hidden;
+            isolation: isolate;
+            background: #050707;
+        }
+
+
+        /* =========================================================
+           VIDEO LAYERS
+        ========================================================= */
+
+        .video-layer {
+    position: absolute;
+    inset: -3%;
+
+    width: 106%;
+    height: 106%;
+
+    object-fit: cover;
+    object-position: center;
+
+    opacity: 0;
+
+    transform: scale(1.035);
+
+    transition:
+        opacity 2.5s cubic-bezier(.4, 0, .2, 1),
+        transform 8s cubic-bezier(.22, .61, .36, 1);
+
+    filter:
+        saturate(.86)
+        contrast(1.04)
+        brightness(.78);
+
+    will-change: opacity, transform;
+}
+
+.video-layer.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+        /* =========================================================
+           CINEMATIC OVERLAYS
+        ========================================================= */
+
+        .cinematic-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: -3;
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(0, 0, 0, .34) 0%,
+                    rgba(0, 0, 0, .06) 35%,
+                    rgba(0, 0, 0, .20) 65%,
+                    rgba(0, 0, 0, .58) 100%
+                );
+        }
+
+        .cinematic-overlay::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    transparent 25%,
+                    rgba(0, 0, 0, .16) 62%,
+                    rgba(0, 0, 0, .48) 100%
+                );
+        }
+
+
+        /* =========================================================
+           VERY SUBTLE FILM GRAIN
+        ========================================================= */
+
+        .grain {
+            position: absolute;
+            inset: -50%;
+            z-index: 4;
+
+            pointer-events: none;
+
+            opacity: .055;
+
+            background-image:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+
+            animation: grainMove .18s steps(2) infinite;
+        }
+
+        @keyframes grainMove {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            25% {
+                transform: translate3d(2%, -1%, 0);
+            }
+
+            50% {
+                transform: translate3d(-1%, 2%, 0);
+            }
+
+            75% {
+                transform: translate3d(-2%, -2%, 0);
+            }
+
+            100% {
+                transform: translate3d(1%, 1%, 0);
+            }
+        }
+
+
+        /* =========================================================
+           CENTER CONTENT
+        ========================================================= */
+
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+
+            width: min(90vw, 850px);
+
+            transform:
+                translate(-50%, -50%);
+
+            text-align: center;
+
+            z-index: 5;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            transition:
+                opacity 1.1s ease,
+                transform 1.2s cubic-bezier(.22,.61,.36,1),
+                filter 1s ease;
+        }
+
+
+        /* =========================================================
+           MINIMAL WHITE GRAPHIC
+        ========================================================= */
+
+        .system-mark {
+            position: relative;
+
+            width: 74px;
+            height: 74px;
+
+            margin-bottom: 24px;
+
+            opacity: 0;
+
+            animation:
+                markAppear 1.8s
+                cubic-bezier(.22,.61,.36,1)
+                .4s forwards;
+        }
+
+        .system-mark::before,
+        .system-mark::after {
+            content: "";
+            position: absolute;
+            inset: 9px;
+
+            border: 1px solid rgba(255,255,255,.72);
+
+            transform: rotate(45deg);
+        }
+
+        .system-mark::after {
+            inset: 17px;
+
+            border-color: rgba(255,255,255,.34);
+
+            transform: rotate(45deg);
+        }
+
+        .mark-line {
+            position: absolute;
+
+            left: 50%;
+            top: 6px;
+            bottom: 6px;
+
+            width: 1px;
+
+            transform:
+                translateX(-50%)
+                rotate(45deg);
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    transparent,
+                    rgba(255,255,255,.78),
+                    transparent
+                );
+        }
+
+        @keyframes markAppear {
+            0% {
+                opacity: 0;
+                transform: scale(.72) rotate(-10deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+
+        /* =========================================================
+           SYSTEM NAME
+        ========================================================= */
+
+        .system-title {
+            margin: 0;
+
+            color: #fff;
+
+            font-size:
+                clamp(20px, 3vw, 34px);
+
+            font-weight: 600;
+
+            letter-spacing:
+                clamp(4px, .8vw, 9px);
+
+            line-height: 1.35;
+
+            text-transform: uppercase;
+
+            white-space: normal;
+
+            opacity: 0;
+
+            text-shadow:
+                0 2px 20px rgba(0,0,0,.42);
+
+            animation:
+                titleAppear 1.8s
+                cubic-bezier(.22,.61,.36,1)
+                .7s forwards;
+        }
+
+        @keyframes titleAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(14px);
+                letter-spacing: 2px;
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                letter-spacing:
+                    clamp(4px, .8vw, 9px);
+            }
+        }
+
+
+        /* =========================================================
+           ENTER PORTAL BUTTON
+        ========================================================= */
+
+        .portal-button {
+            position: relative;
+
+            margin-top: 48px;
+
+            min-width: 205px;
+            height: 58px;
+
+            padding: 0 32px;
+
+            border:
+                1px solid rgba(255,255,255,.72);
+
+            border-radius: 2px;
+
+            background:
+                rgba(255,255,255,.035);
+
+            color: #fff;
+
+            cursor: pointer;
+
+            overflow: hidden;
+
+            letter-spacing: 3.5px;
+
+            font-size: 11px;
+            font-weight: 500;
+
+            text-transform: uppercase;
+
+            backdrop-filter:
+                blur(5px);
+
+            -webkit-backdrop-filter:
+                blur(5px);
+
+            box-shadow:
+                0 0 0 rgba(255,255,255,0);
+
+            opacity: 0;
+
+            animation:
+                buttonAppear 1.6s
+                cubic-bezier(.22,.61,.36,1)
+                1.1s forwards;
+
+            transition:
+                border-color .45s ease,
+                background .45s ease,
+                transform .45s cubic-bezier(.22,.61,.36,1),
+                box-shadow .45s ease;
+        }
+
+        .portal-button::before {
+            content: "";
+
+            position: absolute;
+
+            left: -120%;
+            top: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,.16),
+                    transparent
+                );
+
+            transition:
+                left .8s cubic-bezier(.22,.61,.36,1);
+        }
+
+        .portal-button::after {
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            width: 0;
+            height: 0;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255,255,255,.13);
+
+            transform:
+                translate(-50%, -50%);
+
+            transition:
+                width .7s ease,
+                height .7s ease;
+        }
+
+        .button-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .portal-button:hover {
+            border-color: rgba(255,255,255,.98);
+
+            background:
+                rgba(255,255,255,.085);
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 12px 38px rgba(0,0,0,.26),
+                0 0 25px rgba(255,255,255,.08);
+        }
+
+        .portal-button:hover::before {
+            left: 120%;
+        }
+
+        .portal-button:hover::after {
+            width: 240px;
+            height: 240px;
+        }
+
+        .portal-button:active {
+            transform:
+                translateY(-1px)
+                scale(.985);
+        }
+
+        .portal-button:focus-visible {
+            outline: 1px solid white;
+            outline-offset: 5px;
+        }
+
+        @keyframes buttonAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================================================
+           BUTTON PULSE
+        ========================================================= */
+
+        .button-pulse {
+            position: absolute;
+
+            inset: -7px;
+
+            border:
+                1px solid rgba(255,255,255,.16);
+
+            border-radius: 4px;
+
+            pointer-events: none;
+
+            animation:
+                pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: .15;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .55;
+                transform: scale(1.025);
+            }
+        }
+
+
+        /* =========================================================
+           LOADING INDICATOR
+        ========================================================= */
+
+        .loading-line {
+            position: absolute;
+
+            bottom: 0;
+            left: 0;
+
+            width: 100%;
+            height: 1px;
+
+            z-index: 7;
+
+            background:
+                rgba(255,255,255,.12);
+        }
+
+        .loading-progress {
+            width: 0%;
+            height: 100%;
+
+            background:
+                rgba(255,255,255,.7);
+
+            transition:
+                width .8s ease;
+        }
+
+
+        /* =========================================================
+           EXIT TRANSITION
+        ========================================================= */
+
+        .exit-layer {
+            position: fixed;
+            inset: 0;
+
+            z-index: 100;
+
+            pointer-events: none;
+
+            background: #050707;
+
+            opacity: 0;
+
+            transform:
+                scale(1.03);
+
+            transition:
+                opacity 1.35s cubic-bezier(.76,0,.24,1),
+                transform 1.5s cubic-bezier(.76,0,.24,1);
+        }
+
+        .portal.entering .exit-layer {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .portal.entering .center {
+            opacity: 0;
+
+            filter:
+                blur(10px);
+
+            transform:
+                translate(-50%, -50%)
+                scale(1.045);
+        }
+
+        .portal.entering .video-layer.active {
+            transform: scale(1.12);
+            opacity: .3;
+        }
+
+
+        /* =========================================================
+           REDUCED MOTION
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+
+
+        /* =========================================================
+           TABLET
+        ========================================================= */
+
+        @media (max-width: 768px) {
+
+            .video-layer {
+                inset: -2%;
+                width: 104%;
+                height: 104%;
+            }
+
+            .center {
+                width: 88vw;
+            }
+
+            .system-mark {
+                width: 62px;
+                height: 62px;
+
+                margin-bottom: 20px;
+            }
+
+            .system-title {
+                font-size: clamp(18px, 5vw, 26px);
+                line-height: 1.5;
+                letter-spacing: 4px;
+            }
+
+            .portal-button {
+                margin-top: 40px;
+
+                min-width: 190px;
+                height: 55px;
+            }
+        }
+
+
+        /* =========================================================
+           SMALL MOBILE
+        ========================================================= */
+
+        @media (max-width: 480px) {
+
+            .video-stage {
+                background-position: center;
+            }
+
+            .video-layer {
+                filter:
+                    saturate(.82)
+                    contrast(1.03)
+                    brightness(.7);
+            }
+
+            .system-mark {
+                width: 56px;
+                height: 56px;
+
+                margin-bottom: 18px;
+            }
+
+            .system-title {
+                font-size: 17px;
+                letter-spacing: 3px;
+                line-height: 1.65;
+            }
+
+            .portal-button {
+                margin-top: 34px;
+
+                min-width: 180px;
+                height: 52px;
+
+                letter-spacing: 3px;
+            }
+        }
+
+
+        /* =========================================================
+           VERY TALL SCREENS
+        ========================================================= */
+
+        @media (min-height: 900px) {
+
+            .system-mark {
+                margin-bottom: 28px;
+            }
+
+            .portal-button {
+                margin-top: 55px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <main class="portal" id="portal">
+
+        <!-- =====================================================
+             VIDEO BACKGROUND
+        ====================================================== -->
+
+        <div class="video-stage">
+
+            <video
+                class="video-layer active"
+                id="videoA"
+                muted
+                playsinline
+                preload="auto"
+            ></video>
+
+            <video
+                class="video-layer"
+                id="videoB"
+                muted
+                playsinline
+                preload="auto"
+            ></video>
+
+        </div>
+
+
+        <!-- Cinematic darkening / vignette -->
+        <div class="cinematic-overlay"></div>
+
+
+        <!-- Subtle film texture -->
+        <div class="grain"></div>
+
+
+        <!-- =====================================================
+             CENTRAL PORTAL CONTENT
+        ====================================================== -->
+
+        <section class="center" aria-label="Land Acquisition & Management System">
+
+            <!-- Minimal institutional graphic -->
+            <div class="system-mark" aria-hidden="true">
+                <span class="mark-line"></span>
+            </div>
+
+
+            <!-- Exact requested title -->
+            <h1 class="system-title">
+                LAND ACQUISITION &amp; MANAGEMENT SYSTEM
+            </h1>
+
+
+            <!-- Portal button -->
+            <button
+                class="portal-button"
+                id="enterPortal"
+                type="button"
+                aria-label="Enter Portal"
+            >
+
+                <span class="button-text">
+                    ENTER PORTAL
+                </span>
+
+                <span
+                    class="button-pulse"
+                    aria-hidden="true"
+                ></span>
+
+            </button>
+
+        </section>
+
+
+        <!-- Very subtle bottom loading line -->
+        <div class="loading-line" aria-hidden="true">
+            <div
+                class="loading-progress"
+                id="loadingProgress"
+            ></div>
+        </div>
+
+
+        <!-- Cinematic exit layer -->
+        <div
+            class="exit-layer"
+            aria-hidden="true"
+        ></div>
+
+    </main>
+
+
+    <script>
+        /* =========================================================
+           LAND ACQUISITION & MANAGEMENT SYSTEM
+           CINEMATIC PORTAL LOADER
+        ========================================================= */
+
+
+        /* ---------------------------------------------------------
+           CONFIGURATION
+        --------------------------------------------------------- */
+
+const videos = [
+    "videos/india-01.mp4",
+    "videos/india-02.mp4",
+    "videos/india-03.mp4",
+    "videos/india-04.mp4",
+    "videos/india-05.mp4"
+];
+
+const CHANGE_INTERVAL = 3000;
+
+const videoA = document.getElementById("videoA");
+const videoB = document.getElementById("videoB");
+
+let activeVideo = videoA;
+let nextVideo = videoB;
+
+let currentVideoIndex = 0;
+let transitionTimer;
+
+
+/* ==========================================
+   START FIRST VIDEO
+========================================== */
+
+function startVideo() {
+    
+    activeVideo.src = videos[0];
+    
+    activeVideo.load();
+    
+    activeVideo.play().catch(() => {});
+    
+    preloadNextVideo();
+    
+    startTimer();
+}
+
+
+/* ==========================================
+   PRELOAD NEXT VIDEO
+========================================== */
+
+function preloadNextVideo() {
+    
+    const nextIndex =
+        (currentVideoIndex + 1) % videos.length;
+    
+    nextVideo.src = videos[nextIndex];
+    
+    nextVideo.load();
+}
+
+
+/* ==========================================
+   6 SECOND TIMER
+========================================== */
+
+function startTimer() {
+    
+    clearTimeout(transitionTimer);
+    
+    transitionTimer = setTimeout(() => {
+        
+        transitionToNextVideo();
+        
+    }, CHANGE_INTERVAL);
+}
+
+
+/* ==========================================
+   SMOOTH CROSSFADE
+========================================== */
+
+function transitionToNextVideo() {
+    
+    currentVideoIndex =
+        (currentVideoIndex + 1) % videos.length;
+    
+    
+    const showNextVideo = () => {
+        
+        nextVideo.currentTime = 0;
+        
+        nextVideo.play().catch(() => {});
+        
+        
+        /* Fade next video IN */
+        nextVideo.classList.add("active");
+        
+        
+        /* Fade current video OUT */
+        activeVideo.classList.remove("active");
+        
+        
+        /*
+         * Wait for the crossfade to finish
+         */
+        setTimeout(() => {
+            
+            activeVideo.pause();
+            
+            activeVideo.removeAttribute("src");
+            
+            activeVideo.load();
+            
+            
+            /*
+             * Swap the two video elements
+             */
+            const oldVideo = activeVideo;
+            
+            activeVideo = nextVideo;
+            
+            nextVideo = oldVideo;
+            
+            
+            /*
+             * Prepare the following video
+             */
+            preloadNextVideo();
+            
+            
+            /*
+             * Start another 6 second cycle
+             */
+            startTimer();
+            
+        }, 2600);
+        
+    };
+    
+    
+    /*
+     * Wait until the next video has enough
+     * data before starting the transition.
+     */
+    
+    if (nextVideo.readyState >= 3) {
+        
+        showNextVideo();
+        
+    } else {
+        
+        nextVideo.addEventListener(
+            "canplay",
+            showNextVideo,
+            {
+                once: true
+            }
+        );
+        
+    }
+}
+
+
+/* ==========================================
+   ENTER PORTAL (AFTER - Redirects to index.html)
+========================================== */
+
+const enterButton =
+    document.getElementById("enterPortal");
+
+const portal =
+    document.getElementById("portal");
+
+const progressBar =
+    document.getElementById("loadingProgress");
+
+enterButton.addEventListener(
+    "click",
+    () => {
+        // Disable button to prevent double clicks
+        enterButton.disabled = true;
+        
+        // Trigger the cinematic fade-out animation
+        portal.classList.add("entering");
+
+        // Fill the bottom loading line to 100%
+        if (progressBar) {
+            progressBar.style.width = "100%";
+        }
+
+        // Wait 1.2 seconds for the cinematic fade animation, then open index.html
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1200);
+    }
+);
+
+
+/* ==========================================
+   START
+========================================== */
+
+startVideo();
+    </script>
+
+</body>
+</html>
